@@ -478,6 +478,7 @@ function processRequest(req, res, next) {
 
                     // Response body
                     req.result = body;
+		    req.statusCode = response.statusCode;
 
                     next();
                 };
@@ -619,6 +620,7 @@ function processRequest(req, res, next) {
                 req.resultHeaders = response.headers;
                 req.call = url.parse(options.host + options.path);
                 req.call = url.format(req.call);
+		req.statusCode = response.statusCode;
 
                 // Response body
                 req.result = body;
@@ -699,7 +701,8 @@ app.post('/processReq', oauth, processRequest, function(req, res) {
     var result = {
         headers: req.resultHeaders,
         response: req.result,
-        call: req.call
+        call: req.call,
+	responseCode: req.statusCode
     };
 
     res.send(result);

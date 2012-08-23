@@ -207,6 +207,10 @@
             resultContainer.append($(document.createElement('h4')).text('Call'));
             resultContainer.append($(document.createElement('pre')).addClass('call'));
 
+            // Status
+            resultContainer.append($(document.createElement('h4')).text('Response Status'));
+            resultContainer.append($(document.createElement('pre')).addClass('responseCode prettyprint'));
+
             // Header
             resultContainer.append($(document.createElement('h4')).text('Response Headers'));
             resultContainer.append($(document.createElement('pre')).addClass('headers prettyprint'));
@@ -254,6 +258,11 @@
             if (response.call) {
                 $('pre.call', resultContainer)
                     .text(response.call);
+            }
+
+            if (response.responseCode) {
+                $('pre.responseCode', resultContainer)
+                    .text(response.responseCode);
             }
 
             if (response.headers) {
