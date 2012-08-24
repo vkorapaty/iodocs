@@ -510,8 +510,6 @@ function processRequest(req, res, next) {
     function unsecuredCall() {
         console.log('Unsecured Call');
 
-	options.path += ((paramString.length > 0) ? '?' + paramString : "");
-
         // Add API Key to params, if any.
         if (apiKey != '' && apiKey != 'undefined' && apiKey != undefined) {
             if (options.path.indexOf('?') !== -1) {
