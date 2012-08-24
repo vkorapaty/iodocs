@@ -157,10 +157,11 @@ ul
                                     h4.title
                                         div.indicator
                                         span Content
-                                    div.fields
+                                    div.contentType
                                         select(name='contentType')
                                             - each choice in method.content.contentType
                                                 option(value=choice) #{choice}
+                                    div.fields
                                         textarea(columns='80', rows='10', name='requestContent', placeholder='{}')
                                         a(href='#', class='remove') Remove
                             - if (!method['read-only'])
