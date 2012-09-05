@@ -700,7 +700,7 @@ app.post('/processReq', oauth, processRequest, function(req, res) {
         headers: req.resultHeaders,
         response: req.result,
         call: req.call,
-	responseCode: req.statusCode
+        code: req.res.statusCode
     };
 
     res.send(result);

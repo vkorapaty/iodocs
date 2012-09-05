@@ -207,9 +207,9 @@
             resultContainer.append($(document.createElement('h4')).text('Call'));
             resultContainer.append($(document.createElement('pre')).addClass('call'));
 
-            // Status
-            resultContainer.append($(document.createElement('h4')).text('Response Status'));
-            resultContainer.append($(document.createElement('pre')).addClass('responseCode prettyprint'));
+            // Code
+            resultContainer.append($(document.createElement('h4')).text('Response Code'));
+            resultContainer.append($(document.createElement('pre')).addClass('code prettyprint'));
 
             // Header
             resultContainer.append($(document.createElement('h4')).text('Response Headers'));
@@ -260,9 +260,9 @@
                     .text(response.call);
             }
 
-            if (response.responseCode) {
-                $('pre.responseCode', resultContainer)
-                    .text(response.responseCode);
+            if (response.code) {
+                $('pre.code', resultContainer)
+                    .text(response.code);
             }
 
             if (response.headers) {
