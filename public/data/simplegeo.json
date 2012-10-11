@@ -257,6 +257,9 @@
                "URI":"/1.0/places",
                "RequiresOAuth":"Y",
                "read-only":true,
+               "content":{
+			"schema":{}
+		},
                "parameters":[
                   {
                      "Name":"Place",
