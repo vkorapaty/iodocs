@@ -351,7 +351,7 @@ function processRequest(req, res, next) {
     var paramString = query.stringify(params),
         privateReqURL = apiConfig.protocol + '://' + apiConfig.baseURL + apiConfig.privatePath + methodURL + ((paramString.length > 0) ? '?' + paramString : ""),
         options = {
-            headers: {},
+            headers: apiConfig.headers,
             protocol: apiConfig.protocol + ':',
             host: baseHostUrl,
             port: baseHostPort,
@@ -560,6 +560,21 @@ function processRequest(req, res, next) {
             options.headers['Content-Length'] = content.length;
         }
 
+        if(options.headers === void 0){
+            options.headers = {}
+        }
+        if (!options.headers['Content-Length']) {
+            if (requestBody) {
+                options.headers['Content-Length'] = requestBody.length;
+            }
+            else {
+                options.headers['Content-Length'] = 0;
+            }
+        }
+
+        if (!options.headers['Content-Type'] && requestBody) {
+            options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        }
 
         if (config.debug) {
             console.log(util.inspect(options));
