@@ -13,6 +13,6 @@
         "publicPath": "/api",
         "auth": "key",
 	"keyParam":"key"
-    }
+        }
 
 }
