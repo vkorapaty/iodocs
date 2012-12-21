@@ -170,17 +170,77 @@
                 "URI": "/appliance",
                 "RequiresOAuth": "N",
                 "parameters": [
+                    {
+                        "Name": "query_label",
+                        "Required": "N",
+                        "Default": "",
+                        "Type": "string",
+                        "Description":""
+                    },
+                    {
+                        "Name": "query_type",
+                        "Required": "N",
+                        "Default": "",
+                        "Type": "enumerated",
+                        "EnumeratedList": [ "sast", "dast" ],
+                        "Description":""
+                    },
+                    {
+                        "Name": "query_hardware",
+                        "Required": "N",
+                        "Default": "",
+                        "Type": "enumerated",
+                        "EnumeratedList": [ "true", "false" ],
+                        "Description":""
+                    },
+                    {
+                        "Name": "query_status",
+                        "Required": "N",
+                        "Default": "",
+                        "Type": "enumerated",
+                        "EnumeratedList": [ "connected", "disconnected", "hardware-pending" ],
+                        "Description":""
+                    },
+                    {
+                        "Name": "accept_fmt",
+                        "Required": "N",
+                        "Type": "enumerated",
+                        "EnumeratedList": ["application/json", "text/xml", "text/csv" ],
+                        "Description": "Choose format for results. | stub"
+                    }
                 ]
             },
             {
                 "MethodName": "Get appliance status",
                 "Synopsis": "TBD",
                 "HTTPMethod": "GET",
-                "URI": "/appliance/:id",
+                "URI": "/appliance/:appliance_id",
                 "RequiresOAuth": "N",
                 "parameters": [
                     {
-                        "Name": "id",
+                        "Name": "appliance_id",
+                        "Required": "Y",
+                        "Type": "integer",
+                        "Description": "Appliance id. | stub"
+                    },
+                    {
+                        "Name": "accept_fmt",
+                        "Required": "N",
+                        "Type": "enumerated",
+                        "EnumeratedList": ["application/json", "text/xml", "text/csv" ],
+                        "Description": "Choose format for results. | stub"
+                    }
+                ]
+            },
+            {
+                "MethodName": "Download appliance",
+                "Synopsis": "Use this method to download a VM image assigned to you. The requested appliance may not be a hardware image.",
+                "HTTPMethod": "GET",
+                "URI": "/appliance/:appliance_id/download",
+                "RequiresOAuth": "N",
+                "parameters": [
+                    {
+                        "Name": "appliance_id",
                         "Required": "Y",
                         "Type": "integer",
                         "Description": "Appliance id. | stub"
@@ -188,14 +248,18 @@
                 ]
             },
             {
-                "MethodName": "Get appliance collection",
+                "MethodName": "Put appliance ship status",
                 "Synopsis": "TBD",
                 "HTTPMethod": "PUT",
-                "URI": "/appliance/:id",
+                "URI": "/appliance/:appliance_id",
                 "RequiresOAuth": "N",
+                "content":{
+                    "schema":{"type":"string"},
+                    "contentType":["application/json","application/xml"]
+                },
                 "parameters": [
                     {
-                        "Name": "id",
+                        "Name": "appliance_id",
                         "Required": "Y",
                         "Type": "integer",
                         "Description": "Appliance id. | stub"
@@ -208,22 +272,11 @@
                 "HTTPMethod": "POST",
                 "URI": "/appliance/",
                 "RequiresOAuth": "N",
+                "content":{
+                    "schema":{"type":"string"},
+                    "contentType":["application/json","application/xml"]
+                },
                 "parameters": [
-                ]
-            },
-            {
-                "MethodName": "Download appliance (or something)",
-                "Synopsis": "TBD",
-                "HTTPMethod": "???",
-                "URI": "/appliance/:id/download",
-                "RequiresOAuth": "N",
-                "parameters": [
-                    {
-                        "Name": "id",
-                        "Required": "Y",
-                        "Type": "integer",
-                        "Description": "Appliance id. | stub"
-                    }
                 ]
             }
         ]
@@ -3882,7 +3935,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":"One or more comma seperated values. Scores have the following range: 3 to 15 | stub"
+                        "Description":"One or more comma seperated values. Scores have the following range: 3 to 20 | stub"
                     },
                     {
                         "Name": "query_location",
@@ -4334,7 +4387,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":"One or more comma seperated values. Scores have the following range: 3 to 15 | stub"
+                        "Description":"One or more comma seperated values. Scores have the following range: 3 to 20 | stub"
                     },
                     {
                         "Name": "query_location",
@@ -4780,7 +4833,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":"One value or multiple comma seperated values. Scores have the following range: 3 to 15 | stub"
+                        "Description":"One value or multiple comma seperated values. Scores have the following range: 3 to 20 | stub"
                     },
                     {
                         "Name": "query_severity",
@@ -5040,7 +5093,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":"One value or multiple comma seperated values. Scores have the following range: 3 to 15 | stub"
+                        "Description":"One value or multiple comma seperated values. Scores have the following range: 3 to 20 | stub"
                     },
                     {
                         "Name": "query_severity",
@@ -5338,7 +5391,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":"One value or multiple comma seperated values. Scores have the following range: 3 to 15 | stub"
+                        "Description":"One value or multiple comma seperated values. Scores have the following range: 3 to 20 | stub"
                     },
                     {
                         "Name": "query_severity",
@@ -5605,7 +5658,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":"One value or multiple comma seperated values. Scores have the following range: 3 to 15 | stub"
+                        "Description":"One value or multiple comma seperated values. Scores have the following range: 3 to 20 | stub"
                     },
                     {
                         "Name": "query_severity",
