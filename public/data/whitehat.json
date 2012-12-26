@@ -1369,7 +1369,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "enumerated",
-                        "EnumeratedList": [ "scan", "loginhandler", "pdf", "vuln_retest", "test", "scan_satellite", "vuln_retest_satellite", "loginhandler_satellite", "form_submit", "form_submit_satellite", "scan_discovery", "scan_discovery_satellite", "lh_train", "lh_train_satellite", "discovery", "manual_response", "scan_sca" ]
+                        "EnumeratedList": [ "scan", "vuln_retest", "scan_satellite", "vuln_retest_satellite", "lh_train", "lh_train_satellite", "scan_sca" ]
                         "Description":"Parameters taken from table, don't know if they're likely to change.",
                     },
                     {
@@ -2149,7 +2149,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":"0 to look for disabled sites, 1 to look for sites with scanning enabled"
+                        "Description":"0 for sites that lack administrative approval, 1 for sites that have administrative approval. Administrative approval refers to things such as service contracts being signed or payment approval."
                     },
                     {
                         "Name": "query_active_consult",
@@ -2157,7 +2157,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":"0 to look for disabled sites, 1 to look for sites with scanning enabled"
+                        "Description":"0 represents a disabled site, 1 represents an enabled site. 'active_consult' refers to decisions made by TRC in the operation of scanning or evaluating a site. This is used to disable scans when there are technical issues."
                     },
                     {
                         "Name": "query_active_user",
@@ -2165,7 +2165,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":"0 to look for disabled sites, 1 to look for sites with scanning enabled"
+                        "Description":"0 represents a disabled site, 1 represents an enabled site. 'active_user' refers to the customer's approval of the site being scanned. This is used by customer support to disable scans at the customer's request."
                     },
                     {
                         "Name": "query_banner",
@@ -2200,7 +2200,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":"Query by search matching text in descriptions."
+                        "Description":"Query matching text in descriptions."
                     },
                     {
                         "Name": "query_discovery",
@@ -2331,7 +2331,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [ "None", "PE", "SE", "BE", "DE", "PL" ],
-                        "Description":"Indicates whether this site is monitored by the Premium, Standard, Baseline Sentinel, ??, or Pre-Launch Service."
+                        "Description":"Indicates whether this site is monitored by the Premium, Standard, Baseline Sentinel, Discovery Edition (deprecated), or Pre-Launch Service."
                     },
                     {
                         "Name": "query_service_type",
@@ -2782,7 +2782,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description": "The date the scanning of th site was activated."
+                        "Description": "The date the scanning of the site was activated."
                     },
                     {
                         "Name": "query_active_admin",
@@ -2790,7 +2790,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":"0 to look for disabled sites, 1 to look for sites with scanning enabled"
+                        "Description":"0 for sites that lack administrative approval, 1 for sites that have administrative approval. Administrative approval refers to things such as service contracts being signed or payment approval."
                     },
                     {
                         "Name": "query_active_consult",
@@ -2798,7 +2798,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":"0 to look for disabled sites, 1 to look for sites with scanning enabled"
+                        "Description":"0 represents a disabled site, 1 represents an enabled site. 'active_consult' refers to decisions made by TRC in the operation of scanning or evaluating a site. This is used to disable scans when there are technical issues."
                     },
                     {
                         "Name": "query_active_user",
@@ -2806,7 +2806,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":"0 to look for disabled sites, 1 to look for sites with scanning enabled"
+                        "Description":"0 represents a disabled site, 1 represents an enabled site. 'active_user' refers to the customer's approval of the site being scanned. This is used by customer support to disable scans at the customer's request."
                     },
                     {
                         "Name": "query_banner",
@@ -2841,7 +2841,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":"Query by search matching text in descriptions."
+                        "Description":"Query matching text in descriptions."
                     },
                     {
                         "Name": "query_discovery",
@@ -2972,7 +2972,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [ "None", "PE", "SE", "BE", "DE", "PL" ],
-                        "Description":"Indicates whether this site is monitored by the Premium, Standard, Baseline Sentinel, ??, or Pre-Launch Service."
+                        "Description":"Indicates whether this site is monitored by the Premium, Standard, Baseline Sentinel, Discovery Edition (deprecated), or Pre-Launch Service."
                     },
                     {
                         "Name": "query_service_type",
