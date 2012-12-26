@@ -2141,7 +2141,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description": ""
+                        "Description": "The date the scanning of th site was activated."
                     },
                     {
                         "Name": "query_active_admin",
@@ -2149,7 +2149,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":""
+                        "Description":"0 to look for disabled sites, 1 to look for sites with scanning enabled"
                     },
                     {
                         "Name": "query_active_consult",
@@ -2157,7 +2157,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":""
+                        "Description":"0 to look for disabled sites, 1 to look for sites with scanning enabled"
                     },
                     {
                         "Name": "query_active_user",
@@ -2165,7 +2165,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":""
+                        "Description":"0 to look for disabled sites, 1 to look for sites with scanning enabled"
                     },
                     {
                         "Name": "query_banner",
@@ -2179,14 +2179,14 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "integer",
-                        "Description":""
+                        "Description":"A Client ID"
                     },
                     {
                         "Name": "query_create_date",
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description": ""
+                        "Description": "The date the site was created/added to the list of sites scanned."
                     },
                     {
                         "Name": "query_current_scan_id",
@@ -2200,7 +2200,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":""
+                        "Description":"Query by search matching text in descriptions."
                     },
                     {
                         "Name": "query_discovery",
@@ -2208,7 +2208,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":""
+                        "Description":"Deprecated"
                     },
                     {
                         "Name": "query_enable_scan_creds",
@@ -2216,14 +2216,14 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":""
+                        "Description":"0 for scans that do not use credentials, 1 for scans that do use credentials."
                     },
                     {
                         "Name": "query_global_rank",
                         "Required": "N",
                         "Default": "",
-                        "Type": "string",
-                        "Description": ""
+                        "Type": "integer",
+                        "Description": "Query the global rank rating. Global rank rates the security of a site compared to other sites under WhiteHat service. Range is between 1 and 100."
                     },
                     {
                         "Name": "query_industry",
@@ -2231,14 +2231,14 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [ "Financial Services", "Government", "Education", "Telecommunications", "Retail", "Healthcare", "Manufacturing", "Energy", "IT", "Insurance", "Pharmaceutical", "Banking", "Non Profit", "Social Networking", "Automotive", "Entertainment & Media", "Gaming", "Food & Beverage", "Technology", "Transport & Distribution" ],
-                        "Description":""
+                        "Description":"Query the vertical market the site belongs to."
                     },
                     {
                         "Name": "query_label_like",
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description": ""
+                        "Description": "Query by site labels."
                     },
                     {
                         "Name": "query_last_completed_scan",
@@ -2252,7 +2252,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description": ""
+                        "Description": "Query the industry rank rating. Market rank rates the security of a site compared to other sites under WhiteHat service that are in the same industry. Range is between 1 and 100."
                     },
                     {
                         "Name": "query_next_scan",
@@ -2281,7 +2281,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":""
+                        "Description":"Indicates whether this site is scanned through a satellite device (for internal intranet and development sites)."
                     },
                     {
                         "Name": "query_satellite_id",
@@ -2295,14 +2295,14 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description": ""
+                        "Description": "Query by person who updated the scanning crednetials."
                     },
                     {
                         "Name": "query_scan_cred_updated_date",
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description": ""
+                        "Description": "Query by the date that the scanning credentials were updated."
                     },
                     {
                         "Name": "query_scan_schedule_name",
@@ -2331,7 +2331,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [ "None", "PE", "SE", "BE", "DE", "PL" ],
-                        "Description":""
+                        "Description":"Indicates whether this site is monitored by the Premium, Standard, Baseline Sentinel, ??, or Pre-Launch Service."
                     },
                     {
                         "Name": "query_service_type",
@@ -2367,7 +2367,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":"Format: unnecessary-number.number, guess minutes.seconds"
+                        "Description":"Accepts any positive decimal number (representing seconds). The scanning speed, measured by the request delay, in seconds."
                     },
                     {
                         "Name": "query_sslciphers",
@@ -2388,7 +2388,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "integer",
-                        "Description":"Limited range: 0 to 10"
+                        "Description":"Limited range: 0 to 10; weight represents a site's priority level."
                     },
                     {
                         "Name": "display_all",
@@ -2782,7 +2782,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description": ""
+                        "Description": "The date the scanning of th site was activated."
                     },
                     {
                         "Name": "query_active_admin",
@@ -2790,7 +2790,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":""
+                        "Description":"0 to look for disabled sites, 1 to look for sites with scanning enabled"
                     },
                     {
                         "Name": "query_active_consult",
@@ -2798,7 +2798,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":""
+                        "Description":"0 to look for disabled sites, 1 to look for sites with scanning enabled"
                     },
                     {
                         "Name": "query_active_user",
@@ -2806,7 +2806,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":""
+                        "Description":"0 to look for disabled sites, 1 to look for sites with scanning enabled"
                     },
                     {
                         "Name": "query_banner",
@@ -2820,14 +2820,14 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "integer",
-                        "Description":""
+                        "Description":"A Client ID"
                     },
                     {
                         "Name": "query_create_date",
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description": ""
+                        "Description": "The date the site was created/added to the list of sites scanned."
                     },
                     {
                         "Name": "query_current_scan_id",
@@ -2841,7 +2841,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":""
+                        "Description":"Query by search matching text in descriptions."
                     },
                     {
                         "Name": "query_discovery",
@@ -2849,7 +2849,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":""
+                        "Description":"Deprecated"
                     },
                     {
                         "Name": "query_enable_scan_creds",
@@ -2857,14 +2857,14 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":""
+                        "Description":"0 for scans that do not use credentials, 1 for scans that do use credentials."
                     },
                     {
                         "Name": "query_global_rank",
                         "Required": "N",
                         "Default": "",
-                        "Type": "string",
-                        "Description": ""
+                        "Type": "integer",
+                        "Description": "Query the global rank rating. Global rank rates the security of a site compared to other sites under WhiteHat service. Range is between 1 and 100."
                     },
                     {
                         "Name": "query_industry",
@@ -2872,14 +2872,14 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [ "Financial Services", "Government", "Education", "Telecommunications", "Retail", "Healthcare", "Manufacturing", "Energy", "IT", "Insurance", "Pharmaceutical", "Banking", "Non Profit", "Social Networking", "Automotive", "Entertainment & Media", "Gaming", "Food & Beverage", "Technology", "Transport & Distribution" ],
-                        "Description":""
+                        "Description":"Query the vertical market the site belongs to."
                     },
                     {
                         "Name": "query_label_like",
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description": ""
+                        "Description": "Query by site labels."
                     },
                     {
                         "Name": "query_last_completed_scan",
@@ -2893,7 +2893,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description": ""
+                        "Description": "Query the industry rank rating. Market rank rates the security of a site compared to other sites under WhiteHat service that are in the same industry. Range is between 1 and 100."
                     },
                     {
                         "Name": "query_next_scan",
@@ -2922,7 +2922,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1, "true", "false"],
-                        "Description":""
+                        "Description":"Indicates whether this site is scanned through a satellite device (for internal intranet and development sites)."
                     },
                     {
                         "Name": "query_satellite_id",
@@ -2936,14 +2936,14 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description": ""
+                        "Description": "Query by person who updated the scanning crednetials."
                     },
                     {
                         "Name": "query_scan_cred_updated_date",
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description": ""
+                        "Description": "Query by the date that the scanning credentials were updated."
                     },
                     {
                         "Name": "query_scan_schedule_name",
@@ -2972,7 +2972,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [ "None", "PE", "SE", "BE", "DE", "PL" ],
-                        "Description":""
+                        "Description":"Indicates whether this site is monitored by the Premium, Standard, Baseline Sentinel, ??, or Pre-Launch Service."
                     },
                     {
                         "Name": "query_service_type",
@@ -3008,7 +3008,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":"Format: unnecessary-number.number, guess minutes.seconds"
+                        "Description":"Accepts any positive decimal number (representing seconds). The scanning speed, measured by the request delay, in seconds."
                     },
                     {
                         "Name": "query_sslciphers",
@@ -3029,7 +3029,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "integer",
-                        "Description":"Limited range: 0 to 10"
+                        "Description":"Limited range: 0 to 10; weight represents a site's priority level."
                     },
                     {
                         "Name": "display_all",
@@ -3618,7 +3618,7 @@
             },
             {
                 "MethodName": "Create one or more sites",
-                "Synopsis": " (NOTE :REMOVE LATER: - ...uri...(,:site_id,...)[line 455 in pm, multiple sites? Don't remember seeing this in a POST request before)",
+                "Synopsis": "",
                 "HTTPMethod": "POST",
                 "URI": "/site/:site_id",
                 "RequiresOAuth": "N",
@@ -3628,7 +3628,7 @@
                         "Required": "Y",
                         "Default": "",
                         "Type": "string",
-                        "Description": "Site id."
+                        "Description": "Site id, can be one or more comma-seperated site ids."
                     }
                 ]
             },
