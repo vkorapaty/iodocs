@@ -1349,52 +1349,52 @@
                     {
                         "Name": "target",
                         "Required": "N",
-                        "Description":"",
                         "Type":"string"
+                        "Description":"",
                     },
                     {
                         "Name": "site",
                         "Required": "N",
-                        "Description":"",
                         "Type":"string"
+                        "Description":"",
                     },
                     {
                         "Name": "user",
                         "Required": "N",
-                        "Description":"",
                         "Type":"string"
+                        "Description":"",
                     },
                     {
                         "Name": "jobtype",
                         "Required": "N",
-                        "Description":"Parameters taken from table, don't know if they're likely to change.",
                         "Default": "",
                         "Type": "enumerated",
                         "EnumeratedList": [ "scan", "loginhandler", "pdf", "vuln_retest", "test", "scan_satellite", "vuln_retest_satellite", "loginhandler_satellite", "form_submit", "form_submit_satellite", "scan_discovery", "scan_discovery_satellite", "lh_train", "lh_train_satellite", "discovery", "manual_response", "scan_sca" ]
+                        "Description":"Parameters taken from table, don't know if they're likely to change.",
                     },
                     {
                         "Name": "display_instances",
                         "Required": "N",
-                        "Description":"",
                         "Default": "",
                         "Type": "enumerated",
                         "EnumeratedList": [ 0, 1 ]
+                        "Description":"",
                     },
                     {
                         "Name": "display_services",
                         "Required": "N",
-                        "Description":"",
                         "Default": "",
                         "Type": "enumerated",
                         "EnumeratedList": [ 0, 1 ]
+                        "Description":"",
                     },
                     {
                         "Name": "display_schedule",
                         "Required": "N",
-                        "Description":"",
                         "Default": "",
                         "Type": "enumerated",
                         "EnumeratedList": [ 0, 1 ]
+                        "Description":"",
                     },
                     {
                         "Name": "accept_fmt",
@@ -1414,32 +1414,32 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     },
                     {
                         "Name": "display_instances",
                         "Required": "N",
-                        "Description":"",
                         "Default": "",
                         "Type": "enumerated",
                         "EnumeratedList": [ 0, 1 ]
+                        "Description":"",
                     },
                     {
                         "Name": "display_services",
                         "Required": "N",
-                        "Description":"",
                         "Default": "",
                         "Type": "enumerated",
                         "EnumeratedList": [ 0, 1 ]
+                        "Description":"",
                     },
                     {
                         "Name": "display_schedule",
                         "Required": "N",
-                        "Description":"",
                         "Default": "",
                         "Type": "enumerated",
                         "EnumeratedList": [ 0, 1 ]
+                        "Description":"",
                     },
                     {
                         "Name": "accept_fmt",
@@ -1459,26 +1459,26 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     },
                     {
                         "Name": "begin",
                         "Required": "N",
-                        "Description":"Begin time",
                         "Type":"string"
+                        "Description":"Begin time",
                     },
                     {
                         "Name": "end",
                         "Required": "N",
-                        "Description":"End time",
                         "Type":"string"
+                        "Description":"End time",
                     },
                     {
                         "Name": "timestamp",
                         "Required": "N",
-                        "Description":"Timestamp",
                         "Type":"string"
+                        "Description":"Timestamp",
                     }
                 ]
             },
@@ -1491,14 +1491,14 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     },
                     {
                         "Name": "instance_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Instance resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Instance resource",
                     }
                 ]
             },
@@ -1511,8 +1511,8 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     }
                 ]
             },
@@ -1525,8 +1525,8 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     }
                 ]
             },
@@ -1539,8 +1539,8 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     }
                 ]
             },
@@ -1554,39 +1554,39 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     },
                     {
                         "Name": "client_id",
                         "Required": "Y",
                         "Default": "",
-                        "Description":"Client ID",
                         "Type":"integer"
+                        "Description":"Client ID",
                     },
                     {
                         "Name": "display_instances",
                         "Required": "N",
-                        "Description":"",
                         "Default": "",
                         "Type": "enumerated",
                         "EnumeratedList": [ 0, 1 ]
+                        "Description":"",
                     },
                     {
                         "Name": "display_services",
                         "Required": "N",
-                        "Description":"",
                         "Default": "",
                         "Type": "enumerated",
                         "EnumeratedList": [ 0, 1 ]
+                        "Description":"",
                     },
                     {
                         "Name": "display_schedule",
                         "Required": "N",
-                        "Description":"",
                         "Default": "",
                         "Type": "enumerated",
                         "EnumeratedList": [ 0, 1 ]
+                        "Description":"",
                     },
                     {
                         "Name": "accept_fmt",
@@ -1606,14 +1606,14 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     },
                     {
                         "Name": "client_id",
                         "Required": "Y",
-                        "Description":"Client ID",
                         "Type":"integer"
+                        "Description":"Client ID",
                     }
                 ]
             },
@@ -1626,14 +1626,14 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     },
                     {
                         "Name": "client_id",
                         "Required": "Y",
-                        "Description":"Client ID",
                         "Type":"integer"
+                        "Description":"Client ID",
                     }
                 ]
             },
@@ -1646,14 +1646,14 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     },
                     {
                         "Name": "client_id",
                         "Required": "Y",
-                        "Description":"Client ID",
                         "Type":"integer"
+                        "Description":"Client ID",
                     }
                 ]
             },
@@ -1667,8 +1667,8 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     }
                 ]
             },
@@ -1681,8 +1681,8 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     }
                 ]
             },
@@ -1695,8 +1695,8 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     }
                 ]
             },
@@ -1723,14 +1723,14 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     },
                     {
                         "Name": "client_id",
                         "Required": "Y",
-                        "Description":"Client ID",
                         "Type":"integer"
+                        "Description":"Client ID",
                     }
                 ]
             },
@@ -1743,14 +1743,14 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     },
                     {
                         "Name": "client_id",
                         "Required": "Y",
-                        "Description":"Client ID",
                         "Type":"integer"
+                        "Description":"Client ID",
                     }
                 ]
             },
@@ -1763,14 +1763,14 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     },
                     {
                         "Name": "client_id",
                         "Required": "Y",
-                        "Description":"Client ID",
                         "Type":"integer"
+                        "Description":"Client ID",
                     }
                 ]
             },
@@ -1778,7 +1778,7 @@
             {
                 "MethodName": "Post/Create job",
                 "Synopsis": "",
-                "HTTPMethod": "POST",
+                "httpmethod": "post",
                 "URI": "/job",
                 "parameters": [
                 ]
@@ -1792,8 +1792,8 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     }
                 ]
             },
@@ -1806,8 +1806,8 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     }
                 ]
             },
@@ -1820,8 +1820,8 @@
                     {
                         "Name": "client_id",
                         "Required": "Y",
-                        "Description":"Client ID",
                         "Type":"integer"
+                        "Description":"Client ID",
                     }
                 ]
             },
@@ -1834,14 +1834,14 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     },
                     {
                         "Name": "client_id",
                         "Required": "Y",
-                        "Description":"Client ID",
                         "Type":"integer"
+                        "Description":"Client ID",
                     }
                 ]
             },
@@ -1854,29 +1854,29 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     },
                     {
                         "Name": "client_id",
                         "Required": "Y",
-                        "Description":"Client ID",
                         "Type":"integer"
+                        "Description":"Client ID",
                     }
                 ]
             },
 
             {
                 "MethodName": "Delete Job",
-                "Synopsis": "",
+                "Synopsis": "Abort any running instances of a given job. The job resource itself will not be deleted.",
                 "HTTPMethod": "DELETE",
                 "URI": "/job/:job_id",
                 "parameters": [
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     }
                 ]
             },
@@ -1889,8 +1889,8 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     }
                 ]
             },
@@ -1903,14 +1903,14 @@
                     {
                         "Name": "job_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Job resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Job resource",
                     },
                     {
                         "Name": "whitelist_id",
                         "Required": "Y",
-                        "Description":"The ID number of the desired Whitelist resource",
                         "Type":"integer"
+                        "Description":"The ID number of the desired Whitelist resource",
                     }
                 ]
             }
