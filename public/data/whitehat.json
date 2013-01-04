@@ -1,49 +1,49 @@
 {
     "endpoints": [
         { "external":
-            { "file_loc": "whitehat/Account.json" }
+            { "href": "./public/data/whitehat/Account.json" }
         },
         { "external":
-            { "file_loc": "whitehat/Admin.json" }
+            { "href": "./public/data/whitehat/Admin.json" }
         },
         { "external":
-            { "file_loc": "whitehat/Appliance.json" }
+            { "href": "./public/data/whitehat/Appliance.json" }
         },
         { "external":
-            { "file_loc": "whitehat/Application.json" }
+            { "href": "./public/data/whitehat/Application.json" }
         },
         { "external":
-            { "file_loc": "whitehat/Asset.json" }
+            { "href": "./public/data/whitehat/Asset.json" }
         },
         { "external":
-            { "file_loc": "whitehat/Customer.json" }
+            { "href": "./public/data/whitehat/Customer.json" }
         },
         { "external":
-            { "file_loc": "whitehat/Event.json" }
+            { "href": "./public/data/whitehat/Event.json" }
         },
         { "external":
-            { "file_loc": "whitehat/Group.json" }
+            { "href": "./public/data/whitehat/Group.json" }
         },
         { "external":
-            { "file_loc": "whitehat/Job.json" }
+            { "href": "./public/data/whitehat/Job.json" }
         },
         { "external":
-            { "file_loc": "whitehat/Role.json" }
+            { "href": "./public/data/whitehat/Role.json" }
         },
         { "external":
-            { "file_loc": "whitehat/Schedule.json" }
+            { "href": "./public/data/whitehat/Schedule.json" }
         },
         { "external":
-            { "file_loc": "whitehat/Site.json" }
+            { "href": "./public/data/whitehat/Site.json" }
         },
         { "external":
-            { "file_loc": "whitehat/SourceVuln.json" }
+            { "href": "./public/data/whitehat/SourceVuln.json" }
         },
         { "external":
-            { "file_loc": "whitehat/Vuln.json" }
+            { "href": "./public/data/whitehat/Vuln.json" }
         },
         { "external":
-            { "file_loc": "whitehat/VulnPolicy.json" }
+            { "href": "./public/data/whitehat/VulnPolicy.json" }
         }
     ]
 }

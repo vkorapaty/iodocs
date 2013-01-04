@@ -4,7 +4,7 @@
         "methods": [
             { "external": 
                 {
-                    "file_loc": "whitehat/Site/get.json" ,
+                    "href": "./public/data/whitehat/Site/get.json" ,
                     "type": "list" 
                 }
             },

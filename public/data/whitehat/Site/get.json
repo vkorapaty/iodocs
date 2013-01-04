@@ -7,7 +7,7 @@
                 "RequiresOAuth": "N",
                 "parameters": { "external":
                                    {
-                                       "file_loc": "whitehat/Site/get/all_parameters.json" 
+                                       "href": "./public/data/whitehat/Site/get/all_parameters.json" 
                                    }
                                }
             },
@@ -207,7 +207,7 @@
                 "RequiresOAuth": "N",
                 "parameters": { "external":
                                    {
-                                       "file_loc": "whitehat/Site/get/all_parameters.json" 
+                                       "href": "./public/data/whitehat/Site/get/all_parameters.json" 
                                    }
                                }
             },

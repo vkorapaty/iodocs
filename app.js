@@ -711,7 +711,7 @@ app.dynamicHelpers({
 //    {
 //        "external":
 //        {
-//            "file_loc": "file_location_somewhere_inside_public/data/",
+//            "href": "file_location_somewhere_inside_public/data/",
 //            "type": "list"
 //        }
 //    }
@@ -740,7 +740,7 @@ function process_api_includes (json_data) {
                 while (i--) {
                     var array_obj = json_data[key][i];
                     if ( 'external' in array_obj ) {
-                        var some_file = __dirname + '/public/data/' + array_obj['external']['file_loc'];
+                        var some_file = file_loc(array_obj['external']['href']);
                         // 1 include request to be replaced by multiple objects relationship (methods)
                         if (array_obj['external']['type'] == 'list') {
 
@@ -766,7 +766,7 @@ function process_api_includes (json_data) {
                 for (var property in json_data[key]) {
                     if (what.call(json_data[key][property]) === '[object Object]') {
                         if ('external' in json_data[key][property]) {
-                            var some_file = __dirname + '/public/data/' + json_data[key][property]['external']['file_loc'];
+                            var some_file = file_loc(json_data[key][property]['external']['href']);
                             json_data[key][property] = JSON.parse(fs.readFileSync(some_file));
                             process_api_includes(json_data[key][property]);
                         }
@@ -785,6 +785,15 @@ function merge_external (array_pos, array1, array2) {
     array1 = array1.concat(array2);
     array1 = array1.concat(a1_tail);
     return array1;
+}
+
+// Simple function to remove 'file://' and return openable file location
+// Using relative file location instead of full 'file://...' to keep install
+// directory information out of repo history.
+// Should be replaced with something more robust and capable in the future.
+function file_loc (href) {
+    var split = href.split(/^./);
+    return __dirname + split[1];
 }
 
 //
