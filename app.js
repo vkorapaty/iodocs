@@ -694,11 +694,98 @@ app.dynamicHelpers({
     apiDefinition: function(req, res) {
         if (req.params.api) {
             var data = fs.readFileSync(__dirname + '/public/data/' + req.params.api + '.json');
-            return JSON.parse(data);
+            data = JSON.parse(data);
+            process_api_includes(data);
+            return data;
         }
     }
 })
 
+// This function was developed with the assumption that the starting input
+// would be the main api file, which would look like the following:
+//    { "endpoints":
+//        [...]
+//    }
+//
+// The include statement syntax looks like this:
+//    {
+//        "external":
+//        {
+//            "file_loc": "file_location_somewhere_inside_public/data/",
+//            "type": "list"
+//        }
+//    }
+// "type": "list" is used only when the contents of the file to be included is a list object 
+// that will be merged into an existing list. 
+// An example would be storing all the get methods for an endpoint as a list of objects in 
+// an external file.
+function process_api_includes (json_data) {
+    // used to determine object types in a more readable manner
+    var what = Object.prototype.toString;
+
+    if (typeof json_data === "object") {
+        for (var key in json_data) {
+            // If an object's property contains an array, go through the objects in the array
+            //  Endpoints and Methods are examples of this
+            //  Endpoints contains a list of javascript objects, which are easily split into individual files.
+            //      Each endpoint is basically a 1 to 1 javascript object relationship
+            //  Methods aren't quite as nice.
+            //      It could be convenient to split methods into get/put/post/delete externals.
+            //      This then creates a 1 to many javascript object relationship
+            if (what.call(json_data[key]) === '[object Array]') {
+                var i = json_data[key].length;
+
+                // Iterating through the array in reverse so that if an element needs to be replaced
+                // by multiple elements, the array index does not need to be updated. 
+                while (i--) {
+                    var array_obj = json_data[key][i];
+                    if ( 'external' in array_obj ) {
+                        var some_file = __dirname + '/public/data/' + array_obj['external']['file_loc'];
+                        // 1 include request to be replaced by multiple objects relationship (methods)
+                        if (array_obj['external']['type'] == 'list') {
+
+                            var temp_array = JSON.parse(fs.readFileSync(some_file));
+                            // recurse here to replace values of properties that may need replacing
+                            process_api_includes(temp_array);
+                            // why isn't this json_data[key][i]?
+                            //  Because the array itself is being replaced with an updated version
+                            json_data[key] = merge_external(i, json_data[key], temp_array);
+
+                        }
+                        // 1 include request to be replaced by 1 object (endpoint)
+                        else {
+                            json_data[key][i] = JSON.parse(fs.readFileSync(some_file));
+                            process_api_includes(json_data[key][i]);
+                        }
+                    }
+                }
+            }
+
+            // If an object's property contains an include statement, this will handle it.
+            if (what.call(json_data[key]) === '[object Object]') {
+                for (var property in json_data[key]) {
+                    if (what.call(json_data[key][property]) === '[object Object]') {
+                        if ('external' in json_data[key][property]) {
+                            var some_file = __dirname + '/public/data/' + json_data[key][property]['external']['file_loc'];
+                            json_data[key][property] = JSON.parse(fs.readFileSync(some_file));
+                            process_api_includes(json_data[key][property]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Takes the array position of an element in array1, removes that element, 
+// and in its place, the contents of array2 are merged in.
+function merge_external (array_pos, array1, array2) {
+    var a1_tail = array1.splice(array_pos, array1.length);
+    a1_tail.splice(0, 1);
+    array1 = array1.concat(array2);
+    array1 = array1.concat(a1_tail);
+    return array1;
+}
 
 //
 // Routes
