@@ -722,6 +722,8 @@ app.dynamicHelpers({
 function process_api_includes (json_data) {
     // used to determine object types in a more readable manner
     var what = Object.prototype.toString;
+    var include_keyword = 'external';
+    var include_location = 'href';
 
     if (typeof json_data === "object") {
         for (var key in json_data) {
@@ -739,10 +741,10 @@ function process_api_includes (json_data) {
                 // by multiple elements, the array index does not need to be updated. 
                 while (i--) {
                     var array_obj = json_data[key][i];
-                    if ( 'external' in array_obj ) {
-                        var some_file = file_loc(array_obj['external']['href']);
-                        // 1 include request to be replaced by multiple objects relationship (methods)
-                        if (array_obj['external']['type'] == 'list') {
+                    if ( include_keyword in array_obj ) {
+                        var some_file = file_loc(array_obj[include_keyword][include_location]);
+                        // 1 include request to be replaced by multiple objects (methods)
+                        if (array_obj[include_keyword]['type'] == 'list') {
 
                             var temp_array = JSON.parse(fs.readFileSync(some_file));
                             // recurse here to replace values of properties that may need replacing
@@ -765,8 +767,8 @@ function process_api_includes (json_data) {
             if (what.call(json_data[key]) === '[object Object]') {
                 for (var property in json_data[key]) {
                     if (what.call(json_data[key][property]) === '[object Object]') {
-                        if ('external' in json_data[key][property]) {
-                            var some_file = file_loc(json_data[key][property]['external']['href']);
+                        if (include_keyword in json_data[key][property]) {
+                            var some_file = file_loc(json_data[key][property][include_keyword][include_location]);
                             json_data[key][property] = JSON.parse(fs.readFileSync(some_file));
                             process_api_includes(json_data[key][property]);
                         }
