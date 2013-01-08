@@ -711,7 +711,7 @@ app.dynamicHelpers({
 //    {
 //        "external":
 //        {
-//            "href": "file_location_somewhere_inside_public/data/",
+//            "href": "./public/data/desired/data.json",
 //            "type": "list"
 //        }
 //    }
@@ -742,7 +742,7 @@ function process_api_includes (json_data) {
                 while (i--) {
                     var array_obj = json_data[key][i];
                     if ( include_keyword in array_obj ) {
-                        var some_file = file_loc(array_obj[include_keyword][include_location]);
+                        var some_file = process_uri(array_obj[include_keyword][include_location]);
                         // 1 include request to be replaced by multiple objects (methods)
                         if (array_obj[include_keyword]['type'] == 'list') {
 
@@ -768,7 +768,7 @@ function process_api_includes (json_data) {
                 for (var property in json_data[key]) {
                     if (what.call(json_data[key][property]) === '[object Object]') {
                         if (include_keyword in json_data[key][property]) {
-                            var some_file = file_loc(json_data[key][property][include_keyword][include_location]);
+                            var some_file = process_uri(json_data[key][property][include_keyword][include_location]);
                             json_data[key][property] = JSON.parse(fs.readFileSync(some_file));
                             process_api_includes(json_data[key][property]);
                         }
@@ -784,18 +784,21 @@ function process_api_includes (json_data) {
 function merge_external (array_pos, array1, array2) {
     var a1_tail = array1.splice(array_pos, array1.length);
     a1_tail.splice(0, 1);
-    array1 = array1.concat(array2);
-    array1 = array1.concat(a1_tail);
-    return array1;
+    return array1.concat(array2).concat(a1_tail);
 }
 
-// Simple function to remove 'file://' and return openable file location
-// Using relative file location instead of full 'file://...' to keep install
-// directory information out of repo history.
-// Should be replaced with something more robust and capable in the future.
-function file_loc (href) {
-    var split = href.split(/^./);
-    return __dirname + split[1];
+// Stub function for possible future functionality:
+// Given a URI, this function should process the URI, then obtain and process the contents of the URI.
+// Ex. - If we have the following:
+//  { "href": "file:///user/home/data.json" }
+//  The function would return the parsed JSON data from the data.json file.
+//  { "href": "http://www.example.com/foo.json" }
+//  The function would return the parsed JSON data from foo.json, dealing with file retrieval from the web by parsing the URI.
+function process_uri (href) {
+    // Currently, the URI for the file is a directory relative to the iodocs installation directory
+    // because the proposed functionality is not implemented; full directory information is excessive.
+    // Ex. - { "href": "./public/data/whitehat/_api_.json" }
+    return href;
 }
 
 //
