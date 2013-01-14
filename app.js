@@ -800,9 +800,7 @@ function process_uri (href) {
     // Currently, the URI for the file is a directory relative to the iodocs installation directory
     // because the proposed functionality is not implemented; full directory information is excessive.
     // Ex. - { "href": "./public/data/whitehat/_api_.json" }
-    //return href;
-    var split = href.split(/^./);
-    return './public/data/' + split[1];
+    return href;
 }
 
 // Search function.
