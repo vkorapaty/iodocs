@@ -657,6 +657,7 @@ function processRequest(req, res, next) {
     }
 }
 
+var cached_api_info = [];
 
 // Dynamic Helpers
 // Passes variables to the view
@@ -696,6 +697,7 @@ app.dynamicHelpers({
             var data = fs.readFileSync(__dirname + '/public/data/' + req.params.api + '.json');
             data = JSON.parse(data);
             process_api_includes(data);
+            cached_api_info = data;
             return data;
         }
     }
@@ -798,7 +800,67 @@ function process_uri (href) {
     // Currently, the URI for the file is a directory relative to the iodocs installation directory
     // because the proposed functionality is not implemented; full directory information is excessive.
     // Ex. - { "href": "./public/data/whitehat/_api_.json" }
-    return href;
+    //return href;
+    var split = href.split(/^./);
+    return './public/data/' + split[1];
+}
+
+// Search function.
+// Expects processed API json data. There should be no 'external' link objects present.
+function search (json_data, search_term) {
+    // From: http://simonwillison.net/2006/Jan/20/escape/#p-6
+    RegExp.escape = function(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    }
+    regex = new RegExp(RegExp.escape(search_term));
+    // Get a list of all methods from the data.
+    var return_data = [];
+
+    // Iterate through endpoints
+    for (var i = 0; i < json_data.endpoints.length; i++) {
+        var object = json_data.endpoints[i];
+
+        // Iterate through methods
+        for (var j = 0; j < object.methods.length; j++) {
+            var res = process_search_object(object.methods[j], regex);
+            if ( res == true ) {
+                return_data.push({"label":object.methods[j]['MethodName'], "category": object.name});
+            }
+            else if (res == "ERROR") {
+                console.log("ERROR encountered");
+                console.log(object.methods[j]);
+            }
+        }
+    }
+
+    return return_data;
+}
+
+function process_search_object (random_thing, regex) {
+    var what = Object.prototype.toString;
+    if (what.call(random_thing) === '[object Array]') {
+        for (var i = 0; i < random_thing.length; i++) {
+            if (process_search_object(random_thing[i], regex)) {
+                return true;
+            }
+        }
+    }
+    else if (what.call(random_thing) === '[object Object]') {
+        for (var method_property in random_thing) {
+            if (process_search_object(random_thing[method_property], regex)) {
+                return true;
+            }
+        }
+    }
+    else if (what.call(random_thing) === '[object String]' || what.call(random_thing) === '[object Number]' ) {
+        if ( regex.test(random_thing)) {
+            return true;
+        }
+    }
+    else {
+        // ???
+        return false;
+    }
 }
 
 //
@@ -809,6 +871,21 @@ app.get('/', function(req, res) {
         title: config.title
     });
 });
+
+//
+// Search function
+//
+// Note: If a change is made to app.js, the node process restarted, and the search 
+// function  is used immediately without restart, there will be an error coming from the 
+// search() function regarding the use of '.length'. Refresh the page, and the error 
+// will go away. A page refresh is necessary to create a cached version of the api 
+// which this route uses.
+//  Not sure what the fix for this is.
+app.get('/search', function(req, res) {
+    var search_term = decodeURIComponent(req.query.term);
+    res.send( search(cached_api_info, search_term) );
+});
+
 
 // Process the API request
 app.post('/processReq', oauth, processRequest, function(req, res) {
