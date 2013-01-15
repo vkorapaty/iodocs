@@ -148,12 +148,23 @@ app.configure(function() {
     app.use(express.static(__dirname + '/public'));
 });
 
+// Catch all error handler.
+// See following links for more info:
+// http://expressjs.com/guide.html#error-handling
+// https://github.com/visionmedia/express/tree/master/examples/error-pages
+function errorHandler(err, req, res, next) {
+    res.status(500);
+    console.error(err.stack);
+    res.render('error');
+}
+
 app.configure('development', function() {
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 app.configure('production', function() {
-    app.use(express.errorHandler());
+    app.disable('verbose errors');
+    app.use(errorHandler);
 });
 
 //
