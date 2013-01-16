@@ -815,13 +815,15 @@ function process_uri (href) {
 }
 
 // Search function.
-// Expects processed API json data. There should be no 'external' link objects present.
+// Expects processed API json data and a search term.
+// There should be no 'external' link objects present.
 function search (json_data, search_term) {
     // From: http://simonwillison.net/2006/Jan/20/escape/#p-6
-    RegExp.escape = function(text) {
+    var regex_friendly = (function(text) {
         return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-    }
-    regex = new RegExp(RegExp.escape(search_term));
+    });
+    regex = new RegExp( regex_friendly(search_term), "i" );
+
     // Get a list of all methods from the data.
     var return_data = [];
 
@@ -831,13 +833,8 @@ function search (json_data, search_term) {
 
         // Iterate through methods
         for (var j = 0; j < object.methods.length; j++) {
-            var res = process_search_object(object.methods[j], regex);
-            if ( res == true ) {
+            if ( filterSearchObject(object.methods[j], regex) ) {
                 return_data.push({"label":object.methods[j]['MethodName'], "category": object.name});
-            }
-            else if (res == "ERROR") {
-                console.log("ERROR encountered");
-                console.log(object.methods[j]);
             }
         }
     }
@@ -845,19 +842,23 @@ function search (json_data, search_term) {
     return return_data;
 }
 
-function process_search_object (random_thing, regex) {
+// Method searching function
+// Recursively check properties of a method object for a match to the given search term.
+function filterSearchObject (random_thing, regex) {
     var what = Object.prototype.toString;
     if (what.call(random_thing) === '[object Array]') {
         for (var i = 0; i < random_thing.length; i++) {
-            if (process_search_object(random_thing[i], regex)) {
+            if (filterSearchObject(random_thing[i], regex)) {
                 return true;
             }
         }
     }
     else if (what.call(random_thing) === '[object Object]') {
         for (var method_property in random_thing) {
-            if (process_search_object(random_thing[method_property], regex)) {
-                return true;
+            if (random_thing.hasOwnProperty(method_property)) {
+                if (filterSearchObject(random_thing[method_property], regex)) {
+                    return true;
+                }
             }
         }
     }
@@ -867,9 +868,10 @@ function process_search_object (random_thing, regex) {
         }
     }
     else {
-        // ???
         return false;
     }
+
+    return false;
 }
 
 //
