@@ -4,7 +4,6 @@ h1=apiInfo.name
 - else
     - var authed =''
 
-
 form#credentials
     input(type='hidden', name='apiName', value=apiName)
     - if (apiInfo.auth) 
@@ -41,8 +40,10 @@ form#credentials
 
 br
 div
-    label(for='search') Search&nbsp;
-    input(id='search')
+    form#searchForm
+        label(for='search') Search&nbsp;
+        input(id='search1')
+    a#clear-search(href='#') Clear search
 
 div(id='controls')
     ul

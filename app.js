@@ -819,9 +819,9 @@ function processUri (href) {
 // There should be no 'external' link objects present.
 function search (jsonData, searchTerm) {
     // From: http://simonwillison.net/2006/Jan/20/escape/#p-6
-    var regexFriendly = (function(text) {
+    var regexFriendly = function(text) {
         return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-    });
+    };
     regex = new RegExp( regexFriendly(searchTerm), "i" );
 
     // Get a list of all methods from the data.
