@@ -567,10 +567,10 @@ function processRequest(req, res, next) {
             options.headers = headers;
         }
 
-	if (content.length > 0) {
-            options.headers['Content-Length'] = content.length;
-        }
-
+//    if (content.length > 0) {
+//            options.headers['Content-Length'] = content.length;
+//        }
+//
         if(options.headers === void 0){
             options.headers = {}
         }
