@@ -822,7 +822,24 @@ function search (jsonData, searchTerm) {
     var regexFriendly = function(text) {
         return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     };
-    regex = new RegExp( regexFriendly(searchTerm), "i" );
+
+    // If '||' is present in the search string, the search term will be split on '||',
+    // and the first two parts will be used. These two parts will have spaces 
+    // stripped from them and then the regex term will present results that contain
+    // matches that have either term.
+    //
+    // If '||' is not present, the given term will be searched for, spaces will not be 
+    // removed from the given term in this case.
+    var regex;
+    if (/\|\|/.test(searchTerm)) {
+        var terms = searchTerm.split(/\|\|/);
+        terms[0] = regexFriendly(terms[0].replace(/\s+/, ''));
+        terms[1] = regexFriendly(terms[1].replace(/\s+/, ''));
+        regex = new RegExp ( "("+terms[0]+"|"+terms[1]+")" , "i");
+    }
+    else {
+        regex = new RegExp( regexFriendly(searchTerm), "i" );
+    }
 
     // Get a list of all methods from the data.
     var searchMatches = [];
