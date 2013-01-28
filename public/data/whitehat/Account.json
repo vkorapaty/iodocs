@@ -278,7 +278,7 @@
                             "Name": "action_items_email",
                             "Required": "N",
                             "Type": "enumerated",
-                            "EnumeratedList": [ 0, 1, true, false],
+                            "EnumeratedList": [ 0, 1, false, true],
                             "Description": ""
                         }
                     ]
