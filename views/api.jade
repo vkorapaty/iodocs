@@ -158,6 +158,7 @@ ul
                                                         a(href='#', class='remove') Remove
                                         a(href='#', class='add-headers') Add Header
                                     // Create header fields and button to add/remove headers.
+
                             - if (method.content)
                                 div.content
                                     h4.title
@@ -204,6 +205,60 @@ ul
                                                                                        option(value=choice, selected=true) #{choice}
                                                                                - else
                                                                                        option(value=choice) #{choice}
+                                                                  - else if (parameter.Type =='collection')
+                                                                      - if (parameter.parameters != undefined)
+                                                                          - if (parameter.parameters.length > 0)
+                                                                              table.parameters
+                                                                                  thead
+                                                                                      tr
+                                                                                          th Collection Parameter
+                                                                                          th Value
+                                                                                          th Type
+                                                                                          th Description
+                                                                                  tbody
+                                                                                      - var paramCount = 0
+                                                                                      - var collection = parameter.parameters
+                                                                                      - each parameter in collection
+                                                                                          - paramCount++
+                                                                                          div(id='param' + paramCount)
+                                                                                            - if (parameter.Required =='Y')
+                                                                                                - var required =true
+                                                                                                - var className ='required'
+                                                                                            - else
+                                                                                                - var required =false
+                                                                                                - var className =''
+                                                                                            tr(class=className).collection-original
+                                                                                                td.name=parameter.Name
+                                                                                                td.parameter
+                                                                                                    - if (parameter.Type =='enumerated')
+                                                                                                        select(name='params[' + parameter.Name + ']', placeholder=className)
+                                                                                                          - if (parameter.Default =='')
+                                                                                                              option(value='') 
+                                                                                                          - each choice in parameter.EnumeratedList
+                                                                                                              - if (parameter.Default ==choice)
+                                                                                                                      option(value=choice, selected=true) #{choice}
+                                                                                                              - else
+                                                                                                                      option(value=choice) #{choice}
+                                                                                                    - else if (parameter.Type =='boolean')
+                                                                                                         select(name='params[' + parameter.Name + ']', placeholder=className)
+                                                                                                              - if (parameter.Default =='')
+                                                                                                                      option(value='') 
+                                                                                                              - each choice in [apiInfo.booleanTrueVal,apiInfo.booleanFalseVal]
+                                                                                                                 - if (parameter.Default ==choice)
+                                                                                                                         option(value=choice, selected=true) #{choice}
+                                                                                                                 - else
+                                                                                                                         option(value=choice) #{choice}
+                                                                                                    - else
+                                                                                                        input(name='params[' + parameter.Name + ']', value=parameter.Default, placeholder=className)
+                                                                                                td.type=parameter.Type
+                                                                                                td.description
+                                                                                                    p=parameter.Description || 'No description'
+                                                                                                    - if (parameter.Type =='enumerated' && parameter.EnumeratedDescription)
+                                                                                                        dl.clearfix
+                                                                                                            - each description, choice in parameter.EnumeratedDescription
+                                                                                                                dt #{choice}
+                                                                                                                dd #{description}
+
                                                                   - else
                                                                       input(name='params[' + parameter.Name + ']', value=parameter.Default, placeholder=className)
                                                               td.type=parameter.Type
@@ -214,6 +269,7 @@ ul
                                                                           - each description, choice in parameter.EnumeratedDescription
                                                                               dt #{choice}
                                                                               dd #{description}
+
                                     div.contentType
                                         select(name='contentType')
                                             - each choice in method.content.contentType
