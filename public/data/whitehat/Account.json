@@ -218,6 +218,75 @@
                             "Required": "N",
                             "Type": "string",
                             "Description": "Timezone type, if not in that form, entry will be rejected. Ex: 'America/New_York'"
+                        },
+                        {
+                            "Name": "last_viewed_messages",
+                            "Required": "N",
+                            "Type": "integer",
+                            "Description": ""
+                        },
+                        {
+                            "Name": "expose_hostnames",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "show_cvss",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "show_cvss",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "immediate_email",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "update_email",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "weekly_email",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "monthly_email",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "require_mfa",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "action_items_email",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1, true, false],
+                            "Description": ""
                         }
                     ]
                 },
@@ -353,7 +422,7 @@
                         {
                             "Name": "last_login",
                             "Required": "N",
-                            "Type": "string",
+                            "Type": "integer",
                             "Description": ""
                         },
                         {
@@ -373,6 +442,75 @@
                             "Required": "N",
                             "Type": "string",
                             "Description": "Timezone type, if not in that form, entry will be rejected. Ex: 'America/New_York'"
+                        },
+                        {
+                            "Name": "last_viewed_messages",
+                            "Required": "N",
+                            "Type": "integer",
+                            "Description": ""
+                        },
+                        {
+                            "Name": "expose_hostnames",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "show_cvss",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "show_cvss",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "immediate_email",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "update_email",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "weekly_email",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "monthly_email",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "require_mfa",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1],
+                            "Description": ""
+                        },
+                        {
+                            "Name": "action_items_email",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ 0, 1, true, false],
+                            "Description": ""
                         }
                     ]
                 },
