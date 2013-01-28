@@ -240,13 +240,6 @@
                             "Description": ""
                         },
                         {
-                            "Name": "show_cvss",
-                            "Required": "N",
-                            "Type": "enumerated",
-                            "EnumeratedList": [ 0, 1],
-                            "Description": ""
-                        },
-                        {
                             "Name": "immediate_email",
                             "Required": "N",
                             "Type": "enumerated",
@@ -451,13 +444,6 @@
                         },
                         {
                             "Name": "expose_hostnames",
-                            "Required": "N",
-                            "Type": "enumerated",
-                            "EnumeratedList": [ 0, 1],
-                            "Description": ""
-                        },
-                        {
-                            "Name": "show_cvss",
                             "Required": "N",
                             "Type": "enumerated",
                             "EnumeratedList": [ 0, 1],
