@@ -61,7 +61,36 @@
                 "RequiresOAuth": "N",
                 "content": {
                     "schema":{"type":"string"},
-                    "contentType":["application/json","application/xml"]
+                    "contentType":["application/json","application/xml"],
+                    "parameters": [
+                        {
+                            "Name": "name",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": ""
+                        },
+                        {
+                            "Name": "vuln_class",
+                            "Required": "N",
+                            "Type": "collection",
+                            "Description": "",
+                            "parameters" : [
+                                {
+                                    "Name": "id",
+                                    "Required": "N",
+                                    "Type": "integer",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "enabled",
+                                    "Required": "N",
+                                    "Type": "enumerated",
+                                    "EnumeratedList": [ 0, 1, true, false],
+                                    "Description": ""
+                                }
+                            ]
+                        }
+                    ]
                 },
                 "parameters": [
                     {
@@ -86,7 +115,36 @@
                 "RequiresOAuth": "N",
                 "content": {
                     "schema":{"type":"string"},
-                    "contentType":["application/json","application/xml"]
+                    "contentType":["application/json","application/xml"],
+                    "parameters": [
+                        {
+                            "Name": "name",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": ""
+                        },
+                        {
+                            "Name": "vuln_class",
+                            "Required": "N",
+                            "Type": "collection",
+                            "Description": "",
+                            "parameters" : [
+                                {
+                                    "Name": "id",
+                                    "Required": "N",
+                                    "Type": "integer",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "enabled",
+                                    "Required": "N",
+                                    "Type": "enumerated",
+                                    "EnumeratedList": [ 0, 1, true, false],
+                                    "Description": ""
+                                }
+                            ]
+                        }
+                    ]
                 },
                 "parameters": [
                     {
