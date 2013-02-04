@@ -61,13 +61,15 @@
 
     function createCollectionValue ( collectionsArray ) {
         var temp = '',
-            tempObj = [],
+            tempObj = {},
             collectionValue = [];
         for ( var i = 0; i < collectionsArray.length; i++ ) {
             if ( collectionsArray[i]['class'] == temp ) {
                 var name = collectionsArray[i]['name'];
                 var value = collectionsArray[i]['value'];
-                $.extend(tempObj, createSimpleObject(name, value));
+                if ( value !== '' ) {
+                    $.extend(tempObj, createSimpleObject(name, value));
+                }
                 if ( i == collectionsArray.length - 1 ) {
                     // Check tempObj against schema before adding
                     collectionValue.push(tempObj);
@@ -82,7 +84,9 @@
                 }
                 var name = collectionsArray[i]['name'];
                 var value = collectionsArray[i]['value'];
-                tempObj = createSimpleObject(name, value);
+                if ( value !== '' ) {
+                    tempObj = createSimpleObject(name, value);
+                }
             }
         }
 
@@ -174,7 +178,12 @@
         }
 
         // Add the new parameter data to the object
-        textAreaObj[dataObject['name']] = dataObject['value'];
+        if ( dataObject['value'] === '' ) {
+            delete textAreaObj[dataObject['name']];
+        }
+        else {
+            textAreaObj[dataObject['name']] = dataObject['value'];
+        }
 
         // Update the text field
         goal.val(JSON.stringify(textAreaObj, null, 2));
