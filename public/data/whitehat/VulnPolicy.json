@@ -78,14 +78,16 @@
                                 {
                                     "Name": "id",
                                     "Required": "N",
+                                    "Default": "",
                                     "Type": "integer",
                                     "Description": ""
                                 },
                                 {
                                     "Name": "enabled",
                                     "Required": "N",
+                                    "Default": "",
                                     "Type": "enumerated",
-                                    "EnumeratedList": [ 0, 1, true, false],
+                                    "EnumeratedList": [ "", 0, 1, true, false],
                                     "Description": ""
                                 }
                             ]
@@ -132,14 +134,16 @@
                                 {
                                     "Name": "id",
                                     "Required": "N",
+                                    "Default": "",
                                     "Type": "integer",
                                     "Description": ""
                                 },
                                 {
                                     "Name": "enabled",
                                     "Required": "N",
+                                    "Default": "",
                                     "Type": "enumerated",
-                                    "EnumeratedList": [ 0, 1, true, false],
+                                    "EnumeratedList": [ "", 0, 1, true, false],
                                     "Description": ""
                                 }
                             ]
