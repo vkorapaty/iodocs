@@ -94,24 +94,6 @@
                     "contentType":["application/json","application/xml"],
                     "parameters": [
                         {
-                            "Name": "username",
-                            "Required": "Y",
-                            "Type": "string",
-                            "Description": "New user's username, should be an email address."
-                        },
-                        {
-                            "Name": "client_id",
-                            "Required": "Y",
-                            "Type": "string",
-                            "Description": "Client id."
-                        },
-                        {
-                            "Name": "type",
-                            "Required": "Y",
-                            "Type": "string",
-                            "Description": "User's type, 'sentinel' for instance."
-                        },
-                        {
                             "Name": "address",
                             "Required": "N",
                             "Type": "string",
@@ -131,24 +113,6 @@
                         },
                         {
                             "Name": "country",
-                            "Required": "N",
-                            "Type": "string",
-                            "Description": ""
-                        },
-                        {
-                            "Name": "created_by",
-                            "Required": "N",
-                            "Type": "string",
-                            "Description": ""
-                        },
-                        {
-                            "Name": "creation_time",
-                            "Required": "N",
-                            "Type": "string",
-                            "Description": ""
-                        },
-                        {
-                            "Name": "email_address",
                             "Required": "N",
                             "Type": "string",
                             "Description": ""
@@ -196,12 +160,6 @@
                             "Description": ""
                         },
                         {
-                            "Name": "last_login",
-                            "Required": "N",
-                            "Type": "string",
-                            "Description": ""
-                        },
-                        {
                             "Name": "notes",
                             "Required": "N",
                             "Type": "string",
@@ -218,12 +176,6 @@
                             "Required": "N",
                             "Type": "string",
                             "Description": "Timezone type, if not in that form, entry will be rejected. Ex: 'America/New_York'"
-                        },
-                        {
-                            "Name": "last_viewed_messages",
-                            "Required": "N",
-                            "Type": "integer",
-                            "Description": ""
                         },
                         {
                             "Name": "expose_hostnames",
@@ -353,24 +305,6 @@
                             "Description": ""
                         },
                         {
-                            "Name": "created_by",
-                            "Required": "N",
-                            "Type": "string",
-                            "Description": ""
-                        },
-                        {
-                            "Name": "creation_time",
-                            "Required": "N",
-                            "Type": "string",
-                            "Description": ""
-                        },
-                        {
-                            "Name": "email_address",
-                            "Required": "N",
-                            "Type": "string",
-                            "Description": ""
-                        },
-                        {
                             "Name": "first_name",
                             "Required": "N",
                             "Type": "string",
@@ -413,12 +347,6 @@
                             "Description": ""
                         },
                         {
-                            "Name": "last_login",
-                            "Required": "N",
-                            "Type": "integer",
-                            "Description": ""
-                        },
-                        {
                             "Name": "notes",
                             "Required": "N",
                             "Type": "string",
@@ -435,12 +363,6 @@
                             "Required": "N",
                             "Type": "string",
                             "Description": "Timezone type, if not in that form, entry will be rejected. Ex: 'America/New_York'"
-                        },
-                        {
-                            "Name": "last_viewed_messages",
-                            "Required": "N",
-                            "Type": "integer",
-                            "Description": ""
                         },
                         {
                             "Name": "expose_hostnames",
