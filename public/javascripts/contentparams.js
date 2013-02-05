@@ -71,8 +71,10 @@
                     $.extend(tempObj, createSimpleObject(name, value));
                 }
                 if ( i == collectionsArray.length - 1 ) {
-                    // Check tempObj against schema before adding
-                    collectionValue.push(tempObj);
+                    if (Object.keys( tempObj ).length !== 0) {
+                        // Check tempObj against schema before adding
+                        collectionValue.push(tempObj);
+                    }
                 }
             }
             else {
