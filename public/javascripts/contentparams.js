@@ -89,6 +89,13 @@
                 if ( value !== '' ) {
                     tempObj = createSimpleObject(name, value);
                 }
+                // If there is only one item in the collection total, add it here. 
+                if ( i == collectionsArray.length - 1 ) {
+                    if (Object.keys( tempObj ).length !== 0) {
+                        // Check tempObj against schema before adding
+                        collectionValue.push(tempObj);
+                    }
+                }
             }
         }
 
