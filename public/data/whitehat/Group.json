@@ -186,13 +186,13 @@
                         "Name": "client_id",
                         "Required": "Y",
                         "Type": "string",
-                        "Description": "Role to assign to user."
+                        "Description": "Group owner's client id."
                     },
                     {
                         "Name": "group_id",
                         "Required": "Y",
                         "Type": "string",
-                        "Description": "Role to assign to user."
+                        "Description": "Client specific id of the group."
                     }
                 ]
             },
@@ -281,14 +281,14 @@
                         {
                             "Name": "application_id",
                             "Required": "N",
-                            "Type": "string",
-                            "Description": "Application id. This is probably of type integer, not string."
+                            "Type": "integer",
+                            "Description": "Application id."
                         },
                         {
                             "Name": "id",
                             "Required": "N",
-                            "Type": "string",
-                            "Description": "Site id. This is probably of type integer, not string."
+                            "Type": "integer",
+                            "Description": "Site id."
                         }
                     ]
                 },
