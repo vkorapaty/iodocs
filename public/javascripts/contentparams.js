@@ -128,15 +128,11 @@
     //  ]
 
     function createSimpleObject ( name, value ) {
-        var tempObj = JSON.parse( "{\""+name+"\":\""+value+"\"}" );
-        tempObj[name]= handleSelectValue(tempObj[name])
+        var tempObj = {};
+        tempObj[name]= handleSelectValue(value);
         return tempObj;
     }
-    // JavaScript object property names must be string values, could not find 
-    // a way to interpolate the 'name' variable into a string, so creating a 
-    // JSON string, and then parsing that into an object.
-    //
-    // This function also calls handleSelectValue so that true, false, and 
+    // This function calls handleSelectValue so that true, false, and 
     // integer values will not show up as strings. handleSelectValue() was 
     // originally intended just for 'select' elements, but this has the side 
     // effect of modifying 'input' elements as well. That doesn't seem a bad 
