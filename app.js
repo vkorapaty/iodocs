@@ -827,8 +827,9 @@ function search (jsonData, searchTerm) {
     // If '||' is not present, the given term will be searched for, spaces will not be 
     // removed from the given term in this case.
     var regex;
-    if (/\|\|/.test(searchTerm)) {
-        var terms = searchTerm.split(/\|\|/);
+    //if (/\|\|/.test(searchTerm)) {
+    if (/\s+OR\s+/.test(searchTerm)) {
+        var terms = searchTerm.split(/\s+OR\s+/);
         terms[0] = regexFriendly(terms[0].replace(/\s+/, ''));
         terms[1] = regexFriendly(terms[1].replace(/\s+/, ''));
         regex = new RegExp ( "("+terms[0]+"|"+terms[1]+")" , "i");
