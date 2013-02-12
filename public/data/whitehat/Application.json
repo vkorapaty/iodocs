@@ -242,14 +242,45 @@
                                 {
                                     "Name": "specs",
                                     "Required": "N",
+                                    "Default": "",
                                     "Type": "collection",
-                                    "Description": "| stub",
-                                    "parameters" : [
+                                    "Description": "",
+                                    "parameters": [
+                                        {
+                                            "Name": "type",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "string",
+                                            "Description": ""
+                                        },
                                         {
                                             "Name": "cron_spec",
                                             "Required": "N",
+                                            "Default": "",
                                             "Type": "string",
                                             "Description": " word word word word word (optional word) [where 'word' stands for any set of non-whitespace character| stub"
+                                        },
+                                        {
+                                            "Name": "duration",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "string",
+                                            "Description": "This probably shouldn't be string."
+                                        },
+                                        {
+                                            "Name": "timezone",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "string",
+                                            "Description": ""
+                                        },
+                                        {
+                                            "Name": "weekday",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "enumerated",
+                                            "EnumeratedList": [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ],
+                                            "Description": ""
                                         }
                                     ]
                                 }
@@ -350,14 +381,45 @@
                         {
                             "Name": "specs",
                             "Required": "N",
+                            "Default": "",
                             "Type": "collection",
-                            "Description": "| stub",
-                            "parameters" : [
+                            "Description": "",
+                            "parameters": [
+                                {
+                                    "Name": "type",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": ""
+                                },
                                 {
                                     "Name": "cron_spec",
                                     "Required": "N",
+                                    "Default": "",
                                     "Type": "string",
                                     "Description": " word word word word word (optional word) [where 'word' stands for any set of non-whitespace character| stub"
+                                },
+                                {
+                                    "Name": "duration",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": "This probably shouldn't be string."
+                                },
+                                {
+                                    "Name": "timezone",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "weekday",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "enumerated",
+                                    "EnumeratedList": [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ],
+                                    "Description": ""
                                 }
                             ]
                         }
@@ -399,7 +461,7 @@
                             "Name": "exclude_dirs",
                             "Required": "N",
                             "Type": "collection",
-                            "Description": "TODO: Change from type 'collection' to 'array/list'. ????? Array of directories to be excluded ?????| stub",
+                            "Description": "TODO: Change from type 'collection' to 'array/list'. List of directories to be excluded. | stub",
                             "parameters": [
                                 {
                                     "Name": "dir",

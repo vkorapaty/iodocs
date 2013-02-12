@@ -306,6 +306,21 @@
                                             "Default": "",
                                             "Type": "string",
                                             "Description": "This probably shouldn't be string."
+                                        },
+                                        {
+                                            "Name": "timezone",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "string",
+                                            "Description": ""
+                                        },
+                                        {
+                                            "Name": "weekday",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "enumerated",
+                                            "EnumeratedList": [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ],
+                                            "Description": ""
                                         }
                                     ]
                                 }
