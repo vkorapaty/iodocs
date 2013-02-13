@@ -8,6 +8,9 @@ table.parameters
     tbody
         - var paramCount = 0
         - var collection = parameter.parameters
+        tr(class=className)
+            td
+                a(href='#', onclick='return false', class='collection-minimize') Click me
         - each parameter in collection
             - paramCount++
             div(id='param' + paramCount)

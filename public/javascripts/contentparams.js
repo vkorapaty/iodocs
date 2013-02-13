@@ -1,7 +1,7 @@
 (function() {
     // Keyup listener for all of the content parameter input fields 
     // (content parameter input fields should belong only to PUT or POST methods)
-    $('.content').find('td.parameter').on( "keyup", "input", function (event) {
+    $('.content').find('td.parameter').on( "keyup", "input", function(event) {
         doEverything( $(this) );
     });
 
@@ -10,7 +10,7 @@
     // This handles the case of clickng on select drop downs, and tabbing 
     // through the select drop downs and using arrow keys and enter to select 
     // an option.
-    $('.content').find('td.parameter').on( "keyup click", "select", function (event) {
+    $('.content').find('td.parameter').on( "keyup click", "select", function(event) {
         doEverything( $(this) );
     });
 
@@ -236,12 +236,23 @@
             .append(newCollection(originalCollection, collectionCount));
     });
 
+    // Minimize collection
+    $('td').on("click", "a.collection-minimize", function(event) {
+        event.stopPropagation();
+        var minimize_class = $(this).parent().parent().next().attr('class');
+        // trim whitespace
+        minimize_class = minimize_class.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+        console.log($(this).parent().parent().siblings('.' + minimize_class));
+        $(this).parent().parent().siblings('.' + minimize_class).slideToggle();
+    });
+
     function newCollection (originalCollection, collectionCount) {
         var string;
         var prefix = "<tr class='collection-new-",
             prefixEnd = "' >",
             suffix = "</tr>";
 
+        string += "<tr><td><a href='#' class='collection-minimize' onclick='return false'>Click me.</a></td></tr>";
         for (var i = 0; i < originalCollection.length; i++) {
             string += prefix + collectionCount  + prefixEnd
                 + originalCollection.get(i).innerHTML
