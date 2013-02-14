@@ -460,14 +460,12 @@
                         {
                             "Name": "exclude_dirs",
                             "Required": "N",
-                            "Type": "collection",
-                            "Description": "TODO: Change from type 'collection' to 'array/list'. List of directories to be excluded. | stub",
+                            "Type": "list",
+                            "Description": "List of directories to be excluded. | stub",
                             "parameters": [
                                 {
-                                    "Name": "dir",
                                     "Required": "N",
-                                    "Type": "string",
-                                    "Description": ""
+                                    "Type": "string"
                                 }
                             ]
                         },
@@ -621,14 +619,12 @@
                         {
                             "Name": "exclude_dirs",
                             "Required": "N",
-                            "Type": "collection",
-                            "Description": "TODO: Change from type 'collection' to 'array/list'. ????? Array of directories to be excluded ?????| stub",
+                            "Type": "list",
+                            "Description": "List of directories to be excluded. | stub",
                             "parameters": [
                                 {
-                                    "Name": "dir",
                                     "Required": "N",
-                                    "Type": "string",
-                                    "Description": ""
+                                    "Type": "string"
                                 }
                             ]
                         },
