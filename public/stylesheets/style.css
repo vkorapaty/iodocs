@@ -820,7 +820,7 @@ dd {
     line-height: 1.5;
 }
 
-/* Using this for something, don't remember what */
+/* Used to hide endpoints and methods that do not match for a given search */
 .hide-this {
     display: none;
 }

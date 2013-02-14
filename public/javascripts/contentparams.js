@@ -28,7 +28,10 @@
                 var val = $(this).children('td.parameter').children().val();
                 var name = $(this).children('td.name').text();
                 var attr = $(this).attr('class');
-                collectionsArray.push({ 'name': name, 'value': val, 'class': attr });
+                // This is to ignore the row which contains the minimize collection button.
+                if ( attr != '' &&  undefined != attr ) {
+                    collectionsArray.push({ 'name': name, 'value': val, 'class': attr });
+                }
             });
 
             var collectionName  = element.closest('table.parameters')
@@ -42,10 +45,40 @@
             tempObj['value'] = createCollectionValue( collectionsArray );
             updateTextArea( element, tempObj );
         }
+
+        // List parameter case
+        else if ( classTest.match(/list/) ) {
+            // Collect information of all list elements
+            var collectionsArray = [];
+            element.closest('tbody').children().each( function (event) {
+                var val = $(this).children('td.parameter').children().val();
+                var attr = $(this).attr('class');
+                // This is to ignore the row which contains the minimize
+                // collection button.  This also will 'remove' empty list fields 
+                // from the text area. Remove really means to not add them to the
+                // array and update the text area without them present.
+                if ( attr != '' &&  undefined != attr && '' != val ) {
+                    collectionsArray.push( val );
+                }
+            });
+
+            var collectionName  = element.closest('table.parameters')
+                    .parent()
+                    .siblings('td.name')
+                    .text()
+                    .replace(/Add collection/g, '');
+
+            var tempObj = {};
+            tempObj['name'] = collectionName;
+            tempObj['value'] = collectionsArray;
+            updateTextArea( element, tempObj );
+        }
+
         // Content parameter case
         else {
             updateTextArea( element, formatData( element ) );
         }
+
     }
     // This function determines whether the input was a content parameter or
     // a collection parameter and then does what is necessary to handle the
@@ -182,10 +215,16 @@
             textAreaObj = JSON.parse(goal.val());
         }
 
-        // Add the new parameter data to the object
+        // Remove emtpy values from text area
         if ( dataObject['value'] === '' ) {
             delete textAreaObj[dataObject['name']];
         }
+        // Catch empty objects and empty arrays and remove them from the text area
+        else if ( dataObject['value'] instanceof Object 
+                && Object.keys(dataObject['value']).length == 0 ) {
+            delete textAreaObj[dataObject['name']];
+        }
+        // Add the new parameter data to the object
         else {
             textAreaObj[dataObject['name']] = dataObject['value'];
         }
@@ -195,7 +234,9 @@
     }
 
 
+    //
     // Adding new collections to the page
+    // 
     // First thing, add 'add' button to parameters of type 'collection'
     $("td.type:contains('collection')").each(function() {
         $(this).siblings('td.name')
@@ -205,7 +246,6 @@
 
     // Add new set of collections to the page.
     $('.add-collection').click(function() {
-        collectionCount++;
         var originalCollection = $(this).parent()
                                     .siblings('td.parameter')
                                     .find('tr.collection-original');
@@ -236,16 +276,6 @@
             .append(newCollection(originalCollection, collectionCount));
     });
 
-    // Minimize collection
-    $('td').on("click", "a.collection-minimize", function(event) {
-        event.stopPropagation();
-        var minimize_class = $(this).parent().parent().next().attr('class');
-        // trim whitespace
-        minimize_class = minimize_class.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
-        console.log($(this).parent().parent().siblings('.' + minimize_class));
-        $(this).parent().parent().siblings('.' + minimize_class).slideToggle();
-    });
-
     function newCollection (originalCollection, collectionCount) {
         var string;
         var prefix = "<tr class='collection-new-",
@@ -262,4 +292,35 @@
         return string;
     }
 
+    //
+    // Adding addition fields for list type
+    // 
+    // First thing, add 'add' button to parameters of type 'list'
+    $("td.type:contains('list')").each(function() {
+        $(this).siblings('td.name')
+            .append("<br/><a href='#' class='add-list' onclick='return false'>Add list field</a>");
+    });
+
+    // Add additional fields for list type element.
+    $('.add-list').click(function() {
+        var originalList = $(this).parent()
+                                    .siblings('td.parameter')
+                                    .find('tr.list-element');
+        
+        // Add the new list
+        $(this).parent().siblings('td.parameter')
+            .children('table.parameters')
+            .children('tbody')
+            .append(originalList.get(0).outerHTML);
+    });
+
+    // Minimize functionality for collections and lists
+    $('td').on("click", "a.collection-minimize, a.list-minimize", function(event) {
+        event.stopPropagation();
+        var minimize_class = $(this).parent().parent().next().attr('class');
+        // trim whitespace
+        minimize_class = minimize_class.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+        //console.log($(this).parent().parent().siblings('.' + minimize_class));
+        $(this).parent().parent().siblings('.' + minimize_class).slideToggle();
+    });
 })();
