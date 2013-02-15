@@ -1,17 +1,14 @@
 table.parameters
     thead
         tr
-            th Collection Parameter
-            th Value
-            th Type
-            th Description
+            th Obj. Parameter Name
+            th Obj. Parameter Value
+            th Obj. Parameter Type
+            th Obj. Parameter Description
     tbody
         - var paramCount = 0
-        - var collection = parameter.parameters
-        tr(class=className)
-            td
-                a(href='#', onclick='return false', class='collection-minimize') Click me
-        - each parameter in collection
+        - var jsObject = parameter.parameters
+        - each parameter in jsObject
             - paramCount++
             div(id='param' + paramCount)
               - if (parameter.Required =='Y')
@@ -20,7 +17,7 @@ table.parameters
               - else
                   - var required =false
                   - var className =''
-              tr(class=className).collection-original
+              tr(class=className).jsobj-element
                   td.name=parameter.Name
                   td.parameter
                       - if (parameter.Type =='enumerated')
@@ -41,8 +38,19 @@ table.parameters
                                            option(value=choice, selected=true) #{choice}
                                    - else
                                            option(value=choice) #{choice}
+
                       - else if (parameter.Type =='list')
                           include content_list
+
+                      - else if (parameter.Type =='object')
+                          - if (parameter.parameters != undefined)
+                              - if (parameter.parameters.length > 0)
+                                include content_object  
+
+                      - else if (parameter.Type =='collection')
+                          - if (parameter.parameters != undefined)
+                              - if (parameter.parameters.length > 0)
+                                include content_collection  
                       - else
                           input(name='params[' + parameter.Name + ']', value=parameter.Default, placeholder=className)
                   td.type=parameter.Type

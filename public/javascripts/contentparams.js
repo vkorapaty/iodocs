@@ -46,6 +46,35 @@
             updateTextArea( element, tempObj );
         }
 
+        // Object parameter case
+        if ( classTest.match(/jsobj-element/) ) {
+            var tempObj = {};
+            // Collect all of the properties and property values for the object
+            // element
+            element.closest('tbody').children().each( function (event) {
+                var val = $(this).children('td.parameter').children().val();
+                var name = $(this).children('td.name').text();
+                // This if handles empty fields/selections. Ignore them when
+                // empty, and they are 'removed' from the text area.
+                if ( '' != val ) {
+                    // Create the object here.
+                    $.extend(tempObj, createSimpleObject(name, val));
+                }
+            });
+
+            var collectionName  = element.closest('table.parameters')
+                    .parent()
+                    .siblings('td.name')
+                    .text();
+
+            // Assigning tempObj to tempObj creates a 'Type error: cyclic object value'
+            // Assigning to a new object avoids that.
+            var tempObj2 = {};
+            tempObj2['name'] = collectionName;
+            tempObj2['value'] = tempObj;
+            updateTextArea( element, tempObj2 );
+        }
+
         // List parameter case
         else if ( classTest.match(/list/) ) {
             // Collect information of all list elements
@@ -66,7 +95,7 @@
                     .parent()
                     .siblings('td.name')
                     .text()
-                    .replace(/Add collection/g, '');
+                    .replace(/Add list field/g, '');
 
             var tempObj = {};
             tempObj['name'] = collectionName;
@@ -78,7 +107,6 @@
         else {
             updateTextArea( element, formatData( element ) );
         }
-
     }
     // This function determines whether the input was a content parameter or
     // a collection parameter and then does what is necessary to handle the
@@ -105,7 +133,7 @@
                 }
                 if ( i == collectionsArray.length - 1 ) {
                     if (Object.keys( tempObj ).length !== 0) {
-                        // Check tempObj against schema before adding
+                        // In the future: check tempObj against schema before adding
                         collectionValue.push(tempObj);
                     }
                 }
@@ -113,7 +141,7 @@
             else {
                 temp = collectionsArray[i]['class'];
                 if (Object.keys( tempObj ).length !== 0) {
-                    // Check tempObj against schema before adding
+                    // In the future: check tempObj against schema before adding
                     collectionValue.push(tempObj);
                     tempObj = {};
                 }
@@ -125,7 +153,7 @@
                 // If there is only one item in the collection total, add it here. 
                 if ( i == collectionsArray.length - 1 ) {
                     if (Object.keys( tempObj ).length !== 0) {
-                        // Check tempObj against schema before adding
+                        // In the future: check tempObj against schema before adding
                         collectionValue.push(tempObj);
                     }
                 }
@@ -162,24 +190,21 @@
 
     function createSimpleObject ( name, value ) {
         var tempObj = {};
-        tempObj[name]= handleSelectValue(value);
+        tempObj[name]= formatValue(value);
         return tempObj;
     }
-    // This function calls handleSelectValue so that true, false, and 
-    // integer values will not show up as strings. handleSelectValue() was 
-    // originally intended just for 'select' elements, but this has the side 
-    // effect of modifying 'input' elements as well. That doesn't seem a bad 
-    // thing, will reconsider with input.
 
     function formatData ( element ) {
         // Obtain the parameter name and parameter value
         var obj = {};
         obj['name'] = element.parent().siblings('.name').text();
-        obj['value'] = handleSelectValue(element.val());
+        obj['value'] = formatValue(element.val());
         return obj;
     }
+    // This is for top-level parameters, the simple parameters that resemble GET
+    // parameters and do not require additional processing.
 
-    function handleSelectValue ( value ) {
+    function formatValue ( value ) {
         if ( value == 'value' || value == 'true' ) { 
             return true;
         }
@@ -195,6 +220,11 @@
             return value;
         }
     }
+    // This function makes it so that 'true', 'false', and 'integer' values will
+    // not show up as strings (encased in quotation marks). formatValue()
+    // was originally intended just for 'select' elements, but has been modified 
+    // to affect 'input' elements as well. This doesn't seem a bad thing, will
+    // reconsider with input.
 
     function updateTextArea ( element, dataObject ) {
         // Determine the text area to which this parameter belongs
@@ -232,7 +262,6 @@
         // Update the text field
         goal.val(JSON.stringify(textAreaObj, null, 2));
     }
-
 
     //
     // Adding new collections to the page
