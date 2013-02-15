@@ -236,7 +236,7 @@
                         {
                             "Name": "scan_schedule",
                             "Required": "N",
-                            "Type": "collection",
+                            "Type": "object",
                             "Description": "TODO: Change from 'collection' to 'object'. | stub",
                             "parameters": [
                                 {

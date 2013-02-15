@@ -610,21 +610,23 @@
                             "Name": "whitelist",
                             "Required": "N",
                             "Default": "",
-                            "Type": "collection",
-                            "Description": "TODO: Not a collection, it's an object.",
+                            "Type": "object",
+                            "Description": "TODO: Changed to object, but want to TODO anyway.",
                             "parameters": [
-                                {
-                                    "Name": "use_urls",
-                                    "Required": "N",
-                                    "Default": "",
-                                    "Type": "boolean",
-                                    "Description": ""
-                                },
                                 {
                                     "Name": "use_patterns",
                                     "Required": "Y",
                                     "Default": "",
-                                    "Type": "boolean",
+                                    "Type": "enumerated",
+                                    "EnumeratedList": [ true, false ],
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "use_urls",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "enumerated",
+                                    "EnumeratedList": [ true, false ],
                                     "Description": ""
                                 }
                             ]
