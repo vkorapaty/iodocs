@@ -1,3 +1,4 @@
+include mixins/content_parameters
 h1=apiInfo.name 
 - if (session.authed && apiInfo.oauth && apiInfo.oauth.type =='three-legged')
     - var authed ='authed'
@@ -169,7 +170,7 @@ ul
                                         span Content
                                     - if (method.content.parameters != undefined)
                                         - if (method.content.parameters.length > 0)
-                                            include content_parameters
+                                            mixin content(apiInfo, method.content.parameters)
                                     div.contentType
                                         select(name='contentType')
                                             - each choice in method.content.contentType
