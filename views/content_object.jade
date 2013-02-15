@@ -42,11 +42,6 @@ table.parameters
                       - else if (parameter.Type =='list')
                           include content_list
 
-                      - else if (parameter.Type =='object')
-                          - if (parameter.parameters != undefined)
-                              - if (parameter.parameters.length > 0)
-                                include content_object  
-
                       - else if (parameter.Type =='collection')
                           - if (parameter.parameters != undefined)
                               - if (parameter.parameters.length > 0)
