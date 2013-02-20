@@ -329,6 +329,8 @@ function processRequest(req, res, next) {
     var reqQuery = req.body,
         customHeaders = {},
         params = reqQuery.params || {},
+        content = reqQuery.requestContent || '',
+        contentType = reqQuery.contentType || '',
         locations = reqQuery.locations || {},
         methodURL = reqQuery.methodUri,
         httpMethod = reqQuery.httpMethod,
@@ -773,7 +775,7 @@ function processApiIncludes (jsonData) {
                         // 1 include request to be replaced by multiple objects (methods)
                         if (arrayObj[includeKeyword]['type'] == 'list') {
 
-                            var tempArray = JSON.parse(fs.readFileSync(someFile));
+                            var tempArray = require(someFile);
                             // recurse here to replace values of properties that may need replacing
                             processApiIncludes(tempArray);
                             // why isn't this jsonData[key][i]?
@@ -783,7 +785,7 @@ function processApiIncludes (jsonData) {
                         }
                         // 1 include request to be replaced by 1 object (endpoint)
                         else {
-                            jsonData[key][i] = JSON.parse(fs.readFileSync(someFile));
+                            jsonData[key][i] = require(someFile);
                             processApiIncludes(jsonData[key][i]);
                         }
                     }
@@ -796,7 +798,7 @@ function processApiIncludes (jsonData) {
                     if (what.call(jsonData[key][property]) === '[object Object]') {
                         if (includeKeyword in jsonData[key][property]) {
                             var someFile = processUri(jsonData[key][property][includeKeyword][includeLocation]);
-                            jsonData[key][property] = JSON.parse(fs.readFileSync(someFile));
+                            jsonData[key][property] = require(someFile);
                             processApiIncludes(jsonData[key][property]);
                         }
                     }
