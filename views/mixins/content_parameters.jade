@@ -47,10 +47,19 @@ mixin content(apiInfo, contentArray, className, contentType)
                       tr(class=className)
                           mixin trCells(apiInfo, parameter, className, contentType)
 
+
+// Enforces possible list parameter types, don't want to have objects, or 
+// collections as possibilities for list type. A list of objects is a collection
+// anyway.
 mixin trCells(apiInfo, parameter, className, contentType)
     -if (contentType == 'list')
         td.parameter
-            mixin parameters(apiInfo, parameter, className)
+            - if (parameter.Type =='enumerated')
+                mixin enumeratedOrBoolean(parameter, className, parameter.Type)
+            - else if (parameter.Type =='boolean')
+                mixin enumeratedOrBoolean(parameter, className, parameter.Type)
+            - else
+                input(name='params[' + parameter.Name + ']', value=parameter.Default, placeholder=className)
     -else
         td.name=parameter.Name
         td.parameter
@@ -65,19 +74,11 @@ mixin parameters(apiInfo, parameter, className)
     - else if (parameter.Type =='boolean')
         mixin enumeratedOrBoolean(parameter, className, parameter.Type)
     - else if (parameter.Type =='list')
-        mixin content(apiInfo, parameter, className, 'list')
+        mixin content(apiInfo, parameter, className, parameter.Type)
     - else if (parameter.Type =='object' || parameter.Type =='collection')
         - if (parameter.parameters != undefined)
             - if (parameter.parameters.length > 0)
               mixin content(apiInfo, parameter.parameters, className, parameter.Type)
-    - else
-        input(name='params[' + parameter.Name + ']', value=parameter.Default, placeholder=className)
-
-mixin listParameters(apiInfo, parameter, className)
-    - if (parameter.Type =='enumerated')
-        mixin enumeratedOrBoolean(parameter, className, parameter.Type)
-    - else if (parameter.Type =='boolean')
-        mixin enumeratedOrBoolean(parameter, className, parameter.Type)
     - else
         input(name='params[' + parameter.Name + ']', value=parameter.Default, placeholder=className)
 
