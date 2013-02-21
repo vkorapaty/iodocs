@@ -28,9 +28,16 @@ form#credentials
                  - var defaultSecret =apiInfo.auth.defaultSecret
              - else
                  - var defaultSecret =''
+             - if (apiInfo.auth.defaultServer)
+                 - var defaultServer =apiInfo.auth.defaultServer
+             - else
+                 - var defaultServer =''
              div
                  label(for='key') API Key
                  input(id='key', name='key', value=defaultKey, style='color=#EEEEEE')
+             div
+                label(for='altserverinfo') Alternate server
+                input(id='altserverinfo', name='altserverinfo', value=defaultServer, style='color=#EEEEEE')
              div
                  - if (apiInfo.oauth || apiInfo.signature)
                      label(for='secret') Shared Secret
