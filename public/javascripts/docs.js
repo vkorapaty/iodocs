@@ -178,9 +178,9 @@
             apiKey = { name: 'apiKey', value: $('input[name=key]').val() },
             apiSecret = { name: 'apiSecret', value: $('input[name=secret]').val() },
             apiName = { name: 'apiName', value: $('input[name=apiName]').val() },
-            apiServer = { name: 'apiServer', value: $('input[name=altserver]').val() };
+            apiServerInfo = { name: 'apiServerInfo', value: $('input[name=altserverinfo]').val() };
 
-        params.push(apiKey, apiSecret, apiName, apiServer);
+        params.push(apiKey, apiSecret, apiName, apiServerInfo);
 
         // Setup results container
         var resultContainer = $('.result', self);

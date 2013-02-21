@@ -372,11 +372,11 @@ function processRequest(req, res, next) {
     }
 
     var baseHostInfo;
-    if (reqQuery.apiServer !== undefined && reqQuery.apiServer !=='' ) {
-        baseHostInfo = reqQuery.apiServer.split(':') ;
+    if (reqQuery.apiServerInfo !== undefined && reqQuery.apiServerInfo !=='' ) {
+        baseHostInfo = reqQuery.apiServerInfo.split(':');
     }
     else {
-        var baseHostInfo = apiConfig.baseURL.split(':');
+        baseHostInfo = apiConfig.baseURL.split(':');
     }
     var baseHostUrl = baseHostInfo[0],
         baseHostPort = (baseHostInfo.length > 1) ? baseHostInfo[1] : "";
