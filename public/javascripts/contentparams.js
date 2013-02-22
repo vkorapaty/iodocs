@@ -1,161 +1,171 @@
 (function() {
-    // Keyup listener for all of the content parameter input fields 
-    // (content parameter input fields should belong only to PUT or POST methods)
-    $('.content').find('td.parameter').on( "keyup", "input", function(event) {
-        doEverything( $(this) );
+    // On click or data entry/change in content parameters, this block will capture
+    // the event and things will happen, dominos will fall, and pigs will fly.
+    $('.content').find('td.parameter').on( "change click keyup", "input, select", function(event) {
+        event.stopPropagation();
+        tree($(this));
     });
 
-
-    // Select element handling
-    // This handles the case of clickng on select drop downs, and tabbing 
-    // through the select drop downs and using arrow keys and enter to select 
-    // an option.
-    $('.content').find('td.parameter').on( "keyup click", "select", function(event) {
-        doEverything( $(this) );
-    });
-
-    function doEverything ( element ) {
-        var classTest = element.parent().parent().attr('class');
-
-        // Collection parameter case
-        if ( classTest.match(/collection-original/) || classTest.match(/collection-new/) ) {
-            // /collection-original/ is a strange case, when logged, it shows
-            // two responses instead of one. No idea why.
-            
-            // Collect information of all collection elements
-            var collectionsArray = [];
-            element.closest('tbody').children().each( function (event) {
-                var val = $(this).children('td.parameter').children().val();
-                var name = $(this).children('td.name').text();
-                var attr = $(this).attr('class');
-                // This is to ignore the row which contains the minimize collection button.
-                if ( attr != '' &&  undefined != attr ) {
-                    collectionsArray.push({ 'name': name, 'value': val, 'class': attr });
-                }
-            });
-
-            var collectionName  = element.closest('table.parameters')
-                    .parent()
-                    .siblings('td.name')
-                    .text()
-                    .replace(/Add collection/g, '');
-
-            var tempObj = {};
-            tempObj['name'] = collectionName;
-            tempObj['value'] = createCollectionValue( collectionsArray );
-            updateTextArea( element, tempObj );
-        }
-
-        // Object parameter case
-        if ( classTest.match(/jsobj-element/) ) {
-            var tempObj = {};
-            // Collect all of the properties and property values for the object
-            // element
-            element.closest('tbody').children().each( function (event) {
-                var val = $(this).children('td.parameter').children().val();
-                var name = $(this).children('td.name').text();
-                // This if handles empty fields/selections. Ignore them when
-                // empty, and they are 'removed' from the text area.
-                if ( '' != val ) {
-                    // Create the object here.
-                    $.extend(tempObj, createSimpleObject(name, val));
-                }
-            });
-
-            var collectionName  = element.closest('table.parameters')
-                    .parent()
-                    .siblings('td.name')
-                    .text();
-
-            // Assigning tempObj to tempObj creates a 'Type error: cyclic object value'
-            // Assigning to a new object avoids that.
-            var tempObj2 = {};
-            tempObj2['name'] = collectionName;
-            tempObj2['value'] = tempObj;
-            updateTextArea( element, tempObj2 );
-        }
-
-        // List parameter case
-        else if ( classTest.match(/list/) ) {
-            // Collect information of all list elements
-            var collectionsArray = [];
-            element.closest('tbody').children().each( function (event) {
-                var val = $(this).children('td.parameter').children().val();
-                var attr = $(this).attr('class');
-                // This is to ignore the row which contains the minimize
-                // collection button.  This also will 'remove' empty list fields 
-                // from the text area. Remove really means to not add them to the
-                // array and update the text area without them present.
-                if ( attr != '' &&  undefined != attr && '' != val ) {
-                    collectionsArray.push( val );
-                }
-            });
-
-            var collectionName  = element.closest('table.parameters')
-                    .parent()
-                    .siblings('td.name')
-                    .text()
-                    .replace(/Add list field/g, '');
-
-            var tempObj = {};
-            tempObj['name'] = collectionName;
-            tempObj['value'] = collectionsArray;
-            updateTextArea( element, tempObj );
-        }
-
-        // Content parameter case
-        else {
-            updateTextArea( element, formatData( element ) );
-        }
+    function tree( elem ) {
+        var root = elem.closest('div.content');
+        var table = root.children('table.parameters');
+        var snapshotObject = handleTable(table); 
+        updateTextArea( elem, snapshotObject );
     }
-    // This function determines whether the input was a content parameter or
-    // a collection parameter and then does what is necessary to handle the
-    // input. 
-    //
-    // For collection parameter input, it will obtain data from all of the 
-    // sibling elements of the particular collection, and create the value for
-    // the parent parameter. The parent parameter name will also be obtained.
-    // All of this will then be passed to updateTextArea.
-    //
-    // For regular content parameter input, the input value and input parameter
-    // name are obtained and passed on to updateTextArea.
 
-    function createCollectionValue ( collectionsArray ) {
-        var temp = '',
-            tempObj = {},
-            collectionValue = [];
-        for ( var i = 0; i < collectionsArray.length; i++ ) {
-            if ( collectionsArray[i]['class'] == temp ) {
-                var name = collectionsArray[i]['name'];
-                var value = collectionsArray[i]['value'];
-                if ( value !== '' ) {
-                    $.extend(tempObj, createSimpleObject(name, value));
-                }
-                if ( i == collectionsArray.length - 1 ) {
-                    if (Object.keys( tempObj ).length !== 0) {
-                        // In the future: check tempObj against schema before adding
-                        collectionValue.push(tempObj);
-                    }
-                }
+    // Handle table
+    function handleTable( table , type ) {
+        if (type == 'collection') {
+            var collectionValue = handleCollection(table.children('tbody'));
+            if (collectionValue.length > 0) {
+                return collectionValue;
             }
             else {
-                temp = collectionsArray[i]['class'];
+                return;
+            }
+        }
+
+        if (type == 'object') {
+            var objectValue = handleObject(table.children('tbody'));
+            if (Object.keys( objectValue ).length !== 0) {
+                return objectValue;
+            }
+            else {
+                return;
+            }
+        }
+
+        if (type == 'list') {
+            var listValue = handleList(table.children('tbody'));
+            if (listValue.length > 0) {
+                return listValue;
+            }
+            else {
+                return;
+            }
+        }
+
+        var rows = table.children('tbody').children('tr');
+        var obj = {};
+
+        rows.each(function () {
+            var name = rowName( $(this) );
+            var val = rowValue( $(this) );
+
+            $.extend(obj, createSimpleObject(name, val));
+        });
+
+        return obj;
+    }
+
+    function handleCollection( element ) {
+        // Collect information of all collection elements
+        var collectionsArray = [];
+        // What are the children I'm getting? Rows.
+        element.children().each( function (event) {
+            var val = rowValue( $(this) );
+            var name = rowName( $(this) );
+            var attr = $(this).attr('class');
+            // This is to ignore the row which contains the minimize collection
+            // button.
+            if ( attr != '' &&  undefined != attr && undefined !== val ) {
+                collectionsArray.push({ 'name': name, 'value': val, 'class': attr });
+            }
+        });
+
+        return createCollectionValue( collectionsArray );
+    }
+
+    function handleObject( element ) {
+        // Collect all of the properties and property values for the object
+        // element.
+        var tempObj = {};
+        // What are the children I'm getting? Rows.
+        element.children().each( function (event) {
+            var val = rowValue( $(this) );
+            var name = rowName( $(this) );
+
+            $.extend(tempObj, createSimpleObject(name, val));
+        });
+
+        return tempObj;
+    }
+
+    function handleList ( element ) {
+        // Collect information of all list elements
+        var collectionsArray = [];
+        element.children().each( function (event) {
+            var val = rowValue( $(this) );
+            var attr = $(this).attr('class');
+            // This is to ignore the row which contains the minimize
+            // collection button.
+            if ( attr != '' &&  undefined != attr ) {
+                collectionsArray.push( val );
+            }
+        });
+
+        return collectionsArray;
+    }
+
+    function rowName( row ) {
+        return name = row.children('td.name')
+            .text()
+            .replace(/Add\s+\w+/g, '');
+    }
+
+    function rowValue( row ) {
+        var type = row.children('td.type').text();
+
+        // '' option for list type, where parameter fields do not have an
+        // associated type field. Could add type field back and not have this
+        // problem. Or the ''== type can be the final else clause.
+        if (type == 'enumerated' || type == 'string' || type == 'integer' || '' == type) {
+            var val;
+            val = row.children('td.parameter')
+                .children('input, select')
+                .val();
+
+            if (val != '') {
+                return formatValue(val);
+            }
+        }
+
+        else if (type == 'collection' || type == 'object' || type == 'list') {
+            var table  = row.children('td.parameter').children('table.parameters');
+            return handleTable(table, type);
+        }
+    }
+
+    function createCollectionValue( collectionsArray ) {
+        var currentObj = '',
+            tempObj = {},
+            collectionValue = [];
+
+        for ( var i = 0; i < collectionsArray.length; i++ ) {
+            var name = collectionsArray[i]['name'];
+            var value = collectionsArray[i]['value'];
+            
+            // Creating an object with all of its properties and values.
+            if ( collectionsArray[i]['class'] == currentObj ) {
+                $.extend(tempObj, createSimpleObject(name, value));
+            }
+            // A new/different object has been found, push the current object
+            // on to an array saving completed objects, and setup a new object.
+            else {
+                currentObj = collectionsArray[i]['class'];
                 if (Object.keys( tempObj ).length !== 0) {
                     // In the future: check tempObj against schema before adding
                     collectionValue.push(tempObj);
                     tempObj = {};
                 }
-                var name = collectionsArray[i]['name'];
-                var value = collectionsArray[i]['value'];
-                if ( value !== '' ) {
-                    tempObj = createSimpleObject(name, value);
-                }
-                // If there is only one item in the collection total, add it here. 
-                if ( i == collectionsArray.length - 1 ) {
-                    if (Object.keys( tempObj ).length !== 0) {
-                        // In the future: check tempObj against schema before adding
-                        collectionValue.push(tempObj);
-                    }
+                tempObj = createSimpleObject(name, value);
+            }
+
+            // Handle a 1 object collection, or the last object in the collection.
+            if ( i == collectionsArray.length - 1 ) {
+                if (Object.keys( tempObj ).length !== 0) {
+                    // In the future: check tempObj against schema before adding
+                    collectionValue.push(tempObj);
                 }
             }
         }
@@ -188,23 +198,13 @@
     //    }
     //  ]
 
-    function createSimpleObject ( name, value ) {
+    function createSimpleObject( name, value ) {
         var tempObj = {};
-        tempObj[name]= formatValue(value);
+        tempObj[name]= value;
         return tempObj;
     }
 
-    function formatData ( element ) {
-        // Obtain the parameter name and parameter value
-        var obj = {};
-        obj['name'] = element.parent().siblings('.name').text();
-        obj['value'] = formatValue(element.val());
-        return obj;
-    }
-    // This is for top-level parameters, the simple parameters that resemble GET
-    // parameters and do not require additional processing.
-
-    function formatValue ( value ) {
+    function formatValue( value ) {
         if ( value == 'value' || value == 'true' ) { 
             return true;
         }
@@ -226,7 +226,7 @@
     // to affect 'input' elements as well. This doesn't seem a bad thing, will
     // reconsider with input.
 
-    function updateTextArea ( element, dataObject ) {
+    function updateTextArea( element, dataObject ) {
         // Determine the text area to which this parameter belongs
         var goal = element.closest('li.method')
                         .children('form')
@@ -234,33 +234,8 @@
                         .children('div.fields')
                         .children('textarea');
 
-        // Check whether the text area has data stored there already.
-        // If it does, create an javascript object with that data;
-        // if not, initialize the object.
-        var textAreaObj;
-        if (goal.val() == '') {
-            textAreaObj = {};
-        }
-        else {
-            textAreaObj = JSON.parse(goal.val());
-        }
-
-        // Remove emtpy values from text area
-        if ( dataObject['value'] === '' ) {
-            delete textAreaObj[dataObject['name']];
-        }
-        // Catch empty objects and empty arrays and remove them from the text area
-        else if ( dataObject['value'] instanceof Object 
-                && Object.keys(dataObject['value']).length == 0 ) {
-            delete textAreaObj[dataObject['name']];
-        }
-        // Add the new parameter data to the object
-        else {
-            textAreaObj[dataObject['name']] = dataObject['value'];
-        }
-
         // Update the text field
-        goal.val(JSON.stringify(textAreaObj, null, 2));
+        goal.val(JSON.stringify(dataObject, null, 2));
     }
 
     //
@@ -272,7 +247,6 @@
             .append("<br/><a href='#' class='add-collection' onclick='return false'>Add collection</a>");
     });
     
-
     // Add new set of collections to the page.
     $('.add-collection').click(function() {
         var originalCollection = $(this).parent()
@@ -305,13 +279,13 @@
             .append(newCollection(originalCollection, collectionCount));
     });
 
-    function newCollection (originalCollection, collectionCount) {
+    function newCollection( originalCollection, collectionCount ) {
         var string;
         var prefix = "<tr class='collection-new-",
             prefixEnd = "' >",
             suffix = "</tr>";
 
-        string += "<tr><td><a href='#' class='collection-minimize' onclick='return false'>Click me.</a></td></tr>";
+        string += "<tr><td><a href='#' class='collection-minimize' onclick='return false'>Minimize collection</a></td></tr>";
         for (var i = 0; i < originalCollection.length; i++) {
             string += prefix + collectionCount  + prefixEnd
                 + originalCollection.get(i).innerHTML
@@ -343,7 +317,9 @@
             .append(originalList.get(0).outerHTML);
     });
 
+    //
     // Minimize functionality for collections and lists
+    // 
     $('td').on("click", "a.collection-minimize, a.list-minimize", function(event) {
         event.stopPropagation();
         var minimize_class = $(this).parent().parent().next().attr('class');
