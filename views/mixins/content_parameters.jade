@@ -13,7 +13,7 @@ mixin content(apiInfo, contentArray, className, contentType)
                     th Obj. Parameter Type
                     th Obj. Parameter Description
                 - else if (contentType == 'list')
-                    th Value (Type: #{contentArray.parameters[0]['Type']})
+                    th Value
                 - else 
                     th Parameter
                     th Value
@@ -51,6 +51,8 @@ mixin content(apiInfo, contentArray, className, contentType)
 // Enforces possible list parameter types, don't want to have objects, or 
 // collections as possibilities for list type. A list of objects is a collection
 // anyway.
+// The 'if (contentType == 'list')' occurs for the body of the list type parameter.
+// It sets up the inner table. 
 mixin trCells(apiInfo, parameter, className, contentType)
     -if (contentType == 'list')
         td.parameter
@@ -59,7 +61,7 @@ mixin trCells(apiInfo, parameter, className, contentType)
             - else if (parameter.Type =='boolean')
                 mixin enumeratedOrBoolean(parameter, className, parameter.Type)
             - else
-                input(name='params[' + parameter.Name + ']', value=parameter.Default, placeholder=className)
+                input(value=parameter.Default, placeholder=className)
     -else
         td.name=parameter.Name
         td.parameter
@@ -74,16 +76,16 @@ mixin parameters(apiInfo, parameter, className)
     - else if (parameter.Type =='boolean')
         mixin enumeratedOrBoolean(parameter, className, parameter.Type)
     - else if (parameter.Type =='list')
-        mixin content(apiInfo, parameter, className, parameter.Type)
+        mixin content(apiInfo, parameter.parameters, className, parameter.Type)
     - else if (parameter.Type =='object' || parameter.Type =='collection')
         - if (parameter.parameters != undefined)
             - if (parameter.parameters.length > 0)
               mixin content(apiInfo, parameter.parameters, className, parameter.Type)
     - else
-        input(name='params[' + parameter.Name + ']', value=parameter.Default, placeholder=className)
+        input(value=parameter.Default, placeholder=className)
 
 mixin enumeratedOrBoolean(parameter, className, paramType)
-     select(name='params[' + parameter.Name + ']', placeholder=className)
+     select(placeholder=className)
           - if (parameter.Default =='')
                   option(value='') 
           - if (paramType == 'boolean')

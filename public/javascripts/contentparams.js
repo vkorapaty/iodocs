@@ -13,6 +13,17 @@
         updateTextArea( elem, snapshotObject );
     }
 
+    /*
+     The model for this is that each row of a given table is a property.
+     handleTable, handleCollection, handleList, rowName, and rowValue all 
+     work off of the basis that a row has 4 particular fields: name, parameter,
+     type, and description. Collections, objects, and lists set themselves up
+     as tables within the parameter field of a given row;
+     as such, whenever a row that has a type of 'collection', 'object', or 'list'
+     is encoutered, the contents of the parameter field for that row can be
+     operated on recursively.
+    */
+
     // Handle table
     function handleTable( table , type ) {
         if (type == 'collection') {
