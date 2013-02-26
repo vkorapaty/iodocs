@@ -387,7 +387,8 @@
                                                     "Name": "scanning_cred",
                                                     "Required": "N",
                                                     "Default": "",
-                                                    "Type": "boolean",
+                                                    "Type": "enumerated",
+                                                    "EnumeratedList": [true, false],
                                                     "Description": ""
                                                 },
                                                 {
@@ -642,8 +643,8 @@
                         {
                             "Name": "scan_cred_updated_date",
                             "Required": "N",
-                            "Default": "string",
-                            "Type":"",
+                            "Default": "",
+                            "Type":"string",
                             "Description":""
                         },
                         {
@@ -665,7 +666,7 @@
                         {
                             "Name": "site_url",
                             "Required": "N",
-                            "Default": "string",
+                            "Default": "",
                             "Type":"string",
                             "Description":""
                         },
@@ -834,7 +835,8 @@
                                                     "Name": "scanning_cred",
                                                     "Required": "N",
                                                     "Default": "",
-                                                    "Type": "boolean",
+                                                    "Type": "enumerated",
+                                                    "EnumeratedList": [true, false],
                                                     "Description": ""
                                                 },
                                                 {
@@ -940,7 +942,8 @@
                                                     "Name": "scanning_cred",
                                                     "Required": "N",
                                                     "Default": "",
-                                                    "Type": "boolean",
+                                                    "Type": "enumerated",
+                                                    "EnumeratedList": [true, false],
                                                     "Description": ""
                                                 },
                                                 {
