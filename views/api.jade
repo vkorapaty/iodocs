@@ -50,7 +50,8 @@ ul
     - each endpoint in apiDefinition.endpoints
         li.endpoint
             h3.title
-                span.name=endpoint.name
+                span.name
+                    a(href='#'+endpoint.name.replace(/\s/g, '-'))=endpoint.name
                 ul.actions
                     li.list-methods
                         a(href='#') List Methods
@@ -65,7 +66,9 @@ ul
                     - else
                         - var secure =''
                     li(class='method ' + httpmethod + ' ' + secure)
-                        div.title
+                        div.title.clickable
+                            - var methodLink = (endpoint.name + '-' + method.HTTPMethod + '-' + method.MethodName).replace(/\s/g, '-')
+                            a(href='#'+methodLink) 
                             span.http-method #{method.HTTPMethod}
                             span.name #{method.MethodName}
                             span.uri #{method.URI}
