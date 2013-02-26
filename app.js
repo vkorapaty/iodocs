@@ -913,6 +913,7 @@ function processRequest(req, res, next) {
     }
 }
 
+var cachedApiInfo = [];
 
 function checkPathForAPI(req, res, next) {
     if (!req.params) req.params = {};
@@ -929,7 +930,6 @@ function checkPathForAPI(req, res, next) {
     } else {
         next();
     }
-
 }
 
 // Replaces deprecated app.dynamicHelpers that were dropped in Express 3.x
@@ -938,7 +938,8 @@ function dynamicHelpers(req, res, next) {
     if (req.params.api) {
         res.locals.apiInfo = apisConfig[req.params.api];
         res.locals.apiName = req.params.api;
-        res.locals.apiDefinition = require(__dirname + '/public/data/' + req.params.api + '.json');
+        cachedApiInfo = require(__dirname + '/public/data/' + req.params.api + '.json');
+        res.locals.apiDefinition = cachedApiInfo;
         // If the cookie says we're authed for this particular API, set the session to authed as well
         if (req.session[req.params.api] && req.session[req.params.api]['authed']) {
             req.session['authed'] = true;
@@ -951,6 +952,88 @@ function dynamicHelpers(req, res, next) {
     next();
 }
 
+// Search function.
+// Expects processed API json data and a search term.
+// There should be no 'external' link objects present.
+function search(jsonData, searchTerm) {
+    // From: http://simonwillison.net/2006/Jan/20/escape/#p-6
+    var regexFriendly = function(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    };
+
+    // If ' OR ' is present in the search string, the search term will be split on ' OR ',
+    // and the first two parts will be used. These two parts will have spaces 
+    // stripped from them and then the regex term will present results that contain
+    // matches that have either term.
+    //
+    // If ' OR ' is not present, the given term will be searched for, spaces will not be 
+    // removed from the given term in this case.
+    var regex;
+    if (/\s+OR\s+/.test(searchTerm)) {
+        var terms = searchTerm.split(/\s+OR\s+/);
+        terms[0] = regexFriendly(terms[0].replace(/\s+/, ''));
+        terms[1] = regexFriendly(terms[1].replace(/\s+/, ''));
+        regex = new RegExp("("+terms[0]+"|"+terms[1]+")", "i");
+    }
+    else {
+        var terms = searchTerm.split(/\s+/);
+        var regexString = "";
+        for (var t = 0; t < terms.length; t++) {
+            regexString += "(?=.*" + regexFriendly(terms[t]) + ")";
+        }
+        regex = new RegExp(regexString, "i");
+    }
+
+    // Get a list of all methods from the data.
+    var searchMatches = [];
+
+    // Iterate through endpoints
+    for (var i = 0; i < jsonData.endpoints.length; i++) {
+        var object = jsonData.endpoints[i];
+
+        // Iterate through methods
+        for (var j = 0; j < object.methods.length; j++) {
+            if ( filterSearchObject(object.methods[j], regex) ) {
+                searchMatches.push({"label":object.methods[j]['MethodName'], "category": object.name, "type":object.methods[j]['HTTPMethod']});
+            }
+        }
+    }
+
+    return searchMatches;
+}
+
+// Method searching function
+// Recursively check properties of a method object for a match to the given search term.
+function filterSearchObject(randomThing, regex) {
+    var what = Object.prototype.toString;
+    if (what.call(randomThing) === '[object Array]') {
+        for (var i = 0; i < randomThing.length; i++) {
+            if (filterSearchObject(randomThing[i], regex)) {
+                return true;
+            }
+        }
+    }
+    else if (what.call(randomThing) === '[object Object]') {
+        for (var methodProperty in randomThing) {
+            if (randomThing.hasOwnProperty(methodProperty)) {
+                if (filterSearchObject(randomThing[methodProperty], regex)) {
+                    return true;
+                }
+            }
+        }
+    }
+    else if (what.call(randomThing) === '[object String]' || what.call(randomThing) === '[object Number]' ) {
+        if ( regex.test(randomThing)) {
+            return true;
+        }
+    }
+    else {
+        return false;
+    }
+
+    return false;
+}
+
 //
 // Routes
 //
@@ -958,6 +1041,20 @@ app.get('/', function(req, res) {
     res.render('listAPIs', {
         title: config.title
     });
+});
+
+//
+// Search function
+//
+// Note: If a change is made to app.js, the node process restarted, and the search 
+// function  is used immediately without restart, there will be an error coming from the 
+// search() function regarding the use of '.length'. Refresh the page, and the error 
+// will go away. A page refresh is necessary to create a cached version of the api 
+// which this route uses.
+//  Not sure what the fix for this is.
+app.get('/search', function(req, res) {
+    var searchTerm = decodeURIComponent(req.query.term);
+    res.send( search(cachedApiInfo, searchTerm) );
 });
 
 // Process the API request
