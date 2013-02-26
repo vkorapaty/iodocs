@@ -352,22 +352,22 @@
                             "Name": "site",
                             "Required": "N",
                             "Default": "",
-                            "Type": "collection",
-                            "Description": "TODO: Object, not collection",
+                            "Type": "object",
+                            "Description": "",
                             "parameters": [
                                 {
                                     "Name": "site_credentials",
                                     "Required": "N",
                                     "Default": "",
-                                    "Type": "collection",
-                                    "Description": "TODO: Object, not collection",
+                                    "Type": "object",
+                                    "Description": "",
                                     "parameters": [
                                         {
                                             "Name": "credential",
                                             "Required": "N",
                                             "Default": "",
-                                            "Type": "collection",
-                                            "Description": "TODO: Object, not collection",
+                                            "Type": "object",
+                                            "Description": "",
                                             "parameters": [
                                                 {
                                                     "Name": "username",
@@ -683,8 +683,8 @@
                             "Name": "vuln_policy",
                             "Required": "N",
                             "Default": "",
-                            "Type":"collection",
-                            "Description":"TODO: object instead of collection",
+                            "Type":"object",
+                            "Description":"",
                             "parameters": [
                                 {
                                     "Name": "id",
@@ -731,8 +731,8 @@
                             "Name": "site",
                             "Required": "N",
                             "Default": "",
-                            "Type": "collection",
-                            "Description": "TODO: Object, not collection",
+                            "Type": "object",
+                            "Description": "",
                             "parameters": [
                                 {
                                     "Name": "entry_points",
@@ -799,22 +799,22 @@
                             "Name": "site",
                             "Required": "N",
                             "Default": "",
-                            "Type": "collection",
-                            "Description": "TODO: Object, not collection",
+                            "Type": "object",
+                            "Description": "",
                             "parameters": [
                                 {
                                     "Name": "site_credentials",
                                     "Required": "N",
                                     "Default": "",
-                                    "Type": "collection",
-                                    "Description": "TODO: Object, not collection",
+                                    "Type": "object",
+                                    "Description": "",
                                     "parameters": [
                                         {
                                             "Name": "credential",
                                             "Required": "N",
                                             "Default": "",
-                                            "Type": "collection",
-                                            "Description": "TODO: Object, not collection",
+                                            "Type": "object",
+                                            "Description": "",
                                             "parameters": [
                                                 {
                                                     "Name": "username",
@@ -905,22 +905,22 @@
                             "Name": "site",
                             "Required": "N",
                             "Default": "",
-                            "Type": "collection",
-                            "Description": "TODO: Object, not collection",
+                            "Type": "object",
+                            "Description": "",
                             "parameters": [
                                 {
                                     "Name": "site_credentials",
                                     "Required": "N",
                                     "Default": "",
-                                    "Type": "collection",
-                                    "Description": "TODO: Object, not collection",
+                                    "Type": "object",
+                                    "Description": "",
                                     "parameters": [
                                         {
                                             "Name": "credential",
                                             "Required": "N",
                                             "Default": "",
-                                            "Type": "collection",
-                                            "Description": "TODO: Object, not collection",
+                                            "Type": "object",
+                                            "Description": "",
                                             "parameters": [
                                                 {
                                                     "Name": "username",
@@ -1018,22 +1018,22 @@
                             "Name": "site",
                             "Required": "N",
                             "Default": "",
-                            "Type": "collection",
-                            "Description": "TODO: Object, not collection",
+                            "Type": "object",
+                            "Description": "",
                             "parameters": [
                                 {
                                     "Name": "allowed_hosts",
                                     "Required": "N",
                                     "Default": "",
-                                    "Type": "collection",
-                                    "Description": "TODO: Object, not collection",
+                                    "Type": "object",
+                                    "Description": "",
                                     "parameters": [
                                         {
                                             "Name": "host",
                                             "Required": "N",
                                             "Default": "",
-                                            "Type": "collection",
-                                            "Description": "TODO: Object, not collection",
+                                            "Type": "object",
+                                            "Description": "",
                                             "parameters": [
                                                 {
                                                     "Name": "scheme",
@@ -1089,22 +1089,22 @@
                             "Name": "site",
                             "Required": "N",
                             "Default": "",
-                            "Type": "collection",
-                            "Description": "TODO: Object, not collection",
+                            "Type": "object",
+                            "Description": "",
                             "parameters": [
                                 {
                                     "Name": "allowed_hosts",
                                     "Required": "N",
                                     "Default": "",
-                                    "Type": "collection",
-                                    "Description": "TODO: Object, not collection",
+                                    "Type": "object",
+                                    "Description": "",
                                     "parameters": [
                                         {
                                             "Name": "host",
                                             "Required": "N",
                                             "Default": "",
-                                            "Type": "collection",
-                                            "Description": "TODO: Object, not collection",
+                                            "Type": "object",
+                                            "Description": "",
                                             "parameters": [
                                                 {
                                                     "Name": "scheme",

@@ -237,7 +237,7 @@
                             "Name": "scan_schedule",
                             "Required": "N",
                             "Type": "object",
-                            "Description": "TODO: Change from 'collection' to 'object'. | stub",
+                            "Description": "| stub",
                             "parameters": [
                                 {
                                     "Name": "specs",
@@ -258,14 +258,14 @@
                                             "Required": "N",
                                             "Default": "",
                                             "Type": "string",
-                                            "Description": " word word word word word (optional word) [where 'word' stands for any set of non-whitespace character| stub"
+                                            "Description": " digits digits digits digits digits (optional digits) [where 'digits' stands for any set of non-whitespace digits]| stub"
                                         },
                                         {
                                             "Name": "duration",
                                             "Required": "N",
                                             "Default": "",
-                                            "Type": "string",
-                                            "Description": "This probably shouldn't be string."
+                                            "Type": "integer",
+                                            "Description": "The unit of measure is 'seconds'."
                                         },
                                         {
                                             "Name": "timezone",
@@ -296,8 +296,8 @@
                         {
                             "Name": "appliance",
                             "Required": "N",
-                            "Type": "collection",
-                            "Description": "TODO: Change from 'collection' to 'object'. | stub",
+                            "Type": "object",
+                            "Description": "| stub",
                             "parameters": [
                                 {
                                     "Name": "id",
@@ -397,14 +397,14 @@
                                     "Required": "N",
                                     "Default": "",
                                     "Type": "string",
-                                    "Description": " word word word word word (optional word) [where 'word' stands for any set of non-whitespace character| stub"
+                                    "Description": " digits digits digits digits digits (optional digits) [where 'digits' stands for any set of non-whitespace digits]| stub"
                                 },
                                 {
                                     "Name": "duration",
                                     "Required": "N",
                                     "Default": "",
-                                    "Type": "string",
-                                    "Description": "This probably shouldn't be string."
+                                    "Type": "integer",
+                                    "Description": "The unit of measure is 'seconds'."
                                 },
                                 {
                                     "Name": "timezone",
@@ -561,8 +561,8 @@
                         {
                             "Name": "appliance",
                             "Required": "N",
-                            "Type": "collection",
-                            "Description": "TODO: Change from 'collection' to 'object'. | stub ",
+                            "Type": "object",
+                            "Description": "| stub ",
                             "parameters": [
                                 {
                                     "Name": "id",
