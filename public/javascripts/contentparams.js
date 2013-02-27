@@ -24,7 +24,6 @@
      operated on recursively.
     */
 
-    // Handle table
     function handleTable( table , type ) {
         if (type == 'collection') {
             var collectionValue = handleCollection(table.children('tbody'));
@@ -109,7 +108,7 @@
             var val = rowValue( $(this) );
             var attr = $(this).attr('class');
             // This is to ignore the row which contains the minimize
-            // collection button.
+            // list button.
             if ( attr != '' &&  undefined != attr ) {
                 collectionsArray.push( val );
             }
@@ -126,6 +125,7 @@
 
     function rowValue( row ) {
         var type = row.children('td.type').text();
+        type = type.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 
         // '' option for list type, where parameter fields do not have an
         // associated type field. Could add type field back and not have this
@@ -256,54 +256,102 @@
     $("td.type:contains('collection')").each(function() {
         $(this).siblings('td.name')
             .append("<br/><a href='#' class='add-collection' onclick='return false'>Add collection</a>");
+    // The onclick='return false' may be no good.
     });
     
-    // Add new set of collections to the page.
-    $('.add-collection').click(function() {
-        var originalCollection = $(this).parent()
-                                    .siblings('td.parameter')
-                                    .find('tr.collection-original');
+    // What I'm looking at doing:
+    // *Click 'Add collection'
+    // *Clone node and sub-nodes. (basically clone the row that the node 
+    // belongs to)
+    //      - What exactly am I aiming to copy?
+    //          = The *rows* of the collection table, not the collection row, 
+    //          not the collection table.
+    //      ^ Implementation details
+    //          & Get tbody
+    //          & Get appropriate rows from this tbody
+    //          & Sounds like the place for the recursion to occur
+    //              & Have to check the types of the rows within...
+    //          & Keep the minimize row <--- IMPORTANT, minimize row looks like
+    //          it's implemented generally enough for it to not break stuff.
+    //          Note that there should only be one minimize row, or something
+    //          along those lines for each add... this should probably be fleshed
+    //          out more.
+    // *Change collection-original for top node to appropriate class
+    // *Remove unnecessary sub-nodes. (anything that isn't collection-original
+    // in the sub-notes/sub-rows)
+    // *Put updated block into correct position. 
+    $('td.name').on('click', 'a.add-collection', function( event ) {
+        event.stopPropagation();
+
+        var collectionClass = $(this).parent()
+                            .siblings('td.parameter')
+                            .children('table.parameters')
+                            .children('tbody')
+                            .children(':first')
+                            .attr('class');
+
+        collectionClass = collectionClass.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
         
+        var collectionBody = $(this).parent()
+                            .siblings('td.parameter')
+                            .children('table.parameters')
+                            .children('tbody')
+                            .clone(true, true);
+
         // Obtain identifier class of the current last element in the list of
         // collections
-        var lastClass = $(this).parent().siblings('td.parameter')
+        var lastRow = $(this).parent().siblings('td.parameter')
             .children('table.parameters')
             .children('tbody')
             .children()
-            .last().attr('class');
+            .last();
 
-        // Determine the numeric identifier from the class, then increment and 
+        // Determine the numeric identifier from the class, then increment and
         // pass on value
         var collectionCount = 0;
-        if ( /collection-original/.test(lastClass) ) {
+        if (lastRow.hasClass('collection-original')) { 
             collectionCount = 1;
         }
         else {
-            collectionCount = parseInt(lastClass.replace(/collection-new-/g, ''));
+            collectionCount = parseInt(lastRow.attr('class').replace(/collection-new-/g, ''));
             collectionCount++;
         }
 
-        // Add the new collection
+        newCollectionObject(collectionBody, collectionClass, collectionCount);
+
         $(this).parent().siblings('td.parameter')
-            .children('table.parameters')
-            .children('tbody')
-            .append(newCollection(originalCollection, collectionCount));
+                    .children('table.parameters')
+                    .children('tbody')
+                    .append(collectionBody.children());
     });
 
-    function newCollection( originalCollection, collectionCount ) {
-        var string;
-        var prefix = "<tr class='collection-new-",
-            prefixEnd = "' >",
-            suffix = "</tr>";
+// So the added collections do have the event handler thing,
+// it's that they do not have the 'collection-original' class, and so they are 
+// being deleted before they can be added.
+// It seems like getting the class of the row from which was clicked on
+// and using that inplace of 'collection-original'... should work...
+    function newCollectionObject(collectionBody, collectionClass, collectionCount) {
+        // Rows
+        collectionBody.children().each(function() {
+            var type = $(this).children('td.type').text();
+            type = type.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 
-        string += "<tr><td><a href='#' class='collection-minimize' onclick='return false'>Minimize collection</a></td></tr>";
-        for (var i = 0; i < originalCollection.length; i++) {
-            string += prefix + collectionCount  + prefixEnd
-                + originalCollection.get(i).innerHTML
-                + suffix;
-        }
-
-        return string;
+            if (!$(this).hasClass(collectionClass)) {
+                $(this).remove();
+            }
+            else {
+                $(this).removeClass(collectionClass);
+                $(this).addClass('collection-new-'+collectionCount);
+                if (type == 'collection') {
+                    newCollectionObject($(this).children('td.parameter') 
+                                            .children('table.parameters')
+                                            .children('tbody'),
+                                          collectionClass,
+                                          collectionCount
+                                        );
+                }
+            }
+        });
     }
 
     //
@@ -333,10 +381,11 @@
     // 
     $('td').on("click", "a.collection-minimize, a.list-minimize", function(event) {
         event.stopPropagation();
+        // Get the class of the following row
         var minimize_class = $(this).parent().parent().next().attr('class');
         // trim whitespace
-        minimize_class = minimize_class.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
-        //console.log($(this).parent().parent().siblings('.' + minimize_class));
+        minimize_class = minimize_class.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+        // Minimize all following rows of the same class.
         $(this).parent().parent().siblings('.' + minimize_class).slideToggle();
     });
 })();
