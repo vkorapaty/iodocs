@@ -240,6 +240,34 @@
                             "Description": "| stub",
                             "parameters": [
                                 {
+                                    "Name": "timezone",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "start_date",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": "should work for HTTP::Date::parse_date"
+                                },
+                                {
+                                    "Name": "end_date",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "name",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "",
+                                    "Description": ""
+                                },
+                                {
                                     "Name": "specs",
                                     "Required": "N",
                                     "Default": "",
@@ -258,7 +286,7 @@
                                             "Required": "N",
                                             "Default": "",
                                             "Type": "string",
-                                            "Description": " digits digits digits digits digits (optional digits) [where 'digits' stands for any set of non-whitespace digits]| stub"
+                                            "Description": ""
                                         },
                                         {
                                             "Name": "duration",
@@ -266,13 +294,6 @@
                                             "Default": "",
                                             "Type": "integer",
                                             "Description": "The unit of measure is 'seconds'."
-                                        },
-                                        {
-                                            "Name": "timezone",
-                                            "Required": "N",
-                                            "Default": "",
-                                            "Type": "string",
-                                            "Description": ""
                                         },
                                         {
                                             "Name": "weekday",
@@ -379,6 +400,34 @@
                     "contentType":["application/json","application/xml"],
                     "parameters": [
                         {
+                            "Name": "timezone",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "string",
+                            "Description": ""
+                        },
+                        {
+                            "Name": "start_date",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "string",
+                            "Description": "should work for HTTP::Date::parse_date"
+                        },
+                        {
+                            "Name": "end_date",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "",
+                            "Description": ""
+                        },
+                        {
+                            "Name": "name",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "",
+                            "Description": ""
+                        },
+                        {
                             "Name": "specs",
                             "Required": "N",
                             "Default": "",
@@ -405,13 +454,6 @@
                                     "Default": "",
                                     "Type": "integer",
                                     "Description": "The unit of measure is 'seconds'."
-                                },
-                                {
-                                    "Name": "timezone",
-                                    "Required": "N",
-                                    "Default": "",
-                                    "Type": "string",
-                                    "Description": ""
                                 },
                                 {
                                     "Name": "weekday",

@@ -503,93 +503,68 @@
                                     ]
                                 },
                                 {
-                                    "Name": "schedule",
+                                    "Name": "timezone",
                                     "Required": "N",
                                     "Default": "",
-                                    "Type": "object",
+                                    "Type": "string",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "start_date",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": "should work for HTTP::Date::parse_date"
+                                },
+                                {
+                                    "Name": "end_date",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "name",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "specs",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "collection",
                                     "Description": "",
                                     "parameters": [
                                         {
-                                            "Name": "timezone",
+                                            "Name": "type",
                                             "Required": "N",
                                             "Default": "",
                                             "Type": "string",
                                             "Description": ""
                                         },
                                         {
-                                            "Name": "start_date",
+                                            "Name": "cron_spec",
                                             "Required": "N",
                                             "Default": "",
                                             "Type": "string",
-                                            "Description": "should work for HTTP::Date::parse_date"
-                                        },
-                                        {
-                                            "Name": "end_date",
-                                            "Required": "N",
-                                            "Default": "",
-                                            "Type": "",
                                             "Description": ""
                                         },
                                         {
-                                            "Name": "name",
+                                            "Name": "duration",
                                             "Required": "N",
                                             "Default": "",
-                                            "Type": "",
-                                            "Description": ""
+                                            "Type": "integer",
+                                            "Description": "The unit of measure is 'seconds'."
                                         },
                                         {
-                                            "Name": "specs",
+                                            "Name": "weekday",
                                             "Required": "N",
                                             "Default": "",
-                                            "Type": "collection",
-                                            "Description": "",
-                                            "parameters": [
-                                                {
-                                                    "Name": "spec",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "collection",
-                                                    "Description": "",
-                                                    "parameters": [
-                                                        {
-                                                            "Name": "type",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "string",
-                                                            "Description": ""
-                                                        },
-                                                        {
-                                                            "Name": "cron_spec",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "string",
-                                                            "Description": ""
-                                                        },
-                                                        {
-                                                            "Name": "duration",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "integer",
-                                                            "Description": "The unit of measure is 'seconds'."
-                                                        },
-                                                        {
-                                                            "Name": "timezone",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "string",
-                                                            "Description": ""
-                                                        },
-                                                        {
-                                                            "Name": "weekday",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "enumerated",
-                                                            "EnumeratedList": [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ],
-                                                            "Description": ""
-                                                        }
-                                                    ]
-                                                }
-                                            ]
+                                            "Type": "enumerated",
+                                            "EnumeratedList": [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ],
+                                            "Description": ""
                                         }
                                     ]
                                 }
@@ -812,102 +787,68 @@
                                     ]
                                 },
                                 {
-                                    "Name": "schedule",
+                                    "Name": "timezone",
                                     "Required": "N",
                                     "Default": "",
-                                    "Type": "object",
+                                    "Type": "string",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "start_date",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": "should work for HTTP::Date::parse_date"
+                                },
+                                {
+                                    "Name": "end_date",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "name",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "specs",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "collection",
                                     "Description": "",
                                     "parameters": [
                                         {
-                                            "Name": "schedule",
+                                            "Name": "type",
                                             "Required": "N",
                                             "Default": "",
-                                            "Type": "collection",
-                                            "Description": "Looking for schedule inside of schedule. I'm tempted to question my reading comprehension. Looks like it should be an object (with stuff).",
-                                            "parameters": [
-                                                {
-                                                    "Name": "timezone",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "string",
-                                                    "Description": ""
-                                                },
-                                                {
-                                                    "Name": "start_date",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "string",
-                                                    "Description": "should work for HTTP::Date::parse_date"
-                                                },
-                                                {
-                                                    "Name": "end_date",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "",
-                                                    "Description": ""
-                                                },
-                                                {
-                                                    "Name": "name",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "",
-                                                    "Description": ""
-                                                },
-                                                {
-                                                    "Name": "specs",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "collection",
-                                                    "Description": "",
-                                                    "parameters": [
-                                                        {
-                                                            "Name": "spec",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "collection",
-                                                            "Description": "",
-                                                            "parameters": [
-                                                                {
-                                                                    "Name": "type",
-                                                                    "Required": "N",
-                                                                    "Default": "",
-                                                                    "Type": "string",
-                                                                    "Description": ""
-                                                                },
-                                                                {
-                                                                    "Name": "cron_spec",
-                                                                    "Required": "N",
-                                                                    "Default": "",
-                                                                    "Type": "string",
-                                                                    "Description": ""
-                                                                },
-                                                                {
-                                                                    "Name": "duration",
-                                                                    "Required": "N",
-                                                                    "Default": "",
-                                                                    "Type": "integer",
-                                                                    "Description": "The unit of measure is 'seconds'."
-                                                                },
-                                                                {
-                                                                    "Name": "timezone",
-                                                                    "Required": "N",
-                                                                    "Default": "",
-                                                                    "Type": "string",
-                                                                    "Description": ""
-                                                                },
-                                                                {
-                                                                    "Name": "weekday",
-                                                                    "Required": "N",
-                                                                    "Default": "",
-                                                                    "Type": "enumerated",
-                                                                    "EnumeratedList": [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ],
-                                                                    "Description": ""
-                                                                }
-                                                            ]
-                                                        }
-                                                    ]
-                                                }
-                                            ]
+                                            "Type": "string",
+                                            "Description": ""
+                                        },
+                                        {
+                                            "Name": "cron_spec",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "string",
+                                            "Description": ""
+                                        },
+                                        {
+                                            "Name": "duration",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "integer",
+                                            "Description": "The unit of measure is 'seconds'."
+                                        },
+                                        {
+                                            "Name": "weekday",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "enumerated",
+                                            "EnumeratedList": [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ],
+                                            "Description": ""
                                         }
                                     ]
                                 }
@@ -1148,93 +1089,68 @@
                                     ]
                                 },
                                 {
-                                    "Name": "schedule",
+                                    "Name": "timezone",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "start_date",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": "should work for HTTP::Date::parse_date"
+                                },
+                                {
+                                    "Name": "end_date",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "name",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "specs",
                                     "Required": "N",
                                     "Default": "",
                                     "Type": "collection",
-                                    "Description": "Collection or object? Looks like an object. Not sure this is necessary in POST.",
+                                    "Description": "",
                                     "parameters": [
                                         {
-                                            "Name": "schedule",
+                                            "Name": "type",
                                             "Required": "N",
                                             "Default": "",
-                                            "Type": "collection",
-                                            "Description": "Looking for schedule inside of schedule. I'm tempted to question my reading comprehension. Looks like it should be an object (with stuff).",
-                                            "parameters": [
-                                                {
-                                                    "Name": "timezone",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "string",
-                                                    "Description": ""
-                                                },
-                                                {
-                                                    "Name": "start_date",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "string",
-                                                    "Description": "should work for HTTP::Date::parse_date"
-                                                },
-                                                {
-                                                    "Name": "end_date",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "",
-                                                    "Description": ""
-                                                },
-                                                {
-                                                    "Name": "name",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "",
-                                                    "Description": ""
-                                                },
-                                                {
-                                                    "Name": "spec",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "collection",
-                                                    "Description": "",
-                                                    "parameters": [
-                                                        {
-                                                            "Name": "type",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "string",
-                                                            "Description": ""
-                                                        },
-                                                        {
-                                                            "Name": "cron_spec",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "string",
-                                                            "Description": ""
-                                                        },
-                                                        {
-                                                            "Name": "duration",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "integer",
-                                                            "Description": "The unit of measure is 'seconds'."
-                                                        },
-                                                        {
-                                                            "Name": "timezone",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "string",
-                                                            "Description": ""
-                                                        },
-                                                        {
-                                                            "Name": "weekday",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "enumerated",
-                                                            "EnumeratedList": [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ],
-                                                            "Description": ""
-                                                        }
-                                                    ]
-                                                }
-                                            ]
+                                            "Type": "string",
+                                            "Description": ""
+                                        },
+                                        {
+                                            "Name": "cron_spec",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "string",
+                                            "Description": ""
+                                        },
+                                        {
+                                            "Name": "duration",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "integer",
+                                            "Description": "The unit of measure is 'seconds'."
+                                        },
+                                        {
+                                            "Name": "weekday",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "enumerated",
+                                            "EnumeratedList": [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ],
+                                            "Description": ""
                                         }
                                     ]
                                 }
@@ -1430,93 +1346,68 @@
                                     ]
                                 },
                                 {
-                                    "Name": "schedule",
+                                    "Name": "timezone",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "start_date",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": "should work for HTTP::Date::parse_date"
+                                },
+                                {
+                                    "Name": "end_date",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "name",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "specs",
                                     "Required": "N",
                                     "Default": "",
                                     "Type": "collection",
-                                    "Description": "Collection or object? Looks like an object. Not sure this is necessary in POST.",
+                                    "Description": "",
                                     "parameters": [
                                         {
-                                            "Name": "schedule",
+                                            "Name": "type",
                                             "Required": "N",
                                             "Default": "",
-                                            "Type": "collection",
-                                            "Description": "Looking for schedule inside of schedule. I'm tempted to question my reading comprehension. Looks like it should be an object (with stuff).",
-                                            "parameters": [
-                                                {
-                                                    "Name": "timezone",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "string",
-                                                    "Description": ""
-                                                },
-                                                {
-                                                    "Name": "start_date",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "string",
-                                                    "Description": "should work for HTTP::Date::parse_date"
-                                                },
-                                                {
-                                                    "Name": "end_date",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "",
-                                                    "Description": ""
-                                                },
-                                                {
-                                                    "Name": "name",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "",
-                                                    "Description": ""
-                                                },
-                                                {
-                                                    "Name": "spec",
-                                                    "Required": "N",
-                                                    "Default": "",
-                                                    "Type": "collection",
-                                                    "Description": "'cron_spec' or 'cron_string'? It looks like cron_string is ",
-                                                    "parameters": [
-                                                        {
-                                                            "Name": "type",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "string",
-                                                            "Description": ""
-                                                        },
-                                                        {
-                                                            "Name": "cron_spec",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "string",
-                                                            "Description": ""
-                                                        },
-                                                        {
-                                                            "Name": "duration",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "integer",
-                                                            "Description": "The unit of measure is 'seconds'."
-                                                        },
-                                                        {
-                                                            "Name": "timezone",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "string",
-                                                            "Description": ""
-                                                        },
-                                                        {
-                                                            "Name": "weekday",
-                                                            "Required": "N",
-                                                            "Default": "",
-                                                            "Type": "enumerated",
-                                                            "EnumeratedList": [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ],
-                                                            "Description": ""
-                                                        }
-                                                    ]
-                                                }
-                                            ]
+                                            "Type": "string",
+                                            "Description": ""
+                                        },
+                                        {
+                                            "Name": "cron_spec",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "string",
+                                            "Description": ""
+                                        },
+                                        {
+                                            "Name": "duration",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "integer",
+                                            "Description": "The unit of measure is 'seconds'."
+                                        },
+                                        {
+                                            "Name": "weekday",
+                                            "Required": "N",
+                                            "Default": "",
+                                            "Type": "enumerated",
+                                            "EnumeratedList": [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ],
+                                            "Description": ""
                                         }
                                     ]
                                 }
