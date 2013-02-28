@@ -476,7 +476,7 @@
                             "Default": "",
                             "Type":"collection",
                             "Description":"",
-                            "parmeters": [
+                            "parameters": [
                                 {
                                     "Name": "cidr",
                                     "Required": "N",
