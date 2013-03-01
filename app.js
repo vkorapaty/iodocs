@@ -284,7 +284,7 @@ function processRequest(req, res, next) {
         httpMethod = reqQuery.httpMethod,
         apiKey = reqQuery.apiKey,
         apiSecret = reqQuery.apiSecret,
-        apiName = reqQuery.apiName
+        apiName = reqQuery.apiName,
         apiConfig = apisConfig[apiName],
         key = req.sessionID + ':' + apiName;
 
@@ -319,7 +319,13 @@ function processRequest(req, res, next) {
         }
     }
 
-    var baseHostInfo = apiConfig.baseURL.split(':');
+    var baseHostInfo;
+    if (reqQuery.apiServerInfo !== undefined && reqQuery.apiServerInfo !=='') {
+        baseHostInfo = reqQuery.apiServerInfo.split(':');
+    }
+    else {
+        baseHostInfo = apiConfig.baseURL.split(':');
+    }
     var baseHostUrl = baseHostInfo[0],
         baseHostPort = (baseHostInfo.length > 1) ? baseHostInfo[1] : "";
     var headers = {};
