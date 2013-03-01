@@ -1,3 +1,4 @@
+include mixins/content_parameters
 h1=apiInfo.name 
 - if (session.authed && apiInfo.oauth && apiInfo.oauth.type =='three-legged')
     - var authed ='authed'
@@ -156,5 +157,21 @@ ul
                                                         a(href='#', class='remove') Remove
                                         a(href='#', class='add-headers') Add Header
                                     // Create header fields and button to add/remove headers.
+
+                            - if (method.content)
+                                div.content
+                                    h4.title
+                                        div.indicator
+                                        span Content
+                                    - if (method.content.parameters != undefined)
+                                        - if (method.content.parameters.length > 0)
+                                            mixin content(apiInfo, method.content.parameters)
+                                    div.contentType
+                                        select(name='contentType')
+                                            - each choice in method.content.contentType
+                                                option(value=choice) #{choice}
+                                    div.fields
+                                        textarea(columns='80', rows='10', id='requestContent', name='requestContent', placeholder='{}')
+                                        pre(class='requestContent prettyprint')
                             - if (!method['read-only'])
                                 input(type='submit', id=method.MethodName, value='Try it!')
