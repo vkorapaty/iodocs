@@ -237,8 +237,36 @@
                             "Name": "scan_schedule",
                             "Required": "N",
                             "Type": "object",
-                            "Description": "TODO: Change from 'collection' to 'object'. | stub",
+                            "Description": "| stub",
                             "parameters": [
+                                {
+                                    "Name": "timezone",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "start_date",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": "should work for HTTP::Date::parse_date"
+                                },
+                                {
+                                    "Name": "end_date",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "name",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "",
+                                    "Description": ""
+                                },
                                 {
                                     "Name": "specs",
                                     "Required": "N",
@@ -258,21 +286,14 @@
                                             "Required": "N",
                                             "Default": "",
                                             "Type": "string",
-                                            "Description": " word word word word word (optional word) [where 'word' stands for any set of non-whitespace character| stub"
+                                            "Description": ""
                                         },
                                         {
                                             "Name": "duration",
                                             "Required": "N",
                                             "Default": "",
-                                            "Type": "string",
-                                            "Description": "This probably shouldn't be string."
-                                        },
-                                        {
-                                            "Name": "timezone",
-                                            "Required": "N",
-                                            "Default": "",
-                                            "Type": "string",
-                                            "Description": ""
+                                            "Type": "integer",
+                                            "Description": "The unit of measure is 'seconds'."
                                         },
                                         {
                                             "Name": "weekday",
@@ -296,8 +317,8 @@
                         {
                             "Name": "appliance",
                             "Required": "N",
-                            "Type": "collection",
-                            "Description": "TODO: Change from 'collection' to 'object'. | stub",
+                            "Type": "object",
+                            "Description": "| stub",
                             "parameters": [
                                 {
                                     "Name": "id",
@@ -379,6 +400,34 @@
                     "contentType":["application/json","application/xml"],
                     "parameters": [
                         {
+                            "Name": "timezone",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "string",
+                            "Description": ""
+                        },
+                        {
+                            "Name": "start_date",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "string",
+                            "Description": "should work for HTTP::Date::parse_date"
+                        },
+                        {
+                            "Name": "end_date",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "",
+                            "Description": ""
+                        },
+                        {
+                            "Name": "name",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "",
+                            "Description": ""
+                        },
+                        {
                             "Name": "specs",
                             "Required": "N",
                             "Default": "",
@@ -397,21 +446,14 @@
                                     "Required": "N",
                                     "Default": "",
                                     "Type": "string",
-                                    "Description": " word word word word word (optional word) [where 'word' stands for any set of non-whitespace character| stub"
+                                    "Description": " digits digits digits digits digits (optional digits) [where 'digits' stands for any set of non-whitespace digits]| stub"
                                 },
                                 {
                                     "Name": "duration",
                                     "Required": "N",
                                     "Default": "",
-                                    "Type": "string",
-                                    "Description": "This probably shouldn't be string."
-                                },
-                                {
-                                    "Name": "timezone",
-                                    "Required": "N",
-                                    "Default": "",
-                                    "Type": "string",
-                                    "Description": ""
+                                    "Type": "integer",
+                                    "Description": "The unit of measure is 'seconds'."
                                 },
                                 {
                                     "Name": "weekday",
@@ -561,8 +603,8 @@
                         {
                             "Name": "appliance",
                             "Required": "N",
-                            "Type": "collection",
-                            "Description": "TODO: Change from 'collection' to 'object'. | stub ",
+                            "Type": "object",
+                            "Description": "| stub ",
                             "parameters": [
                                 {
                                     "Name": "id",

@@ -197,7 +197,7 @@
                 ]
             },
             {
-                "MethodName": "Update user in group",
+                "MethodName": "Update user permissions in group",
                 "Synopsis": "Update an existing user with a new role. | stub",
                 "HTTPMethod": "PUT",
                 "URI": "/:client_id/group/:group_id/role/:user_id",
