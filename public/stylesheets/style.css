@@ -223,6 +223,8 @@ textarea {
 
 textarea {
   overflow: auto;
+  width: 99%;
+  height: 320px;
 }
 
 input::-moz-focus-inner,
@@ -810,7 +812,6 @@ dd {
   h2, h3 {
     page-break-after: avoid;
   }
-
 }
 
 /* Making it possible to see nested content parameters */

@@ -21,6 +21,15 @@ mixin content(apiInfo, contentArray, className, contentType)
                     th Description
         tbody
             - var paramCount =0
+            - if (contentType == 'collection' || contentType == 'list' )
+                - if (contentType == 'collection')
+                    tr.collection-original
+                        td
+                            a(href='#', onclick='return false', class='#{contentType}-minimize') Minimize #{contentType}
+                - else 
+                    tr
+                        td
+                            a(href='#', onclick='return false', class='#{contentType}-minimize') Minimize #{contentType}
             - each parameter in contentArray
                 - paramCount++
                 div(id='param' + paramCount)

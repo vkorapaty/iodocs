@@ -249,4 +249,143 @@
         goal.val(JSON.stringify(dataObject, null, 2));
     }
 
+    //
+    // Adding new collections to the page
+    // 
+    // First thing, add 'add' button to parameters of type 'collection'
+    $("td.type:contains('collection')").each(function() {
+        $(this).siblings('td.name')
+            .append("<br/><a href='#' class='add-collection' onclick='return false'>Add collection</a>");
+    // The onclick='return false' may be no good.
+    });
+    
+    // What I'm looking at doing:
+    // *Click 'Add collection'
+    // *Clone node and sub-nodes. (basically clone the row that the node 
+    // belongs to)
+    //      - What exactly am I aiming to copy?
+    //          = The *rows* of the collection table, not the collection row, 
+    //          not the collection table.
+    //      ^ Implementation details
+    //          & Get tbody
+    //          & Get appropriate rows from this tbody
+    //          & Sounds like the place for the recursion to occur
+    //              & Have to check the types of the rows within...
+    //          & Keep the minimize row <--- IMPORTANT, minimize row looks like
+    //          it's implemented generally enough for it to not break stuff.
+    //          Note that there should only be one minimize row, or something
+    //          along those lines for each add... this should probably be fleshed
+    //          out more.
+    // *Change collection-original for top node to appropriate class
+    // *Remove unnecessary sub-nodes. (anything that isn't collection-original
+    // in the sub-notes/sub-rows)
+    // *Put updated block into correct position. 
+    $('td.name').on('click', 'a.add-collection', function( event ) {
+        event.stopPropagation();
+
+        var collectionClass = $(this).parent()
+                            .siblings('td.parameter')
+                            .children('table.parameters')
+                            .children('tbody')
+                            .children(':first')
+                            .attr('class');
+
+        collectionClass = collectionClass.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+        
+        var collectionBody = $(this).parent()
+                            .siblings('td.parameter')
+                            .children('table.parameters')
+                            .children('tbody')
+                            .clone(true, true);
+
+        // Obtain identifier class of the current last element in the list of
+        // collections
+        var lastRow = $(this).parent().siblings('td.parameter')
+            .children('table.parameters')
+            .children('tbody')
+            .children()
+            .last();
+
+        // Determine the numeric identifier from the class, then increment and
+        // pass on value
+        var collectionCount = 0;
+        if (lastRow.hasClass('collection-original')) { 
+            collectionCount = 1;
+        }
+        else {
+            collectionCount = parseInt(lastRow.attr('class').replace(/collection-new-/g, ''));
+            collectionCount++;
+        }
+
+        newCollectionObject(collectionBody, collectionClass, collectionCount);
+
+        $(this).parent().siblings('td.parameter')
+                    .children('table.parameters')
+                    .children('tbody')
+                    .append(collectionBody.children());
+    });
+
+// So the added collections do have the event handler thing,
+// it's that they do not have the 'collection-original' class, and so they are 
+// being deleted before they can be added.
+// It seems like getting the class of the row from which was clicked on
+// and using that inplace of 'collection-original'... should work...
+    function newCollectionObject(collectionBody, collectionClass, collectionCount) {
+        // Rows
+        collectionBody.children().each(function() {
+            var type = $(this).children('td.type').text();
+            type = type.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+
+            if (!$(this).hasClass(collectionClass)) {
+                $(this).remove();
+            }
+            else {
+                $(this).removeClass(collectionClass);
+                $(this).addClass('collection-new-'+collectionCount);
+                if (type == 'collection') {
+                    newCollectionObject($(this).children('td.parameter') 
+                                            .children('table.parameters')
+                                            .children('tbody'),
+                                          collectionClass,
+                                          collectionCount
+                                        );
+                }
+            }
+        });
+    }
+
+    //
+    // Adding addition fields for list type
+    // 
+    // First thing, add 'add' button to parameters of type 'list'
+    $("td.type:contains('list')").each(function() {
+        $(this).siblings('td.name')
+            .append("<br/><a href='#' class='add-list' onclick='return false'>Add list field</a>");
+    });
+
+    // Add additional fields for list type element.
+    $('.add-list').click(function() {
+        var originalList = $(this).parent()
+                                    .siblings('td.parameter')
+                                    .find('tr.list-element');
+        
+        // Add the new list
+        $(this).parent().siblings('td.parameter')
+            .children('table.parameters')
+            .children('tbody')
+            .append(originalList.get(0).outerHTML);
+    });
+
+    //
+    // Minimize functionality for collections and lists
+    // 
+    $('td').on("click", "a.collection-minimize, a.list-minimize", function(event) {
+        event.stopPropagation();
+        // Get the class of the following row
+        var minimize_class = $(this).parent().parent().next().attr('class');
+        // trim whitespace
+        minimize_class = minimize_class.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+        // Minimize all following rows of the same class.
+        $(this).parent().parent().siblings('.' + minimize_class).slideToggle();
+    });
 })();
