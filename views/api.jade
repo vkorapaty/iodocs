@@ -13,9 +13,6 @@ form#credentials
              span Authenticated with OAuth
              img(src='/images/accept.png')
          - else
-             h2 API Credentials
-               img(src='/images/key.png')
-
              - if (apiInfo.oauth)
                  input(type='hidden', name='oauth', value='authrequired')
 
@@ -28,9 +25,6 @@ form#credentials
                  - var defaultSecret =apiInfo.auth.defaultSecret
              - else
                  - var defaultSecret =''
-             div
-                 label(for='key') API Key
-                 input(id='key', name='key', value=defaultKey, style='color=#EEEEEE')
              div
                  - if (apiInfo.oauth || apiInfo.signature)
                      label(for='secret') Shared Secret
