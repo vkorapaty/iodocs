@@ -6,7 +6,8 @@
         "publicPath": "/1",
         "headers" : {},
         "auth": "key",
-        "keyParam": "key"
+        "keyParam": "key",
+        "href": "https://raw.github.com/mashery/iodocs/master/public/data/klout.json"
     },
     "usatoday": {
         "name": "USA TODAY Census API",

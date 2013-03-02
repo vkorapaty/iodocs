@@ -34,6 +34,7 @@ var express     = require('express'),
     https       = require('https'),
     crypto      = require('crypto'),
     redis       = require('redis'),
+    request       = require('request'),
     RedisStore  = require('connect-redis')(express);
 
 // Configuration
@@ -78,6 +79,29 @@ try {
     console.error("File apiconfig.json not found or is invalid.");
     process.exit(1);
 }
+
+console.log("\nHELLOWORLD\n\n");
+console.log("\nconfigs\n\n");
+//console.log(apisConfig);
+for (var prop in apisConfig) {
+    if ( undefined != apisConfig[prop]['href']) {
+        console.log(prop + " = " + apisConfig[prop]['href']);
+    }
+}
+
+
+// Obtain apis here.
+// if (apisConfig[req.params.api]['href']) {
+// function webAPI (url) {
+//     request(url, function (error, response, body) {
+//         if (!error && response.statusCode == 200) {
+//             console.log(body);
+//             apiinfo = body;
+//             return JSON.parse(body);
+//         }
+//     });
+// }
+
 
 var app = module.exports = express.createServer();
 
@@ -674,7 +698,6 @@ app.dynamicHelpers({
         }
     }
 })
-
 
 //
 // Routes

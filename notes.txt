@@ -1,0 +1,1 @@
+temp.js shows that I need to figure out how to use callbacks. The https get call will is async, so I have to figure out how to make the apiDefinition block wait for the call to return, or stores all of the apis when the server starts. Storing the apis seems kind of silly, may want to add polling of the url for changes if I go down that route.
