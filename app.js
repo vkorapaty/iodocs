@@ -694,7 +694,21 @@ app.dynamicHelpers({
     },
     apiDefinition: function(req, res) {
         if (req.params.api) {
-            return require(__dirname + '/public/data/' + req.params.api + '.json');
+            if (apisConfig[req.params.api]['href']) {
+                // Totally not working.
+                return https.get(apisConfig[req.params.api]['href'], function(res, req, body) {
+                            res.on('data', function(d) {
+                                console.log(JSON.parse(d));
+                                process.stdout.write(d);
+                                return JSON.parse(d);
+                            });
+                        }).on('error', function(e) {
+                            console.error(e);
+                        });
+            }
+            else {
+                return require(__dirname + '/public/data/' + req.params.api + '.json');
+            }
         }
     }
 })
