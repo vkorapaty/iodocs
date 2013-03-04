@@ -63,7 +63,7 @@
                         "Required": "N",
                         "Type": "enumerated",
                         "EnumeratedList": ["application/json", "text/xml", "text/csv" ],
-                        "Description": "Format of results. | stub"
+                        "Description": "Format of results."
                     }
                 ]
             },
@@ -108,7 +108,7 @@
                         "Required": "N",
                         "Type": "enumerated",
                         "EnumeratedList": ["application/json", "text/xml", "text/csv" ],
-                        "Description": "Format of results. | stub"
+                        "Description": "Format of results."
                     }
                 ]
             },
@@ -255,7 +255,7 @@
                         "Required": "N",
                         "Type": "enumerated",
                         "EnumeratedList": ["application/json", "text/xml", "text/csv" ],
-                        "Description": "Format of results. | stub"
+                        "Description": "Format of results."
                     }
                 ]
             },

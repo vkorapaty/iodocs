@@ -62,7 +62,7 @@
             },
             {
                 "MethodName": "Find client privileges",
-                "Synopsis": "| stub",
+                "Synopsis": "",
                 "HTTPMethod": "GET",
                 "URI": "/:client_id/user/",
                 "RequiresOAuth": "N",
@@ -72,7 +72,7 @@
                         "Required": "Y",
                         "Type": "integer",
                         "Default":"",
-                        "Description": "client id | stub"
+                        "Description": "client id"
                     },
                     {
                         "Name": "accept_fmt",
@@ -85,7 +85,7 @@
             },
             {
                 "MethodName": "Modify existing user",
-                "Synopsis": "| stub",
+                "Synopsis": "",
                 "HTTPMethod": "PUT",
                 "URI": "/user/:user_id",
                 "RequiresOAuth": "N",
@@ -241,7 +241,7 @@
                         "Required": "Y",
                         "Type": "integer",
                         "Default":"",
-                        "Description": "user id | stub"
+                        "Description": "user id"
                     },
                     {
                         "Name": "format",
@@ -254,7 +254,7 @@
             },
             {
                 "MethodName": "Create new user",
-                "Synopsis": "| stub",
+                "Synopsis": "",
                 "HTTPMethod": "POST",
                 "URI": "/user",
                 "RequiresOAuth": "N",
@@ -434,7 +434,7 @@
             },
             {
                 "MethodName": "Delete user",
-                "Synopsis": "| stub",
+                "Synopsis": "",
                 "HTTPMethod": "DELETE",
                 "URI": "/user/:user_id",
                 "RequiresOAuth": "N",
@@ -444,7 +444,7 @@
                         "Required": "Y",
                         "Type": "integer",
                         "Default":"",
-                        "Description": "user id | stub"
+                        "Description": "user id"
                     },
                     {
                         "Name": "format",
