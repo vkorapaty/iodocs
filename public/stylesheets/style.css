@@ -830,3 +830,16 @@ div.clickable a {
     opacity: 0; /*workaround to make clickable in IE */
     filter: alpha(opacity=1); /*workaround to make clickable in IE */
 }
+
+/* Type-ahead search css */
+.ui-autocomplete-category {
+    font-weight: bold;
+    padding: .2em .4em;
+    margin: .8em 0 .2em;
+    line-height: 1.5;
+}
+
+/* Use to hide endpoints and methods that do not match for a given search */
+.hide-this {
+    display: none;
+}
