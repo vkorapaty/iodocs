@@ -223,6 +223,8 @@ textarea {
 
 textarea {
   overflow: auto;
+  width: 99%;
+  height: 320px;
 }
 
 input::-moz-focus-inner,
@@ -842,4 +844,9 @@ div.clickable a {
 /* Use to hide endpoints and methods that do not match for a given search */
 .hide-this {
     display: none;
+}
+
+/* Making it possible to see nested content parameters */
+div.content {
+    overflow-x: scroll;
 }
