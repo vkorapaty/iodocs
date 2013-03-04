@@ -672,11 +672,114 @@ app.dynamicHelpers({
     apiDefinition: function(req, res) {
         if (req.params.api) {
             var data = require(__dirname + '/public/data/' + req.params.api + '.json');
+            processApiIncludes(data);
             cachedApiInfo = data;
             return data;
         }
     }
-})
+});
+
+// This function was developed with the assumption that the starting input
+// would be the main api file, which would look like the following:
+//    { "endpoints":
+//        [...]
+//    }
+//
+// The include statement syntax looks like this:
+//    {
+//        "external":
+//        {
+//            "href": "./public/data/desired/data.json",
+//            "type": "list"
+//        }
+//    }
+// "type": "list" is used only when the contents of the file to be included is a list object 
+// that will be merged into an existing list. 
+// An example would be storing all the get methods for an endpoint as a list of objects in 
+// an external file.
+function processApiIncludes (jsonData) {
+    // used to determine object types in a more readable manner
+    var what = Object.prototype.toString;
+    var includeKeyword = 'external';
+    var includeLocation = 'href';
+
+    if (typeof jsonData === "object") {
+        for (var key in jsonData) {
+            // If an object's property contains an array, go through the objects in the array
+            //  Endpoints and Methods are examples of this
+            //  Endpoints contains a list of javascript objects, which are easily split into individual files.
+            //      Each endpoint is basically a 1 to 1 javascript object relationship
+            //  Methods aren't quite as nice.
+            //      It could be convenient to split methods into get/put/post/delete externals.
+            //      This then creates a 1 to many javascript object relationship
+            if (what.call(jsonData[key]) === '[object Array]') {
+                var i = jsonData[key].length;
+
+                // Iterating through the array in reverse so that if an element needs to be replaced
+                // by multiple elements, the array index does not need to be updated. 
+                while (i--) {
+                    var arrayObj = jsonData[key][i];
+                    if ( includeKeyword in arrayObj ) {
+                        var someFile = processUri(arrayObj[includeKeyword][includeLocation]);
+                        // 1 include request to be replaced by multiple objects (methods)
+                        if (arrayObj[includeKeyword]['type'] == 'list') {
+
+                            var tempArray = require(someFile);
+                            // recurse here to replace values of properties that may need replacing
+                            processApiIncludes(tempArray);
+                            // why isn't this jsonData[key][i]?
+                            //  Because the array itself is being replaced with an updated version
+                            jsonData[key] = mergeExternal(i, jsonData[key], tempArray);
+
+                        }
+                        // 1 include request to be replaced by 1 object (endpoint)
+                        else {
+                            jsonData[key][i] = require(someFile);
+                            processApiIncludes(jsonData[key][i]);
+                        }
+                    }
+                }
+            }
+
+            // If an object's property contains an include statement, this will handle it.
+            if (what.call(jsonData[key]) === '[object Object]') {
+                for (var property in jsonData[key]) {
+                    if (what.call(jsonData[key][property]) === '[object Object]') {
+                        if (includeKeyword in jsonData[key][property]) {
+                            var someFile = processUri(jsonData[key][property][includeKeyword][includeLocation]);
+                            jsonData[key][property] = require(someFile);
+                            processApiIncludes(jsonData[key][property]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Takes the array position of an element in array1, removes that element, 
+// and in its place, the contents of array2 are merged in.
+function mergeExternal (arrayPos, array1, array2) {
+    var a1_tail = array1.splice(arrayPos, array1.length);
+    a1_tail.splice(0, 1);
+    return array1.concat(array2).concat(a1_tail);
+}
+
+// Stub function for possible future functionality:
+// Given a URI, this function should process the URI, then obtain and process the contents of the URI.
+// Ex. - If we have the following:
+//  { "href": "file:///user/home/data.json" }
+//  The function would return the parsed JSON data from the data.json file.
+//  { "href": "http://www.example.com/foo.json" }
+//  The function would return the parsed JSON data from foo.json, dealing with file retrieval from the web by parsing the URI.
+function processUri (href) {
+    // Currently, the URI for the file is a directory relative to the iodocs installation directory,
+    // Ex. - { "href": "./public/data/whitehat/_api_.json" }
+    // here's a simple way of returning the full path information as long as
+    // the relative directory is correct.
+    var rel = href.split(/^./);
+    return __dirname + rel[1];
+}
 
 // Search function.
 // Expects processed API json data and a search term.
