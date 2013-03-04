@@ -279,12 +279,14 @@ function processRequest(req, res, next) {
     var reqQuery = req.body,
         customHeaders = {},
         params = reqQuery.params || {},
+        content = reqQuery.requestContent || '',
+        contentType = reqQuery.contentType || '',
         locations = reqQuery.locations || {},
         methodURL = reqQuery.methodUri,
         httpMethod = reqQuery.httpMethod,
         apiKey = reqQuery.apiKey,
         apiSecret = reqQuery.apiSecret,
-        apiName = reqQuery.apiName
+        apiName = reqQuery.apiName,
         apiConfig = apisConfig[apiName],
         key = req.sessionID + ':' + apiName;
 
@@ -338,10 +340,6 @@ function processRequest(req, res, next) {
             method: httpMethod,
             path: apiConfig.publicPath + methodURL// + ((paramString.length > 0) ? '?' + paramString : "")
         };
-
-    if (['POST','DELETE','PUT'].indexOf(httpMethod) !== -1) {
-        var requestBody = query.stringify(params);
-    }
 
     if (apiConfig.oauth) {
         console.log('Using OAuth');
@@ -493,10 +491,6 @@ function processRequest(req, res, next) {
     function unsecuredCall() {
         console.log('Unsecured Call');
 
-        if (['POST','PUT','DELETE'].indexOf(httpMethod) === -1) {
-            options.path += ((paramString.length > 0) ? '?' + paramString : "");
-        }
-
         // Add API Key to params, if any.
         if (apiKey != '' && apiKey != 'undefined' && apiKey != undefined) {
             if (options.path.indexOf('?') !== -1) {
@@ -542,19 +536,20 @@ function processRequest(req, res, next) {
 
             options.headers = headers;
         }
+
         if(options.headers === void 0){
             options.headers = {}
         }
         if (!options.headers['Content-Length']) {
-            if (requestBody) {
-                options.headers['Content-Length'] = requestBody.length;
+            if (content) {
+                options.headers['Content-Length'] = content.length;
             }
             else {
                 options.headers['Content-Length'] = 0;
             }
         }
 
-        if (!options.headers['Content-Type'] && requestBody) {
+        if (!options.headers['Content-Type'] && content) {
             options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
 
@@ -571,6 +566,12 @@ function processRequest(req, res, next) {
             console.log('Protocol: HTTP');
             doRequest = http.request;
         }
+	if(contentType !== ''){
+            if (config.debug) {
+		console.log('Setting Content-Type: ' + contentType);
+            }
+	    options.headers['Content-Type'] = contentType;
+	}
 
         // API Call. response is the response from the API, res is the response we will send back to the user.
         var apiCall = doRequest(options, function(response) {
@@ -625,12 +626,10 @@ function processRequest(req, res, next) {
             };
         });
 
-        if (requestBody) {
-            apiCall.end(requestBody, 'utf-8');
+        if(content !== ''){
+            apiCall.write(content,'utf-8');
         }
-        else {
-            apiCall.end();
-        }
+        apiCall.end();
     }
 }
 
