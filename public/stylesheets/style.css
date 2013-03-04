@@ -223,7 +223,7 @@ textarea {
 
 textarea {
   overflow: auto;
-  width: 99%;
+  width: 60%;
   height: 320px;
 }
 
@@ -849,4 +849,41 @@ div.clickable a {
 /* Making it possible to see nested content parameters */
 div.content {
     overflow-x: scroll;
+}
+
+/* Rotating minimize triangle */
+/* http://webdesigncrowd.com/animated-buttons-css3-transitions-transforms/ */ 
+
+.button-container{
+    position: relative; /*Important, Keeps the CSS3 Shapes in place*/
+    margin: 3px;
+    width: 25px;
+    height: 25px;
+}
+.arrow-container {
+    position: relative;
+    top: 0px;
+    right: 0px;
+    margin: 5px;
+    width: 25px;
+    height: 23px;
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+    -moz-transition: -moz-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
+}
+
+.arrow-down { 
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid black;
+    font-size:0px;
+    line-height: 0px;
+}
+
+.rotate{
+    -webkit-transform: rotateZ(-90deg) translateX(5px);
+    -moz-transform: rotateZ(-90deg) translateX(5px);
+    transform: rotateZ(-90deg) translateX(5px);
 }

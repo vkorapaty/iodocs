@@ -255,7 +255,7 @@
     // First thing, add 'add' button to parameters of type 'collection'
     $("td.type:contains('collection')").each(function() {
         $(this).siblings('td.name')
-            .append("<br/><a href='#' class='add-collection' onclick='return false'>Add collection</a>");
+            .append("<br/><a href='#' class='add-collection button add' onclick='return false'><img src='/images/plus.png'></img></a>");
     // The onclick='return false' may be no good.
     });
     
@@ -360,7 +360,7 @@
     // First thing, add 'add' button to parameters of type 'list'
     $("td.type:contains('list')").each(function() {
         $(this).siblings('td.name')
-            .append("<br/><a href='#' class='add-list' onclick='return false'>Add list field</a>");
+            .append("<br/><a href='#' class='add-list button add' onclick='return false'><img src='/images/plus.png'></img></a>");
     });
 
     // Add additional fields for list type element.
@@ -382,10 +382,17 @@
     $('td').on("click", "a.collection-minimize, a.list-minimize", function(event) {
         event.stopPropagation();
         // Get the class of the following row
-        var minimize_class = $(this).parent().parent().next().attr('class');
+        var minimize_class = $(this).parent().parent().parent().parent().next().attr('class');
         // trim whitespace
         minimize_class = minimize_class.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
         // Minimize all following rows of the same class.
-        $(this).parent().parent().siblings('.' + minimize_class).slideToggle();
+        $(this).parent().parent().parent().parent().siblings('.' + minimize_class).slideToggle();
+
+        if ($(this).parent().hasClass('rotate')) {
+            $(this).parent().removeClass('rotate');
+        }
+        else {
+            $(this).parent().addClass('rotate');
+        }
     });
 })();

@@ -25,11 +25,15 @@ mixin content(apiInfo, contentArray, className, contentType)
                 - if (contentType == 'collection')
                     tr.collection-original
                         td
-                            a(href='#', onclick='return false', class='#{contentType}-minimize') Minimize #{contentType}
+                            div.button-container
+                                div.arrow-container
+                                    a(href='#', onclick='return false', class='#{contentType}-minimize arrow-down') Minimize #{contentType}
                 - else 
                     tr
                         td
-                            a(href='#', onclick='return false', class='#{contentType}-minimize') Minimize #{contentType}
+                            div.button-container
+                                div.arrow-container
+                                    a(href='#', onclick='return false', class='#{contentType}-minimize arrow-down') Minimize #{contentType}
             - each parameter in contentArray
                 - paramCount++
                 div(id='param' + paramCount)
