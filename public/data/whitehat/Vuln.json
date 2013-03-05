@@ -197,7 +197,7 @@
                         "Required": "N",
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1],
-                        "Description": "Display an abbreviated match as part of the response content. [NOT SURE IF WORKING]"
+                        "Description": "Display an abbreviated match as part of the response content."
                     },
                     {
                         "Name": "display_stats",
@@ -457,7 +457,7 @@
                         "Required": "N",
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1],
-                        "Description": "Display an abbreviated match as part of the response content. [NOT SURE IF WORKING]"
+                        "Description": "Display an abbreviated match as part of the response content."
                     },
                     {
                         "Name": "display_stats",
@@ -485,7 +485,7 @@
                         "Required": "N",
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1],
-                        "Description": "Displays cvss_score and cvss_vector (What are those?)"
+                        "Description": "Displays cvss_score and cvss_vector"
                     },
                     {
                         "Name": "display_tags",
@@ -755,7 +755,7 @@
                         "Required": "N",
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1],
-                        "Description": "Display an abbreviated match as part of the response content. [NOT SURE IF WORKING]"
+                        "Description": "Display an abbreviated match as part of the response content."
                     },
                     {
                         "Name": "display_stats",
@@ -1022,7 +1022,7 @@
                         "Required": "N",
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1],
-                        "Description": "Display an abbreviated match as part of the response content. [NOT SURE IF WORKING]"
+                        "Description": "Display an abbreviated match as part of the response content."
                     },
                     {
                         "Name": "display_stats",
@@ -1050,7 +1050,7 @@
                         "Required": "N",
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1],
-                        "Description": "Displays cvss_score and cvss_vector (What are those?)"
+                        "Description": "Displays cvss_score and cvss_vector"
                     },
                     {
                         "Name": "display_tags",

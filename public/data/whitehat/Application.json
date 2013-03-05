@@ -67,7 +67,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1],
-                        "Description": "Determines whether or not results will contain vuln statistics for given application.."
+                        "Description": "Determines whether or not results will contain vuln statistics for given application."
                     },
                     {
                         "Name": "accept_fmt",
@@ -146,7 +146,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1],
-                        "Description": "Determines whether or not results will contain vuln statistics for given application.."
+                        "Description": "Determines whether or not results will contain vuln statistics for given application."
                     },
                     {
                         "Name": "accept_fmt",
@@ -251,7 +251,7 @@
                                     "Required": "N",
                                     "Default": "",
                                     "Type": "string",
-                                    "Description": "should work for HTTP::Date::parse_date"
+                                    "Description": "Format should follow ISO8601."
                                 },
                                 {
                                     "Name": "end_date",
@@ -351,7 +351,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1],
-                        "Description": "Determines whether or not results will contain vuln statistics for given application.."
+                        "Description": "Determines whether or not results will contain vuln statistics for given application."
                     },
                     {
                         "Name": "accept_fmt",
@@ -411,7 +411,7 @@
                             "Required": "N",
                             "Default": "",
                             "Type": "string",
-                            "Description": "should work for HTTP::Date::parse_date"
+                            "Description": "Format should follow ISO8601."
                         },
                         {
                             "Name": "end_date",
@@ -631,7 +631,7 @@
                         "Default": 0,
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1],
-                        "Description": "Determines whether or not results will contain vuln statistics for given application.."
+                        "Description": "Determines whether or not results will contain vuln statistics for given application."
                     },
                     {
                         "Name": "accept_fmt",

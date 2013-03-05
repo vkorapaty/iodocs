@@ -20,7 +20,7 @@
                         "Required": "N",
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1],
-                        "Description":"Display total something."
+                        "Description":"Display total."
                     },
                     {
                         "Name": "display_vuln_stats",
@@ -111,7 +111,7 @@
                         "Required": "N",
                         "Type": "enumerated",
                         "EnumeratedList": [0, 1],
-                        "Description":"Display total something."
+                        "Description":"Display total."
                     },
                     {
                         "Name": "display_vuln_stats",
@@ -237,7 +237,7 @@
             },
             {
                 "MethodName": "Create new group",
-                "Synopsis": "Create a new group and obtain the new group's id. (not sure if accurate)",
+                "Synopsis": "Create a new group and obtain the new group's id.",
                 "HTTPMethod": "POST",
                 "URI": "/:client_id/group/",
                 "RequiresOAuth": "N",
@@ -348,7 +348,7 @@
             },
             {
                 "MethodName": "Remove group",
-                "Synopsis": "Will remove the group listed. The sites themselves within the group will not be deleted. (From Group.pm:sub handle_delete)",
+                "Synopsis": "Will remove the group listed. The sites themselves within the group will not be deleted.",
                 "HTTPMethod": "DELETE",
                 "URI": "/:client_id/group/:group_id",
                 "RequiresOAuth": "N",

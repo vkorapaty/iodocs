@@ -98,7 +98,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":"One or more comma seperated dast_class thingsdast_class (???)"
+                        "Description":"One or more comma seperated dast_class entries."
                     },
                     {
                         "Name": "query_threat",
@@ -550,7 +550,7 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "string",
-                        "Description":"One or more comma seperated dast_class thingsdast_class (???)"
+                        "Description":"One or more comma seperated dast_class entries."
                     },
                     {
                         "Name": "query_threat",

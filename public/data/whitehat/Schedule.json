@@ -21,21 +21,21 @@
                         "Required": "N",
                         "Type": "string",
                         "Default":"",
-                        "Description": "DON'T HAVE WORKING EXAMPLE; Start date."
+                        "Description": "Start date."
                     },
                     {
                         "Name": "end_date",
                         "Required": "N",
                         "Type": "string",
                         "Default":"",
-                        "Description": "DON'T HAVE WORKING EXAMPLE; End date."
+                        "Description": "End date."
                     },
                     {
                         "Name": "duration",
                         "Required": "N",
                         "Type": "string",
                         "Default":"",
-                        "Description": "Time duration in seconds (I think)."
+                        "Description": "Time duration in seconds."
                     },
                     {
                         "Name": "timezone",
@@ -49,7 +49,7 @@
                         "Required": "N",
                         "Type": "integer",
                         "Default":"",
-                        "Description": "DON'T HAVE WORKING EXAMPLE; Job id"
+                        "Description": "Job id"
                     },
                     {
                         "Name": "creator",
@@ -70,14 +70,14 @@
                         "Required": "N",
                         "Default": "",
                         "Type": "integer",
-                        "Description": "NOT SURE THIS PARAMETER IS RESPECTED | Number of pages to retrieve."
+                        "Description": "Number of pages to retrieve."
                     },
                     {
                         "Name": "page:offset",
                         "Required": "N",
                         "Default": "",
                         "Type": "integer",
-                        "Description": "NOT SURE THIS PARAMETER IS RESPECTED | Begin retrieving pages from this index."
+                        "Description": "Begin retrieving pages from this index."
                     }
                 ]
             },

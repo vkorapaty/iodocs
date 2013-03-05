@@ -407,14 +407,14 @@
                                     "Required": "N",
                                     "Default": "",
                                     "Type": "object",
-                                    "Description": "It has two possibilities, type or id. Not sure that this is necessary in PUT.",
+                                    "Description": "It has two possibilities, type or id.",
                                     "parameters": [
                                         {
                                             "Name": "type",
                                             "Required": "N",
                                             "Default": "",
                                             "Type": "collection",
-                                            "Description": "This is an annoying enumerated list scenario where some of the list options have values themselves. There is the choice of 'user', 'site', 'disco'. 'disco' doesn't seem to require a value.",
+                                            "Description": "",
                                             "parameters": [
                                                 {
                                                     "Name": "user",
@@ -470,7 +470,7 @@
                                     "Name": "services",
                                     "Required": "N",
                                     "Type": "object",
-                                    "Description": "Services is an object, that has an object as its value, which in turn has a collection as its value. Not sure that this is necessary in PUT.",
+                                    "Description": "",
                                     "parameters": [
                                         {
                                             "Name": "service",
@@ -488,7 +488,7 @@
                                                             "Name": "type",
                                                             "Required": "N",
                                                             "Type": "string",
-                                                            "Description": "Should  'hostname' or 'ip_range', 'scan_depth' looks like an option too. Probably ought to be an enumerated type instead of string."
+                                                            "Description": ""
                                                         },
                                                         {
                                                             "Name": "value",
@@ -514,7 +514,7 @@
                                     "Required": "N",
                                     "Default": "",
                                     "Type": "string",
-                                    "Description": "should work for HTTP::Date::parse_date"
+                                    "Description": "Format should follow ISO8601."
                                 },
                                 {
                                     "Name": "end_date",
@@ -691,14 +691,14 @@
                                     "Required": "N",
                                     "Default": "",
                                     "Type": "object",
-                                    "Description": "It has two possibilities, type or id. Not sure that this is necessary in PUT.",
+                                    "Description": "It has two possibilities, type or id.",
                                     "parameters": [
                                         {
                                             "Name": "type",
                                             "Required": "N",
                                             "Default": "",
                                             "Type": "collection",
-                                            "Description": "This is an annoying enumerated list scenario where some of the list options have values themselves. There is the choice of 'user', 'site', 'disco'. 'disco' doesn't seem to require a value.",
+                                            "Description": "",
                                             "parameters": [
                                                 {
                                                     "Name": "user",
@@ -754,7 +754,7 @@
                                     "Name": "services",
                                     "Required": "N",
                                     "Type": "object",
-                                    "Description": "Services is an object, that has an object as its value, which in turn has a collection as its value. Not sure that this is necessary in PUT.",
+                                    "Description": "",
                                     "parameters": [
                                         {
                                             "Name": "service",
@@ -772,7 +772,7 @@
                                                             "Name": "type",
                                                             "Required": "N",
                                                             "Type": "string",
-                                                            "Description": "Should  'hostname' or 'ip_range', 'scan_depth' looks like an option too. Probably ought to be an enumerated type instead of string."
+                                                            "Description": ""
                                                         },
                                                         {
                                                             "Name": "value",
@@ -798,7 +798,7 @@
                                     "Required": "N",
                                     "Default": "",
                                     "Type": "string",
-                                    "Description": "should work for HTTP::Date::parse_date"
+                                    "Description": "Format should follow ISO8601."
                                 },
                                 {
                                     "Name": "end_date",
@@ -884,7 +884,7 @@
                             "Name": "job",
                             "Required": "N",
                             "Type": "object",
-                            "Description": "Should this property appear here? Should it contain all the stuff that it has in say 'Put Schedule'? Should it contain 'whitelist' in 'Put Schedule' and 'Post/Create Job'?",
+                            "Description": "",
                             "parameters":[
                                 {
                                     "Name": "whitelist",
@@ -1000,7 +1000,7 @@
                                             "Required": "N",
                                             "Default": "",
                                             "Type": "collection",
-                                            "Description": "This is an annoying enumerated list scenario where some of the list options have values themselves. There is the choice of 'user', 'site', 'disco'. 'disco' doesn't seem to require a value.",
+                                            "Description": "",
                                             "parameters": [
                                                 {
                                                     "Name": "user",
@@ -1056,7 +1056,7 @@
                                     "Name": "services",
                                     "Required": "N",
                                     "Type": "object",
-                                    "Description": "Services is an object, that has an object as its value, which in turn has a collection as its value.",
+                                    "Description": "",
                                     "parameters": [
                                         {
                                             "Name": "service",
@@ -1074,7 +1074,7 @@
                                                             "Name": "type",
                                                             "Required": "N",
                                                             "Type": "string",
-                                                            "Description": "Should  'hostname' or 'ip_range', 'scan_depth' looks like an option too. Probably ought to be an enumerated type instead of string."
+                                                            "Description": ""
                                                         },
                                                         {
                                                             "Name": "value",
@@ -1100,7 +1100,7 @@
                                     "Required": "N",
                                     "Default": "",
                                     "Type": "string",
-                                    "Description": "should work for HTTP::Date::parse_date"
+                                    "Description": "Format should follow ISO8601."
                                 },
                                 {
                                     "Name": "end_date",
@@ -1257,7 +1257,7 @@
                                             "Required": "N",
                                             "Default": "",
                                             "Type": "collection",
-                                            "Description": "This is an annoying enumerated list scenario where some of the list options have values themselves. There is the choice of 'user', 'site', 'disco'. 'disco' doesn't seem to require a value.",
+                                            "Description": "",
                                             "parameters": [
                                                 {
                                                     "Name": "user",
@@ -1313,7 +1313,7 @@
                                     "Name": "services",
                                     "Required": "N",
                                     "Type": "object",
-                                    "Description": "Services is an object, that has an object as its value, which in turn has a collection as its value.",
+                                    "Description": "",
                                     "parameters": [
                                         {
                                             "Name": "service",
@@ -1331,7 +1331,7 @@
                                                             "Name": "type",
                                                             "Required": "N",
                                                             "Type": "string",
-                                                            "Description": "Should  'hostname' or 'ip_range', 'scan_depth' looks like an option too. Probably ought to be an enumerated type instead of string."
+                                                            "Description": ""
                                                         },
                                                         {
                                                             "Name": "value",
@@ -1357,7 +1357,7 @@
                                     "Required": "N",
                                     "Default": "",
                                     "Type": "string",
-                                    "Description": "should work for HTTP::Date::parse_date"
+                                    "Description": "Format should follow ISO8601."
                                 },
                                 {
                                     "Name": "end_date",
