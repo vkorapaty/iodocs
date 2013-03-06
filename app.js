@@ -34,6 +34,7 @@ var express     = require('express'),
     https       = require('https'),
     crypto      = require('crypto'),
     redis       = require('redis'),
+    pathy       = require('path'),
     RedisStore  = require('connect-redis')(express);
 
 // Configuration
@@ -670,13 +671,94 @@ app.dynamicHelpers({
     },
     apiDefinition: function(req, res) {
         if (req.params.api) {
-            var data = require(__dirname + '/public/data/' + req.params.api + '.json');
-            processApiIncludes(data);
-            cachedApiInfo = data;
+            var data = getData(req.params.api);
+            processApiIncludes(data, req.params.api);
             return data;
         }
     }
 });
+
+/*
+    getData expects the api name, and an optional path.
+    The optional path may be a full uri, or a relative uri.
+    If it is a relative uri, it will be joined to the path given in the api
+    config. 
+    If given only the api name, the function will check for a 'href' attribute
+    in the config file, and assume that a file called api-name.json exists at
+    that location. If the 'href' attribute is not present in the api config,
+    the function will use the fallback location of __dirname + '/public/data' +
+    api-name + '.json', and return the parsed file from there.
+
+    Ex. - If we have the following line in the 'linkedin' api config:
+            "href": "file:///user/home/"
+        and call the function like so:
+            return getData("linkedin");
+        The function will attempt "require('/user/home/linkedin.json')" and return
+        the results if the file exists. If the file does not exist, IODocs will
+        crash.
+
+        (keeping the previous example in mind)
+        If the function is called in the following manner:
+            getData("linkedin", "./linkedin/new-api.json")
+        The function will use the base directory provided by the linkedin config
+        (file:///user/home/) and join the relative path provided. This path will
+        then attempted to be opened using require and the results returned.
+
+        In a similar manner, if one does not want to use a relative path, but 
+        a full path, that can be done as well.
+            getData("linkedin", "file:///user/tmp/test-api.json")
+        The given full path will be opened and the data returned.
+
+    Future functionality:
+        { "href": "http://www.example.com/foo.json" }
+        The function would return the parsed JSON data from foo.json, dealing
+        with file retrieval from the web.
+*/
+function getData(api, passedPath) {
+    var end = ".json";
+    var loc;
+    // Error checking
+    if ( /[A-Za-z_\-\d]+/.test(api)) {
+        //console.log('Valid input for API name.');
+    }
+    else {
+        console.log('API name provided contains invalid characters.');        
+    }
+    if (apisConfig.hasOwnProperty(api) ) {
+        if ( apisConfig[api].hasOwnProperty('href')) {
+            loc = url.parse(apisConfig[api]['href']);
+        }
+        else {
+            // If 'href' attribute does not exist in particular api config
+            // use default location for api description file.
+            return require(__dirname + '/public/data/' + api + '.json');
+        }
+    }
+    else {
+        console.log("'" + api + "' does not exist in config file.");
+    }
+
+    // console.log('Printing url parsed from config file of:', api);
+    // console.log(loc);
+
+    if (loc.protocol.match(/^file:$/)) {
+        if (undefined != passedPath){
+            // second parameter with a relative path, do this.
+            // ensure that the api is using a file uri.
+            if (/^.\//.test(passedPath)) {
+                return require(pathy.resolve(loc.path, passedPath));
+            }
+            // second parameter with a full path, do this.
+            else if (url.parse(passedPath).protocol && url.parse(passedPath).protocol.match(/^file:$/)) {
+                return require(passedPath);
+            }
+        }
+        // base file
+        else {
+            return require(pathy.join(loc.path + api + end));
+        }
+    }
+}
 
 // This function was developed with the assumption that the starting input
 // would be the main api file, which would look like the following:
@@ -696,7 +778,7 @@ app.dynamicHelpers({
 // that will be merged into an existing list. 
 // An example would be storing all the get methods for an endpoint as a list of objects in 
 // an external file.
-function processApiIncludes (jsonData) {
+function processApiIncludes (jsonData, apiName) {
     // used to determine object types in a more readable manner
     var what = Object.prototype.toString;
     var includeKeyword = 'external';
@@ -719,13 +801,12 @@ function processApiIncludes (jsonData) {
                 while (i--) {
                     var arrayObj = jsonData[key][i];
                     if ( includeKeyword in arrayObj ) {
-                        var someFile = processUri(arrayObj[includeKeyword][includeLocation]);
+                        var tempArray = getData(apiName, arrayObj[includeKeyword][includeLocation]);
                         // 1 include request to be replaced by multiple objects (methods)
                         if (arrayObj[includeKeyword]['type'] == 'list') {
 
-                            var tempArray = require(someFile);
                             // recurse here to replace values of properties that may need replacing
-                            processApiIncludes(tempArray);
+                            processApiIncludes(tempArray, apiName);
                             // why isn't this jsonData[key][i]?
                             //  Because the array itself is being replaced with an updated version
                             jsonData[key] = mergeExternal(i, jsonData[key], tempArray);
@@ -733,8 +814,8 @@ function processApiIncludes (jsonData) {
                         }
                         // 1 include request to be replaced by 1 object (endpoint)
                         else {
-                            jsonData[key][i] = require(someFile);
-                            processApiIncludes(jsonData[key][i]);
+                            jsonData[key][i] = tempArray;
+                            processApiIncludes(jsonData[key][i], apiName);
                         }
                     }
                 }
@@ -745,9 +826,8 @@ function processApiIncludes (jsonData) {
                 for (var property in jsonData[key]) {
                     if (what.call(jsonData[key][property]) === '[object Object]') {
                         if (includeKeyword in jsonData[key][property]) {
-                            var someFile = processUri(jsonData[key][property][includeKeyword][includeLocation]);
-                            jsonData[key][property] = require(someFile);
-                            processApiIncludes(jsonData[key][property]);
+                            jsonData[key][property] = getData(apiName, jsonData[key][property][includeKeyword][includeLocation]);
+                            processApiIncludes(jsonData[key][property], apiName);
                         }
                     }
                 }
@@ -762,22 +842,6 @@ function mergeExternal (arrayPos, array1, array2) {
     var a1_tail = array1.splice(arrayPos, array1.length);
     a1_tail.splice(0, 1);
     return array1.concat(array2).concat(a1_tail);
-}
-
-// Stub function for possible future functionality:
-// Given a URI, this function should process the URI, then obtain and process the contents of the URI.
-// Ex. - If we have the following:
-//  { "href": "file:///user/home/data.json" }
-//  The function would return the parsed JSON data from the data.json file.
-//  { "href": "http://www.example.com/foo.json" }
-//  The function would return the parsed JSON data from foo.json, dealing with file retrieval from the web by parsing the URI.
-function processUri (href) {
-    // Currently, the URI for the file is a directory relative to the iodocs installation directory,
-    // Ex. - { "href": "./public/data/whitehat/_api_.json" }
-    // here's a simple way of returning the full path information as long as
-    // the relative directory is correct.
-    var rel = href.split(/^./);
-    return __dirname + rel[1];
 }
 
 // Search function.
