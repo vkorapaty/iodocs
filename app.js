@@ -34,6 +34,7 @@ var express     = require('express'),
     https       = require('https'),
     crypto      = require('crypto'),
     redis       = require('redis'),
+    pathy       = require('path'),
     RedisStore  = require('connect-redis')(express);
 
 // Configuration
@@ -670,11 +671,92 @@ app.dynamicHelpers({
     },
     apiDefinition: function(req, res) {
         if (req.params.api) {
-            return require(__dirname + '/public/data/' + req.params.api + '.json');
+            return getData(req.params.api);
         }
     }
 })
 
+/*
+    getData expects the api name, and an optional path.
+    The optional path may be a full uri, or a relative uri.
+    If it is a relative uri, it will be joined to the path given in the api
+    config. 
+    If given only the api name, the function will check for a 'href' attribute
+    in the config file, and assume that a file called api-name.json exists at
+    that location. If the 'href' attribute is not present in the api config,
+    the function will use the fallback location of __dirname + '/public/data' +
+    api-name + '.json', and return the parsed file from there.
+
+    Ex. - If we have the following line in the 'linkedin' api config:
+            "href": "file:///user/home/"
+        and call the function like so:
+            return getData("linkedin");
+        The function will attempt "require('/user/home/linkedin.json')" and return
+        the results if the file exists. If the file does not exist, IODocs will
+        crash.
+
+        (keeping the previous example in mind)
+        If the function is called in the following manner:
+            getData("linkedin", "./linkedin/new-api.json")
+        The function will use the base directory provided by the linkedin config
+        (file:///user/home/) and join the relative path provided. This path will
+        then attempted to be opened using require and the results returned.
+
+        In a similar manner, if one does not want to use a relative path, but 
+        a full path, that can be done as well.
+            getData("linkedin", "file:///user/tmp/test-api.json")
+        The given full path will be opened and the data returned.
+
+    Future functionality:
+        { "href": "http://www.example.com/foo.json" }
+        The function would return the parsed JSON data from foo.json, dealing
+        with file retrieval from the web.
+*/
+function getData(api, passedPath) {
+    var end = ".json";
+    var loc;
+    // Error checking
+    if ( /[A-Za-z_\-\d]+/.test(api)) {
+        //console.log('Valid input for API name.');
+    }
+    else {
+        console.log('API name provided contains invalid characters.');        
+    }
+    if (apisConfig.hasOwnProperty(api) ) {
+        if ( apisConfig[api].hasOwnProperty('href')) {
+            loc = url.parse(apisConfig[api]['href']);
+        }
+        else {
+            // If 'href' attribute does not exist in particular api config
+            // use default location for api description file.
+            return require(__dirname + '/public/data/' + api + '.json');
+        }
+    }
+    else {
+        console.log("'" + api + "' does not exist in config file, or does not have 'href' property.");
+    }
+
+    // console.log('Printing url parsed from config file of:', api);
+    // console.log(loc);
+
+    if (loc.protocol.match(/^file:$/)) {
+        if (undefined != passedPath){
+            // second parameter with a relative path, do this.
+            // ensure that the api is using a file uri.
+            if (/^.\//.test(passedPath)) {
+                return require(pathy.resolve(loc.path, passedPath));
+            }
+            // second parameter with a full path, do this.
+            else if (url.parse(passedPath).protocol && url.parse(passedPath).protocol.match(/^file:$/)) {
+                return require(passedPath);
+            }
+        }
+        // base file
+        else {
+            return require(pathy.join(loc.path + api + end));
+        }
+    }
+}
 
 //
 // Routes
