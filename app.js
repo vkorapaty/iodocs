@@ -679,40 +679,12 @@ app.dynamicHelpers({
 })
 
 /*
-    getData expects the api name, and an optional path.
-    The optional path may be a full uri, or a relative uri.
-    If it is a relative uri, it will be joined to the path given in the api
-    config. 
-    If given only the api name, the function will check for a 'href' attribute
-    in the config file, and assume that a file called api-name.json exists at
-    that location. If the 'href' attribute is not present in the api config,
-    the function will use the fallback location of __dirname + '/public/data' +
-    api-name + '.json', and return the parsed file from there.
+   Can be called in the following ways:
+        getData("klout");
+        getData("klout", "./klout/get-methods.json");
+        getData("klout", "/user/home/klout/klout.json");
+        getData("klout", "/user/home/random/nonsense.json");
 
-    Ex. - If we have the following line in the 'linkedin' api config:
-            "href": "file:///user/home/"
-        and call the function like so:
-            return getData("linkedin");
-        The function will attempt "require('/user/home/linkedin.json')" and return
-        the results if the file exists. If the file does not exist, IODocs will
-        crash.
-
-        (keeping the previous example in mind)
-        If the function is called in the following manner:
-            getData("linkedin", "./linkedin/new-api.json")
-        The function will use the base directory provided by the linkedin config
-        (file:///user/home/) and join the relative path provided. This path will
-        then attempted to be opened using require and the results returned.
-
-        In a similar manner, if one does not want to use a relative path, but 
-        a full path, that can be done as well.
-            getData("linkedin", "file:///user/tmp/test-api.json")
-        The given full path will be opened and the data returned.
-
-    Future functionality:
-        { "href": "http://www.example.com/foo.json" }
-        The function would return the parsed JSON data from foo.json, dealing
-        with file retrieval from the web.
 */
 function getData(api, passedPath) {
     var end = ".json";
@@ -724,39 +696,59 @@ function getData(api, passedPath) {
     else {
         console.log('API name provided contains invalid characters.');        
     }
-    if (apisConfig.hasOwnProperty(api) ) {
-        if ( apisConfig[api].hasOwnProperty('href')) {
+
+    /*
+       Check whether api-name given is in apiconfig.
+       Check whether api has 'href' property in config.
+       If so, check if 'href' property is of 'file' or 'htttp'.
+       If 'file', check that 'href' property contains a directory; print warning
+        if not a directory
+       Check if there was a second argument given (passedPath)
+       If passedPath, check whether it is a relative path (should start with './'
+        if it is).
+       Otherwise, check that the passedPath is of 'file' type and get the data
+        from it. Assuming a full path is being given.
+       If no passedPath, attempt to return the api-name.json file from the directory
+        given in the config file.
+       If no 'href' property in given config for given api name, but passedPath
+        exists with a relative directory, use default location and attempt to
+        return data.
+       If no 'href' property and no passedPath, attempt to get api-name.json from
+        default location (iodocs installation directory + '/public/data').
+       If given api name isn't found in the config file, print statement stating
+        as much.
+    */
+
+    if (apisConfig.hasOwnProperty(api)) {
+        if (apisConfig[api].hasOwnProperty('href')) {
             loc = url.parse(apisConfig[api]['href']);
+
+            if (loc.protocol.match(/^file:$/)) {
+                // Need a directory check on loc.path here
+                // Not sure if that should be sync or async.
+                if (undefined !== passedPath) {
+                    if (/^.\//.test(passedPath)) {
+                        return require(pathy.resolve(loc.path, passedPath));
+                    }
+                    else if (url.parse(passedPath).protocol
+                            && url.parse(passedPath).protocol.match(/^file:$/)) {
+                        return require(passedPath);
+                    }
+                }
+                else {
+                    return require(pathy.join(loc.path + api + end));
+                }
+            }
+        }
+        else if (/^.\//.test(passedPath)) {
+            return require(pathy.resolve(__dirname + '/public/data/' , passedPath));
         }
         else {
-            // If 'href' attribute does not exist in particular api config
-            // use default location for api description file.
             return require(__dirname + '/public/data/' + api + '.json');
         }
     }
     else {
         console.log("'" + api + "' does not exist in config file.");
-    }
-
-    // console.log('Printing url parsed from config file of:', api);
-    // console.log(loc);
-
-    if (loc.protocol.match(/^file:$/)) {
-        if (undefined != passedPath){
-            // second parameter with a relative path, do this.
-            // ensure that the api is using a file uri.
-            if (/^.\//.test(passedPath)) {
-                return require(pathy.resolve(loc.path, passedPath));
-            }
-            // second parameter with a full path, do this.
-            else if (url.parse(passedPath).protocol && url.parse(passedPath).protocol.match(/^file:$/)) {
-                return require(passedPath);
-            }
-        }
-        // base file
-        else {
-            return require(pathy.join(loc.path + api + end));
-        }
     }
 }
 
