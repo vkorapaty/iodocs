@@ -1,0 +1,73 @@
+mixin content2(apiInfo, contentArray, className, contentType)
+    ul.parameters
+        li
+            ul.header
+                li Parameter
+                li Value
+                li Type
+                li Description
+        - each parameter in contentArray
+            - if (parameter.Required =='Y')
+                - var required =true
+                - var className ='required'
+            - else
+                - var required =false
+                - var className =''
+            li
+                mixin row(apiInfo, parameter, className, contentType)
+
+
+
+mixin row(apiInfo, parameter, className, contentType)
+    ul(class=className)
+        - if (contentType == 'object' || contentType == 'collection')
+            li.name=parameter.Name
+            li.type=parameter.Type
+            li.description
+                mixin description(parameter)
+            li.parameter
+                mixin parameters(apiInfo, parameter, className)
+        -else
+            li.name=parameter.Name
+            li.type=parameter.Type
+            li.parameter
+                mixin parameters(apiInfo, parameter, className)
+            li.description
+                mixin description(parameter)
+
+mixin parameters(apiInfo, parameter, className)
+    - if (parameter.Type =='enumerated')
+        mixin enumeratedOrBoolean(parameter, className, parameter.Type)
+    - else if (parameter.Type =='boolean')
+        mixin enumeratedOrBoolean(parameter, className, parameter.Type)
+    - else if (parameter.Type =='object' || parameter.Type =='collection')
+        - if (parameter.parameters != undefined)
+            - if (parameter.parameters.length > 0)
+              mixin content2(apiInfo, parameter.parameters, className, parameter.Type)
+    - else
+        input(value=parameter.Default, placeholder=className)
+
+mixin enumeratedOrBoolean(parameter, className, paramType)
+     select(placeholder=className)
+          - if (parameter.Default =='')
+                  option(value='') 
+          - if (paramType == 'boolean')
+              - each choice in [apiInfo.booleanTrueVal,apiInfo.booleanFalseVal]
+                 - if (parameter.Default ==choice)
+                         option(value=choice, selected=true) #{choice}
+                 - else
+                         option(value=choice) #{choice}
+          - else if (paramType == 'enumerated')
+              - each choice in parameter.EnumeratedList
+                 - if (parameter.Default ==choice)
+                         option(value=choice, selected=true) #{choice}
+                 - else
+                         option(value=choice) #{choice}
+
+mixin description(parameter)
+    p=parameter.Description || 'No description'
+    - if (parameter.Type =='enumerated' && parameter.EnumeratedDescription)
+        dl.clearfix
+            - each description, choice in parameter.EnumeratedDescription
+                dt #{choice}
+                dd #{description}
