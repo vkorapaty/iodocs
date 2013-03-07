@@ -1,6 +1,14 @@
 Features introduced  in this branch:
 ====================================
 
+Bookmarks
+---------
+Endpoints and methods are now links. When the url entered is a linked item, that item will be expanded upon page load.
+
+Search
+------
+Whatever term is typed into the search box, that term will be searched for in the json configuration file; API names (endpoint names) are not included in the search [probably something that should be changed].
+
 Split Configuration
 -------------------
 This function was developed with the assumption that the starting input
@@ -70,6 +78,106 @@ Future functionality:
     { "href": "http://www.example.com/foo.json" }
 The function would return the parsed JSON data from foo.json, dealing
 with file retrieval from the web.
+
+PUT and POST content body
+=========================
+### Replaces jQuery 1.6 with jQuery 1.9.0
+Content parameters show what can be entered for POST and PUT methods. When a method's parameters are filled out, the method's corresponding text area will show what the JSON form would look like.
+
+*Note*: Perhaps there's a better term than 'content parameters', but I do not know it. I call them such as they appear under the word 'Content' in the display, and in the 'content' block in the api description file.
+
+*Note 2*: 'content' and 'contentType' are two variables introduced in this fork by @dgc-wh to be able to send the content body as part of PUT and POST requests. 'content' replaces the 'requestBody' variable.
+
+A few new types are introduced specifically for content parameters.
+* collection - a list of objects belonging to a property. eg - "collection" : [{ "prop": "val", "prop2": "val2" }, { "prop3": "val3", "prop4": "val4" }]
+* object - a set of properties and values belonging to a single property. eg. - "obj" : { "prop": "val", "prop2": "val2" }
+* list - a list of values belonging to a property. eg. - "list" : [ "val", "val2", "val3" ]
+
+Here is an example api that shows usage of all of these new types. 
+
+```js
+{
+    "endpoints": [
+        {
+            "name": "Testing API",
+            "methods": [
+                {
+                    "MethodName": "Modify an application",
+                    "Synopsis": "Modify a single application | stub",
+                    "HTTPMethod": "PUT",
+                    "URI": "/application/:app_id",
+                    "RequiresOAuth": "N",
+                    "content": {
+                        "schema":{"type":"string"},
+                        "contentType":["application/json","application/xml"],
+                        "parameters": [
+                            {
+                                "Name": "scan_schedule",
+                                "Required": "N",
+                                "Type": "object",
+                                "Description": "| stub",
+                                "parameters": [
+                                    {
+                                        "Name": "specs",
+                                        "Required": "N",
+                                        "Default": "",
+                                        "Type": "collection",
+                                        "Description": "",
+                                        "parameters": [
+                                            {
+                                                "Name": "type",
+                                                "Required": "N",
+                                                "Default": "",
+                                                "Type": "string",
+                                                "Description": ""
+                                            },
+                                            {
+                                                "Name": "cron_spec",
+                                                "Required": "N",
+                                                "Default": "",
+                                                "Type": "string",
+                                                "Description": ""
+                                            },
+                                            {
+                                                "Name": "duration",
+                                                "Required": "N",
+                                                "Default": "",
+                                                "Type": "integer",
+                                                "Description": "The unit of measure is 'seconds'."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "Name": "exclude_dirs",
+                                        "Required": "N",
+                                        "Type": "list",
+                                        "Description": "List of directories to be excluded. | stub",
+                                        "parameters": [
+                                            {
+                                                "Required": "N",
+                                                "Type": "string"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "parameters": [
+                        {
+                            "Name": "app_id",
+                            "Required": "Y",
+                            "Type": "integer",
+                            "Description": "Application id of application to be modified. | stub"
+                        }                 
+                    ]
+                }                         
+            ]                             
+        }                                 
+    ]
+}    
+```
+
 
 I/O Docs - Open Source in Node.js
 =================================
