@@ -1,0 +1,3 @@
+[submodule "whapi-rel"]
+	path = whapi-rel
+	url = git://github.com/vkorapaty/whapi-rel.git

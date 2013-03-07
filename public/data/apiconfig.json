@@ -38,5 +38,12 @@
         "protocol": "http",
         "baseURL": "requestb.in",
         "publicPath": "/"
+    },
+    "whitehat": {
+        "name": "whitehat",
+        "protocol": "http",
+        "baseURL": "requestb.in",
+        "publicPath": "/",
+        "href": "file:///home/vk/projects/iodocs/whapi-rel/"
     }
 }
