@@ -40,10 +40,12 @@
         "publicPath": "/"
     },
     "whitehat": {
-        "name": "whitehat",
-        "protocol": "http",
-        "baseURL": "requestb.in",
-        "publicPath": "/",
-        "href": "file:///home/vk/projects/iodocs/whapi-rel/"
+        "name": "WhiteHat API",
+        "protocol": "https",
+        "baseURL": "sentinel.whitehatsec.com",
+        "publicPath": "/api",
+        "auth": "key",
+        "keyParam": "key"
+        "href": "file:///home/user/path/to/iodocs/whapi-rel/"
     }
 }

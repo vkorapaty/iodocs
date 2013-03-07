@@ -1,6 +1,13 @@
 Features introduced  in this branch:
 ====================================
 
+After setting up IODocs like usual, use
+
+    git submodule init
+    git submodule update
+    
+to setup the example Whitehat API. Once that is done, update the 'href' property of the 'whitehat' in public/data/apiconfig.json with the full path to the /iodocs-installation/whapi-rel/ directory.
+
 Bookmarks
 ---------
 Endpoints and methods are now links. When the url entered is a linked item, that item will be expanded upon page load.
