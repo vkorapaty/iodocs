@@ -1,6 +1,41 @@
 Features introduced  in this branch:
 ====================================
 
+Split Configuration
+-------------------
+This function was developed with the assumption that the starting input
+would be the main api file, which would look like the following:
+
+```js
+{ "endpoints":
+    [...]
+}
+```
+
+The include statement syntax looks like this:
+
+```js
+{
+    "external": {
+        "href": "./api_name/data.json",
+        "type": "list"
+    }
+}
+```
+
+```js
+{
+    "external": {
+        "href": "file:///user/home/api.json",
+    }
+}
+```
+
+"type": "list" is used only when the contents of the file to be included is a list object 
+that will be merged into an existing list. 
+An example would be storing all the get methods for an endpoint as a list of objects in 
+an external file.
+
 API Description Anywhere
 ------------------------
 If one has a sufficiently large API that splitting it up would make it more
