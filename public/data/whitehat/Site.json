@@ -262,14 +262,14 @@
                             "Name": "end_date",
                             "Required": "N",
                             "Default": "",
-                            "Type": "",
+                            "Type": "string",
                             "Description": ""
                         },
                         {
                             "Name": "name",
                             "Required": "N",
                             "Default": "",
-                            "Type": "",
+                            "Type": "string",
                             "Description": ""
                         },
                         {
