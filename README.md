@@ -1,3 +1,41 @@
+Features introduced  in this branch:
+====================================
+
+API Description Anywhere
+------------------------
+If one has a sufficiently large API that splitting it up would make it more
+manageable, perhaps it would be nice to have the API description stored in a
+seperate repository, and imported as a sub-module. (To my knowledge) git 
+sub-modules can only exist in the top level directory of a project.
+
+This feature allows you to define where to look for an API description file,
+beyond the default location of '/public/data/' in the IODocs installation 
+directory.
+
+Example configuration:
+```js
+"requestbin": {
+    "name": "Requestb.in",
+    "protocol": "http",
+    "baseURL": "requestb.in",
+    "publicPath": "/",
+    "href": "file:///user/home/api/"
+}
+```
+Given the above configuration, when looking for the API description file,
+instead of looking in 'IODocs/public/data/', it will look in '/user/home/api'.
+This works well with the split configuration feature. If the 'href' property
+is not defined in the config file, the default location of 'IODocs/public/data/'
+will be used instead.
+
+This feature is currently only setup for files on disk, but could be adapted to
+using descriptions located on the web as well.
+
+Future functionality:
+    { "href": "http://www.example.com/foo.json" }
+The function would return the parsed JSON data from foo.json, dealing
+with file retrieval from the web.
+
 I/O Docs - Open Source in Node.js
 =================================
 Copyright 2012 Mashery, Inc.
