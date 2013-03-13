@@ -718,6 +718,118 @@ dd {
   float: left;
 }
 
+/**/
+/* Seemingly newish stuff and my additions. */
+/**/
+
+/* Type-ahead search css */
+.ui-autocomplete-category {
+    font-weight: bold;
+    padding: .2em .4em;
+    margin: .8em 0 .2em;
+    line-height: 1.5;
+}
+
+/* Used to hide endpoints and methods that do not match for a given search */
+.hide-this {
+    display: none;
+}
+
+/* Bookmark css */
+/* http://blog.avtex.com/2012/01/27/how-to-make-an-entire-div-clickable-with-css/ */
+div.clickable { /* Containing div must have a position value */
+    position:relative;
+}
+
+div.clickable a {
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    text-decoration:none; /* Makes sure the link   doesn't get underlined */
+    z-index:10; /* raises anchor tag above everything else in div */
+    background-color:white; /*workaround to make clickable in IE */
+    opacity: 0; /*workaround to make clickable in IE */
+    filter: alpha(opacity=1); /*workaround to make clickable in IE */
+}
+
+/* Making it possible to see nested content parameters */
+div.content {
+    overflow-x: scroll;
+}
+
+/* Rotating minimize triangle */
+/* http://webdesigncrowd.com/animated-buttons-css3-transitions-transforms/ */ 
+
+.button-container{
+    position: relative; /*Important, Keeps the CSS3 Shapes in place*/
+    margin: 3px;
+    width: 25px;
+    height: 25px;
+}
+.arrow-container {
+    position: relative;
+    top: 0px;
+    right: 0px;
+    margin: 5px;
+    width: 25px;
+    height: 23px;
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+    -moz-transition: -moz-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
+}
+
+.arrow-down { 
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid black;
+    font-size:0px;
+    line-height: 0px;
+}
+
+.rotate{
+    -webkit-transform: rotateZ(-90deg) translateX(5px);
+    -moz-transform: rotateZ(-90deg) translateX(5px);
+    transform: rotateZ(-90deg) translateX(5px);
+}
+
+/* Nested lists for nested PUT/POST content parameters */
+
+div.content ul {
+    &.header {
+        li {
+            font-weight: bold;
+        }
+    }
+    >li {
+        display: inline-block;
+    }
+
+    li.parameter > ul.parameters {
+        display: block;
+    }
+}
+
+/*
+ul.horizontal {
+    &.header {
+        li {
+            font-weight: bold;
+        }
+    }
+    &.four-columns {
+        >li {
+            width: 25%;
+        }
+    }
+    >li {
+        display: inline-block;
+    }
+}
+*/
 
 @media all and (orientation:portrait) {
 }

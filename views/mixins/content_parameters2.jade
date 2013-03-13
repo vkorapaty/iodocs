@@ -1,7 +1,7 @@
 mixin content2(apiInfo, contentArray, className, contentType)
     ul.parameters
         li
-            ul.header.horizontal
+            ul.header
                 li Parameter
                 li Value
                 li Type
@@ -19,7 +19,7 @@ mixin content2(apiInfo, contentArray, className, contentType)
 
 
 mixin row(apiInfo, parameter, className, contentType)
-    ul(class=className).horizontal
+    ul(class=className)
         - if (contentType == 'object' || contentType == 'collection')
             li.name=parameter.Name
             li.type=parameter.Type
