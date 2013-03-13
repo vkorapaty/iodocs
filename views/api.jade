@@ -9,7 +9,7 @@ h1=apiInfo.name
 form#credentials
     input(type='hidden', name='apiName', value=apiName)
     - if (apiInfo.auth) 
-        section(class='credentials ' + authed)
+        section(class=authed)
          - if (authed && apiInfo.oauth)
              span Authenticated with OAuth
              img(src='/images/accept.png')
