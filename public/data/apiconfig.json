@@ -45,7 +45,7 @@
         "baseURL": "sentinel.whitehatsec.com",
         "publicPath": "/api",
         "auth": "key",
-        "keyParam": "key"
+        "keyParam": "key",
         "href": "file:///home/user/path/to/iodocs/whapi-rel/"
     }
 }
