@@ -698,7 +698,7 @@ li {
 }
 
 dl {
-  display: block;
+  display: inline-block;
   margin-bottom: 10px;
   font-weight: normal;
 }
@@ -800,6 +800,7 @@ div.content {
 /* Nested lists for nested PUT/POST content parameters */
 
 div.content ul {
+    display: block;
     &.header {
         li {
             font-weight: bold;
@@ -808,8 +809,7 @@ div.content ul {
     >li {
         display: inline-block;
     }
-
-    li.parameter > ul.parameters {
+    li > ul + li > ul {
         display: block;
     }
 }
