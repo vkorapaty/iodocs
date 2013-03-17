@@ -799,20 +799,29 @@ div.content {
 
 /* Nested lists for nested PUT/POST content parameters */
 
+%inline-lists {
+    display: inline-block;
+    width: 10%;
+}
+
 div.content ul {
     display: block;
-    &.header {
-        li {
-            font-weight: bold;
+    margin-left: 2%;
+    list-style: none;
+
+    &.string, &.integer, &.enumerated {
+        & > li {
+            @extend %inline-lists;
         }
     }
-    >li {
-        display: inline-block;
-    }
-    li > ul + li > ul {
-        display: block;
+
+    &.collection, &.object {
+        & > li.name, & > li.type, & > li.description {
+            @extend %inline-lists;
+        }
     }
 }
+
 
 /*
 ul.horizontal {

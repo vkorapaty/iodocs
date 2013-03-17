@@ -19,7 +19,7 @@ mixin content2(apiInfo, contentArray, className, contentType)
 
 
 mixin row(apiInfo, parameter, className, contentType)
-    ul(class=className)
+    ul(class=parameter.Type)
         - if (contentType == 'object' || contentType == 'collection')
             li.name=parameter.Name
             li.type=parameter.Type
