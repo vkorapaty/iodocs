@@ -755,11 +755,6 @@ div.clickable a {
     filter: alpha(opacity=1); /*workaround to make clickable in IE */
 }
 
-/* Making it possible to see nested content parameters */
-div.content {
-    overflow-x: scroll;
-}
-
 /* Rotating minimize triangle */
 /* http://webdesigncrowd.com/animated-buttons-css3-transitions-transforms/ */ 
 
@@ -801,45 +796,67 @@ div.content {
 
 %inline-lists {
     display: inline-block;
-    width: 10%;
 }
 
-div.content ul {
-    display: block;
-    margin-left: 2%;
-    list-style: none;
+div.content {
+    ul {
+        // ul generally represents rows. Using 'display: block' for line breaks.
+        display: block;
+        margin-left: 2%;
+        list-style: none;
 
-    &.string, &.integer, &.enumerated {
-        & > li {
-            @extend %inline-lists;
+        // For 'ul' with the following classes, make their list elements in-line.
+        // Rows!
+        &.string, &.integer, &.enumerated {
+            & > li {
+                @extend %inline-lists;
+            }
         }
-    }
 
-    &.collection, &.object {
-        & > li.name, & > li.type, & > li.description {
-            @extend %inline-lists;
+        &.collection, &.object {
+            // Making the following list elements into a row since the parameter
+            // list element will contain a 'ul' and start on the following line
+            & > li.name, & > li.type, & > li.description {
+                @extend %inline-lists;
+            }
+
+            // Remove left margin for the collection/object parameter container.
+            // May want to just setup ul.subcontainer and style that instead.
+            & > li.parameter > ul {
+                margin-left: 0;
+            }
         }
-    }
-}
 
-
-/*
-ul.horizontal {
-    &.header {
+        // Spacing between list elements.
+        // Don't think text is wrapped like it would be in table cells,
+        // should check on this. 
         li {
-            font-weight: bold;
+            &.name {
+                width: 8em;
+            }
+            &.type {
+                width: 8em;
+            }
+            &.description {
+                width: 25em;
+            }
         }
     }
-    &.four-columns {
-        >li {
-            width: 25%;
+
+    /* Initial alignment */
+    // This needs to go at the end of the div.content block,
+    // otherwise 'div.content ul' seems to override the rule.
+    > ul {
+        margin-left: 0;
+        > li > ul {
+            margin-left: 0;
         }
     }
-    >li {
-        display: inline-block;
-    }
+
+    // In the event that things are so deeply nested, this will make it possible
+    // to see nested content parameters.
+    overflow-x: scroll;
 }
-*/
 
 @media all and (orientation:portrait) {
 }
