@@ -794,6 +794,13 @@ div.clickable a {
 
 /* Nested lists for nested PUT/POST content parameters */
 
+%border-spacing {
+    margin: {
+        top: 1%;
+        bottom: 1%;
+    }
+}
+
 %inline-lists {
     display: inline-block;
 }
@@ -808,10 +815,15 @@ div.content {
         // For 'ul' with the following classes, make their list elements in-line.
         // Rows!
         &.header, &.string, &.integer, &.enumerated {
+            @extend %border-spacing;
+
             & > li {
                 @extend %inline-lists;
                 &.parameter {
                     margin-right: 3em;
+                }
+                &.description {
+                    float: right;
                 }
             }
         }
@@ -824,6 +836,8 @@ div.content {
         }
 
         &.collection, &.object {
+            @extend %border-spacing;
+
             // Making the following list elements into a row since the parameter
             // list element will contain a 'ul' and start on the following line
             & > li.name, & > li.type, & > li.description {
@@ -831,7 +845,7 @@ div.content {
             }
 
             // Remove left margin for the collection/object parameter container.
-            // May want to just setup ul.subcontainer and style that instead.
+/* May want to just setup ul.subcontainer and style that instead. */
             & > li.parameter > ul {
                 margin-left: 0;
             }
@@ -848,7 +862,7 @@ div.content {
                 width: 8em;
             }
             &.description {
-                width: 25em;
+                width: 27em;
             }
         }
     }
