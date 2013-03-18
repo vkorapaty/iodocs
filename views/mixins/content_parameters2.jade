@@ -1,11 +1,12 @@
-mixin content2(apiInfo, contentArray, className, contentType)
+mixin content2(apiInfo, contentArray, className, noheader)
     ul.parameters
         li
-            ul.header
-                li Parameter
-                li Value
-                li Type
-                li Description
+            - if (!noheader)
+                ul.header
+                    li.name Parameter
+                    li.parameter Value
+                    li.type Type
+                    li.description Description
         - each parameter in contentArray
             - if (parameter.Required =='Y')
                 - var required =true
@@ -14,13 +15,13 @@ mixin content2(apiInfo, contentArray, className, contentType)
                 - var required =false
                 - var className =''
             li
-                mixin row(apiInfo, parameter, className, contentType)
+                mixin row(apiInfo, parameter, className)
 
 
 
-mixin row(apiInfo, parameter, className, contentType)
+mixin row(apiInfo, parameter, className)
     ul(class=parameter.Type)
-        - if (contentType == 'object' || contentType == 'collection')
+        - if (parameter.Type == 'object' || parameter.Type == 'collection')
             li.name=parameter.Name
             li.type=parameter.Type
             li.description
@@ -43,7 +44,7 @@ mixin parameters(apiInfo, parameter, className)
     - else if (parameter.Type =='object' || parameter.Type =='collection')
         - if (parameter.parameters != undefined)
             - if (parameter.parameters.length > 0)
-              mixin content2(apiInfo, parameter.parameters, className, parameter.Type)
+              mixin content2(apiInfo, parameter.parameters, className, true)
     - else
         input(value=parameter.Default, placeholder=className)
 
@@ -67,7 +68,7 @@ mixin enumeratedOrBoolean(parameter, className, paramType)
 mixin description(parameter)
     p=parameter.Description || 'No description'
     - if (parameter.Type =='enumerated' && parameter.EnumeratedDescription)
-        dl.clearfix
+        dl
             - each description, choice in parameter.EnumeratedDescription
                 dt #{choice}
                 dd #{description}
