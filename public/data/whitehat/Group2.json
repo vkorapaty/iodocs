@@ -554,6 +554,13 @@
                         "Required": "Y",
                         "Type": "integer",
                         "Description": "Group id."
+                    },
+                    {
+                        "Name": "accept_fmt",
+                        "Required": "N",
+                        "Type": "enumerated",
+                        "EnumeratedList": [ "application/json", "text/csv", "text/xml" ],
+                        "Description": "Selects the requested response representation format. CSV format is currently not supported/working."
                     }
                 ]
             },
@@ -605,6 +612,13 @@
                         "Required": "Y",
                         "Type": "integer",
                         "Description": "Client id."
+                    },
+                    {
+                        "Name": "accept_fmt",
+                        "Required": "N",
+                        "Type": "enumerated",
+                        "EnumeratedList": [ "application/json", "text/csv", "text/xml" ],
+                        "Description": "Selects the requested response representation format. CSV format is currently not supported/working."
                     }
                 ]
             },
@@ -638,6 +652,13 @@
                         "Required": "Y",
                         "Type": "integer",
                         "Description": "Group id."
+                    },
+                    {
+                        "Name": "accept_fmt",
+                        "Required": "N",
+                        "Type": "enumerated",
+                        "EnumeratedList": [ "application/json", "text/csv", "text/xml" ],
+                        "Description": "Selects the requested response representation format. CSV format is currently not supported/working."
                     }
                 ]
             },
@@ -671,6 +692,13 @@
                         "Required": "Y",
                         "Type": "integer",
                         "Description": "Group id."
+                    },
+                    {
+                        "Name": "accept_fmt",
+                        "Required": "N",
+                        "Type": "enumerated",
+                        "EnumeratedList": [ "application/json", "text/csv", "text/xml" ],
+                        "Description": "Selects the requested response representation format. CSV format is currently not supported/working."
                     }
                 ]
             },
@@ -712,6 +740,13 @@
                         "Required": "Y",
                         "Type": "integer",
                         "Description": "Group id."
+                    },
+                    {
+                        "Name": "accept_fmt",
+                        "Required": "N",
+                        "Type": "enumerated",
+                        "EnumeratedList": [ "application/json", "text/csv", "text/xml" ],
+                        "Description": "Selects the requested response representation format. CSV format is currently not supported/working."
                     }
                 ]
             },
@@ -753,6 +788,13 @@
                         "Required": "Y",
                         "Type": "integer",
                         "Description": "Group id."
+                    },
+                    {
+                        "Name": "accept_fmt",
+                        "Required": "N",
+                        "Type": "enumerated",
+                        "EnumeratedList": [ "application/json", "text/csv", "text/xml" ],
+                        "Description": "Selects the requested response representation format. CSV format is currently not supported/working."
                     }
                 ]
             },
