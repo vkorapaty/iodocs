@@ -20,7 +20,7 @@
 
     function handleTable( parmaList , type ) {
         if (type == 'collection') {
-            var collectionValue = handleCollection(parmaList.children('tbody'));
+            var collectionValue = handleCollection(parmaList.children('li'));
             if (collectionValue.length > 0) {
                 return collectionValue;
             }
@@ -40,7 +40,7 @@
         }
 
         if (type == 'list') {
-            var listValue = handleList(table.children('tbody'));
+            var listValue = handleList(table.children('li'));
             if (listValue.length > 0) {
                 return listValue;
             }
@@ -67,11 +67,12 @@
         return obj;
     }
 
-    function handleCollection( element ) {
+    function handleCollection( elements ) {
         // Collect information of all collection elements
         var collectionsArray = [];
         // What are the children I'm getting? Rows.
-        element.children().each( function (event) {
+        // Represented as li > ul, where the ul is the row wrapper over the row cells.
+        elements.children().each( function (event) {
             var val = rowValue( $(this) );
             var name = rowName( $(this) );
             var attr = $(this).attr('class');
@@ -85,15 +86,13 @@
         return createCollectionValue( collectionsArray );
     }
 
-    function handleObject( element ) {
+    function handleObject( elements ) {
         // Collect all of the properties and property values for the object
-        // element.
+        // elements.
         var tempObj = {};
         // What are the children I'm getting? Rows.
-        console.log("in handleObject, what do the rows look like here?");
-        console.log(element);
-        console.log(element.children());
-        element.children().each( function (event) {
+        // Represented as li > ul, where the ul is the row wrapper over the row cells.
+        elements.children().each( function (event) {
             var val = rowValue( $(this) );
             var name = rowName( $(this) );
 

@@ -1,7 +1,7 @@
 mixin content2(apiInfo, contentArray, className, noheader)
     ul.parameters
-        li
-            - if (!noheader)
+        - if (noheader === undefined) 
+            li
                 ul.header
                     li.name Parameter
                     li.parameter Value
