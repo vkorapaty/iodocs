@@ -1,4 +1,4 @@
-mixin content2(apiInfo, contentArray, className, noheader)
+mixin content2(apiInfo, contentArray, className, noheader, collection)
     ul.parameters
         - if (noheader === undefined) 
             li
@@ -14,8 +14,12 @@ mixin content2(apiInfo, contentArray, className, noheader)
             - else
                 - var required =false
                 - var className =''
-            li
-                mixin row(apiInfo, parameter, className)
+            - if (collection == true)
+                li.collection-original
+                    mixin row(apiInfo, parameter, className)
+            - else
+                li
+                    mixin row(apiInfo, parameter, className)
 
 
 
@@ -24,7 +28,7 @@ mixin row(apiInfo, parameter, className)
         - if (parameter.Type == 'object' || parameter.Type == 'collection')
             li.name=parameter.Name
                 - if (parameter.Type == 'collection')
-                    a(href='#', class='add-list button add', onclick='return false')
+                    a(href='#', class='add-collection button add', onclick='return false')
                         img(src='/images/plus.png', style='margin-left: 10px;')
             li.type=parameter.Type
             li.description
@@ -47,7 +51,10 @@ mixin parameters(apiInfo, parameter, className)
     - else if (parameter.Type =='object' || parameter.Type =='collection')
         - if (parameter.parameters != undefined)
             - if (parameter.parameters.length > 0)
-              mixin content2(apiInfo, parameter.parameters, className, true)
+                -if (parameter.Type =='collection')
+                  mixin content2(apiInfo, parameter.parameters, className, true, true)
+                -else 
+                  mixin content2(apiInfo, parameter.parameters, className, true)
     - else
         input(value=parameter.Default, placeholder=className)
 

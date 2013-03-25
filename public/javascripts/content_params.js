@@ -15,7 +15,6 @@
 
     /*
        li > ul are the row abstraction. Take the li, and then process the sub-ul.
-       
     */
 
     function handleTable( parmaList , type ) {
@@ -75,7 +74,7 @@
         elements.children().each( function (event) {
             var val = rowValue( $(this) );
             var name = rowName( $(this) );
-            var attr = $(this).attr('class');
+            var attr = $(this).parent().attr('class');
             // This is to ignore the row which contains the minimize collection
             // button.
             if ( attr != '' &&  undefined != attr && undefined !== val ) {
@@ -142,8 +141,6 @@
 
         else if (type == 'collection' || type == 'object' || type == 'list') {
             var paramList  = row.children('li.parameter').children('ul.parameters');
-            console.log("Expecting paramList to be a ul.parameters object.");
-            console.log(paramList);
             return handleTable(paramList, type);
         }
     }
@@ -250,4 +247,77 @@
         goal.val(JSON.stringify(dataObject, null, 2));
     }
 
+    //
+    // Adding new collections to the page
+    // 
+    
+    /*
+        Docs, need docs.      
+    */
+    $('li.name').on('click', 'a.add-collection', function( event ) {
+        event.stopPropagation();
+
+        var collectionClass = $(this).parent()
+                            .siblings('li.parameter')
+                            .children('ul.parameters')
+                            .children(':first')
+                            .attr('class');
+
+        collectionClass = collectionClass.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+        
+        var collectionBody = $(this).parent()
+                            .siblings('li.parameter')
+                            .children('ul.parameters')
+                            .clone(true, true);
+
+        // Obtain identifier class of the current last element in the list of
+        // collections
+        var lastRow = $(this).parent().siblings('li.parameter')
+            .children('ul.parameters')
+            .children()
+            .last();
+
+        // Determine the numeric identifier from the class, then increment and
+        // pass on value
+        var collectionCount = 0;
+        if (lastRow.hasClass('collection-original')) { 
+            collectionCount = 1;
+        }
+        else {
+            collectionCount = parseInt(lastRow.attr('class').replace(/collection-new-/g, ''));
+            collectionCount++;
+        }
+
+        newCollectionObject(collectionBody, collectionClass, collectionCount);
+
+        $(this).parent().siblings('li.parameter')
+                    .children('ul.parameters')
+                    .append(collectionBody.children());
+    });
+
+    // What should collectionBody be? li elements from ul.parameters
+    function newCollectionObject(collectionBody, collectionClass, collectionCount) {
+        // Rows
+        collectionBody.children().each(function() {
+            var type = $(this).children('ul').children('li.type').text();
+            type = type.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+
+
+            if (!$(this).hasClass(collectionClass)) {
+                $(this).remove();
+            }
+            else {
+                $(this).removeClass(collectionClass);
+                $(this).addClass('collection-new-'+collectionCount);
+                if (type == 'collection') {
+                    newCollectionObject($(this).children('ul.collection')
+                                        .children('li.parameter')
+                                        .children('ul.parameters'),
+                                          collectionClass,
+                                          collectionCount
+                                        );
+                }
+            }
+        });
+    }
 })();
