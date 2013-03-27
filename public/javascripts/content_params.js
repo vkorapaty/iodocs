@@ -52,12 +52,13 @@
         var obj = {};
 
         rows.each(function () {
-            if ( $(this).children('ul').hasClass('header') ) {
+            var row = $(this).children('ul');
+            if ( row.hasClass('header') ) {
                 // Do nothing, ignore the header row.
             }
             else {
-                var name = rowName( $(this).children('ul') );
-                var val = rowValue( $(this).children('ul') );
+                var name = rowName( row );
+                var val = rowValue( row );
             }
 
             $.extend(obj, createSimpleObject(name, val));
