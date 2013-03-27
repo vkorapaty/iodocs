@@ -540,6 +540,30 @@
                     "schema":{"type":"string"},
                     "contentType":["application/json","application/xml"],
                     "parameters": [
+                        {
+                            "Name": "name",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": ""
+                        },
+                        {
+                            "Name": "description",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": ""
+                        },
+                        {
+                            "Name": "tags",
+                            "Required": "N",
+                            "Type": "list",
+                            "Description": "",
+                            "parameters": [
+                                {
+                                    "Required": "N",
+                                    "Type": "string"
+                                }
+                            ]
+                        }
                     ]
                 },
                 "parameters": [
@@ -673,10 +697,22 @@
                     "contentType":["application/json","application/xml"],
                     "parameters": [
                         {
+                            "Name": "user_id",
+                            "Required": "Y",
+                            "Type": "integer",
+                            "Description": "User id"
+                        },
+                        {
+                            "Name": "username",
+                            "Required": "Y",
+                            "Type": "string",
+                            "Description": "Username (should be an email address)."
+                        },
+                        {
                             "Name": "role",
                             "Required": "Y",
                             "Type": "string",
-                            "Description": "New role to add."
+                            "Description": "Role to add."
                         }
                     ]
                 },
