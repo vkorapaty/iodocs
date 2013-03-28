@@ -814,7 +814,7 @@ div.content {
 
         // For 'ul' with the following classes, make their list elements in-line.
         // Rows!
-        &.header, &.string, &.integer, &.enumerated {
+        &.header, &.string, &.integer, &.enumerated, &.list {
             @extend %border-spacing;
 
             & > li {

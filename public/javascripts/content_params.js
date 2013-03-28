@@ -255,45 +255,54 @@
     /*
         Docs, need docs.      
     */
-    $('li.name').on('click', 'a.add-collection', function( event ) {
+    $('li.name').on('click', 'a.add-collection, a.add-list', function( event ) {
         event.stopPropagation();
+        if ( $(this).hasClass('add-collection') ) {
 
-        var collectionClass = $(this).parent()
-                            .siblings('li.parameter')
-                            .children('ul.parameters')
-                            .children(':first')
-                            .attr('class');
+            var collectionClass = $(this).parent()
+                                .siblings('li.parameter')
+                                .children('ul.parameters')
+                                .children(':first')
+                                .attr('class');
 
-        collectionClass = collectionClass.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-        
-        var collectionBody = $(this).parent()
-                            .siblings('li.parameter')
-                            .children('ul.parameters')
-                            .clone(true, true);
+            collectionClass = collectionClass.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+            
+            var collectionBody = $(this).parent()
+                                .siblings('li.parameter')
+                                .children('ul.parameters')
+                                .clone(true, true);
 
-        // Obtain identifier class of the current last element in the list of
-        // collections
-        var lastRow = $(this).parent().siblings('li.parameter')
-            .children('ul.parameters')
-            .children()
-            .last();
+            // Obtain identifier class of the current last element in the list of
+            // collections
+            var lastRow = $(this).parent().siblings('li.parameter')
+                .children('ul.parameters')
+                .children()
+                .last();
 
-        // Determine the numeric identifier from the class, then increment and
-        // pass on value
-        var collectionCount = 0;
-        if (lastRow.hasClass('collection-original')) { 
-            collectionCount = 1;
+            // Determine the numeric identifier from the class, then increment and
+            // pass on value
+            var collectionCount = 0;
+            if (lastRow.hasClass('collection-original')) { 
+                collectionCount = 1;
+            }
+            else {
+                collectionCount = parseInt(lastRow.attr('class').replace(/collection-new-/g, ''));
+                collectionCount++;
+            }
+
+            newCollectionObject(collectionBody, collectionClass, collectionCount);
+
+            $(this).parent().siblings('li.parameter')
+                        .children('ul.parameters')
+                        .append(collectionBody.children());
         }
-        else {
-            collectionCount = parseInt(lastRow.attr('class').replace(/collection-new-/g, ''));
-            collectionCount++;
+        else if ( $(this).hasClass('add-list') ){
+            // Get the 'ul' element in li.parameter for this 'list' type row.
+            var listElement = $(this).parent().siblings('li.parameter').children('ul');
+            // Make a copy of the first list element, and then append that to the end of the list.
+            var firstListElement = listElement.children().first().clone();
+            firstListElement.appendTo(listElement);
         }
-
-        newCollectionObject(collectionBody, collectionClass, collectionCount);
-
-        $(this).parent().siblings('li.parameter')
-                    .children('ul.parameters')
-                    .append(collectionBody.children());
     });
 
     // What should collectionBody be? li elements from ul.parameters
