@@ -17,9 +17,9 @@
        li > ul are the row abstraction. Take the li, and then process the sub-ul.
     */
 
-    function handleTable( parmaList , type ) {
+    function handleTable( paramList , type ) {
         if (type == 'collection') {
-            var collectionValue = handleCollection(parmaList.children('li'));
+            var collectionValue = handleCollection(paramList.children('li'));
             if (collectionValue.length > 0) {
                 return collectionValue;
             }
@@ -29,7 +29,7 @@
         }
 
         if (type == 'object') {
-            var objectValue = handleObject(parmaList.children('li'));
+            var objectValue = handleObject(paramList.children('li'));
             if (Object.keys( objectValue ).length !== 0) {
                 return objectValue;
             }
@@ -39,7 +39,7 @@
         }
 
         if (type == 'list') {
-            var listValue = handleList(table.children('li'));
+            var listValue = handleList(paramList.children('li'));
             if (listValue.length > 0) {
                 return listValue;
             }
@@ -48,7 +48,7 @@
             }
         }
 
-        var rows = parmaList.children('li');
+        var rows = paramList.children('li');
         var obj = {};
 
         rows.each(function () {
@@ -102,15 +102,19 @@
         return tempObj;
     }
 
-    function handleList ( element ) {
+    function handleList ( elements ) {
+        // Unlike handleObject and HandleCollection, handleList gets the set of
+        // 'li' elements that contain values to be processed. rowValue is not
+        // needed here, provided that only the basic input types are present
+        // (string/integer/enumerated).
+        //
         // Collect information of all list elements
         var collectionsArray = [];
-        element.children().each( function (event) {
-            var val = rowValue( $(this) );
-            var attr = $(this).attr('class');
-            // This is to ignore the row which contains the minimize
-            // list button.
-            if ( attr != '' &&  undefined != attr ) {
+        console.log(elements);
+        elements.children().each( function (event) {
+            console.log($(this));
+            var val = formatValue($(this).val());
+            if (val) {
                 collectionsArray.push( val );
             }
         });
@@ -140,8 +144,12 @@
             }
         }
 
-        else if (type == 'collection' || type == 'object' || type == 'list') {
+        else if (type == 'collection' || type == 'object' ) {
             var paramList  = row.children('li.parameter').children('ul.parameters');
+            return handleTable(paramList, type);
+        }
+        else if (type == 'list') {
+            var paramList  = row.children('li.parameter').children('ul');
             return handleTable(paramList, type);
         }
     }
