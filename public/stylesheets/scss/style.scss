@@ -805,82 +805,94 @@ div.clickable a {
     display: inline-block;
 }
 
-div.content {
-    ul {
-        // ul generally represents rows. Using 'display: block' for line breaks.
-        display: block;
-        margin-left: 2%;
-        list-style: none;
+@mixin content($method: 'get', $color: $get) {
+    .#{$method} div.content {
+        ul {
+            // ul generally represents rows. Using 'display: block' for line breaks.
+            display: block;
+            margin-left: 2%;
+            list-style: none;
 
-        // For 'ul' with the following classes, make their list elements in-line.
-        // Rows!
-        &.header, &.string, &.integer, &.enumerated, &.list {
-            @extend %border-spacing;
+            // For 'ul' with the following classes, make their list elements in-line.
+            // Rows!
+            &.header, &.string, &.integer, &.enumerated, &.list {
+                @extend %border-spacing;
 
-            & > li {
-                @extend %inline-lists;
-                &.parameter {
-                    margin-right: 3em;
+                & > li {
+                    @extend %inline-lists;
+                    &.parameter {
+                        margin-right: 3em;
+                    }
+                    &.description {
+                        float: right;
+                    }
+                }
+                
+                border-bottom: 1px solid darken($color, 20%);
+                padding-top: 4px;
+                padding-bottom: 10px;
+            }
+
+            &.header {
+                font-weight: bold;
+                > li.parameter{
+                    width: 8em;
+                }
+            }
+
+            &.collection, &.object {
+                @extend %border-spacing;
+
+                // Making the following list elements into a row since the parameter
+                // list element will contain a 'ul' and start on the following line
+                & > li.name, & > li.type, & > li.description {
+                    @extend %inline-lists;
+                }
+
+                // Remove left margin for the collection/object parameter container.
+    /* May want to just setup ul.subcontainer and style that instead. */
+                & > li.parameter > ul {
+                    margin-left: 0;
+                }
+            }
+
+            // Spacing between list elements.
+            // Don't think text is wrapped like it would be in table cells,
+            // should check on this. 
+            li {
+                &.name {
+                    width: 8em;
+                }
+                &.type {
+                    width: 8em;
                 }
                 &.description {
-                    float: right;
+                    width: 27em;
                 }
             }
         }
 
-        &.header {
-            font-weight: bold;
-            > li.parameter{
-                width: 8em;
-            }
-        }
-
-        &.collection, &.object {
-            @extend %border-spacing;
-
-            // Making the following list elements into a row since the parameter
-            // list element will contain a 'ul' and start on the following line
-            & > li.name, & > li.type, & > li.description {
-                @extend %inline-lists;
-            }
-
-            // Remove left margin for the collection/object parameter container.
-/* May want to just setup ul.subcontainer and style that instead. */
-            & > li.parameter > ul {
+        /* Initial alignment */
+        // This needs to go at the end of the div.content block,
+        // otherwise 'div.content ul' seems to override the rule.
+        > ul {
+            margin-left: 0;
+            > li > ul {
                 margin-left: 0;
             }
         }
 
-        // Spacing between list elements.
-        // Don't think text is wrapped like it would be in table cells,
-        // should check on this. 
-        li {
-            &.name {
-                width: 8em;
-            }
-            &.type {
-                width: 8em;
-            }
-            &.description {
-                width: 27em;
-            }
-        }
+        // In the event that things are so deeply nested, this will make it possible
+        // to see nested content parameters.
+        overflow-x: scroll;
     }
-
-    /* Initial alignment */
-    // This needs to go at the end of the div.content block,
-    // otherwise 'div.content ul' seems to override the rule.
-    > ul {
-        margin-left: 0;
-        > li > ul {
-            margin-left: 0;
-        }
-    }
-
-    // In the event that things are so deeply nested, this will make it possible
-    // to see nested content parameters.
-    overflow-x: scroll;
 }
+
+/* Only need this for PUT and POST methods, GET and DELETE won't have content
+    blocks. Or at least don't currently.
+ */
+@include content('post', $post);
+@include content('put', $put);
 
 @media all and (orientation:portrait) {
 }
