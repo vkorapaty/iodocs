@@ -1,5 +1,15 @@
-mixin content2(apiInfo, contentArray, className, noheader, collection)
+mixin content2(apiInfo, contentArray, className, noheader, rowType)
     ul.parameters
+        - if (rowType == 'collection')
+            li.collection-original
+                div.button-container
+                    div.arrow-container
+                        a(href='#', onclick='return false', class='collection-minimize arrow-down') Minimize collection
+        - if (rowType == 'object')
+            li
+                div.button-container
+                    div.arrow-container
+                        a(href='#', onclick='return false', class='collection-minimize arrow-down') Minimize collection
         - if (noheader === undefined) 
             li
                 ul.header
@@ -14,7 +24,7 @@ mixin content2(apiInfo, contentArray, className, noheader, collection)
             - else
                 - var required =false
                 - var className =''
-            - if (collection == true)
+            - if (rowType == 'collection')
                 li.collection-original
                     mixin row(apiInfo, parameter, className)
             - else
@@ -51,10 +61,7 @@ mixin parameters(apiInfo, parameter, className)
     - else if (parameter.Type =='object' || parameter.Type =='collection')
         - if (parameter.parameters != undefined)
             - if (parameter.parameters.length > 0)
-                -if (parameter.Type =='collection')
-                  mixin content2(apiInfo, parameter.parameters, className, true, true)
-                -else 
-                  mixin content2(apiInfo, parameter.parameters, className, true)
+                mixin content2(apiInfo, parameter.parameters, className, true, parameter.Type)
     - else
         input(value=parameter.Default, placeholder=className)
 

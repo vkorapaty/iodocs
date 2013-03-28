@@ -321,4 +321,31 @@
             }
         });
     }
+
+    //
+    // Minimize functionality for collections and lists
+    // 
+    $('li').on("click", "a.collection-minimize, a.list-minimize", function(event) {
+        event.stopPropagation();
+        // Get the class of the following row
+        var minimize_class = $(this).parent().parent().parent().next().attr('class');
+        // Object case
+        if (minimize_class === undefined) {
+            $(this).parent().parent().parent().siblings().slideToggle();
+        }
+        // Collection case
+        else {
+            // trim whitespace
+            minimize_class = minimize_class.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+            // Minimize all following rows of the same class.
+            $(this).parent().parent().parent().siblings('.' + minimize_class).slideToggle();
+        }
+        // Rotating the minimize button
+        if ($(this).parent().hasClass('rotate')) {
+            $(this).parent().removeClass('rotate');
+        }
+        else {
+            $(this).parent().addClass('rotate');
+        }
+    });
 })();
