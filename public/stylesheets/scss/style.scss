@@ -872,6 +872,21 @@ div.clickable a {
             }
         }
 
+        ul.collection ul.parameters {
+            background-color: saturate(darken($color, 5%), 30%);
+            @include border-radius(5px);
+        }
+
+        ul.collection ul.parameters ul.collection ul.parameters {
+            background-color: saturate(darken($color, 10%), 20%);
+            @include border-radius(5px);
+        }
+
+        ul.collection ul.parameters ul.collection ul.parameters ul.collection ul.parameters {
+            background-color: saturate(darken($color, 15%), 10%);
+            @include border-radius(5px);
+        }
+
         /* Initial alignment */
         // This needs to go at the end of the div.content block,
         // otherwise 'div.content ul' seems to override the rule.

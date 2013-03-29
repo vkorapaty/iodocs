@@ -810,7 +810,7 @@ li {
 
 /* line 700, scss/style.scss */
 dl {
-  display: block;
+  display: inline-block;
   margin-bottom: 10px;
   font-weight: normal;
 }
@@ -880,15 +880,9 @@ div.clickable a {
   /*workaround to make clickable in IE */
 }
 
-/* Making it possible to see nested content parameters */
-/* line 759, scss/style.scss */
-div.content {
-  overflow-x: scroll;
-}
-
 /* Rotating minimize triangle */
 /* http://webdesigncrowd.com/animated-buttons-css3-transitions-transforms/ */
-/* line 766, scss/style.scss */
+/* line 761, scss/style.scss */
 .button-container {
   position: relative;
   /*Important, Keeps the CSS3 Shapes in place*/
@@ -897,7 +891,7 @@ div.content {
   height: 25px;
 }
 
-/* line 772, scss/style.scss */
+/* line 767, scss/style.scss */
 .arrow-container {
   position: relative;
   top: 0px;
@@ -910,7 +904,7 @@ div.content {
   transition: transform 0.3s ease-out;
 }
 
-/* line 784, scss/style.scss */
+/* line 779, scss/style.scss */
 .arrow-down {
   width: 0;
   height: 0;
@@ -921,7 +915,7 @@ div.content {
   line-height: 0px;
 }
 
-/* line 794, scss/style.scss */
+/* line 789, scss/style.scss */
 .rotate {
   -webkit-transform: rotateZ(-90deg) translateX(5px);
   -moz-transform: rotateZ(-90deg) translateX(5px);
@@ -929,38 +923,200 @@ div.content {
 }
 
 /* Nested lists for nested PUT/POST content parameters */
-/* line 804, scss/style.scss */
-div.content ul.header li {
-  font-weight: bold;
-}
-/* line 808, scss/style.scss */
-div.content ul > li {
-  display: inline-block;
-}
-/* line 812, scss/style.scss */
-div.content ul li.parameter > ul.parameters {
-  display: block;
+/* line 797, scss/style.scss */
+.post div.content ul.header, .post div.content ul.string, .post div.content ul.integer, .post div.content ul.enumerated, .post div.content ul.list, .post div.content ul.collection, .post div.content ul.object, .put div.content ul.header, .put div.content ul.string, .put div.content ul.integer, .put div.content ul.enumerated, .put div.content ul.list, .put div.content ul.collection, .put div.content ul.object {
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
-/*
-ul.horizontal {
-    &.header {
-        li {
-            font-weight: bold;
-        }
-    }
-    &.four-columns {
-        >li {
-            width: 25%;
-        }
-    }
-    >li {
-        display: inline-block;
-    }
+/* line 804, scss/style.scss */
+.post div.content ul.header > li, .post div.content ul.string > li, .post div.content ul.integer > li, .post div.content ul.enumerated > li, .post div.content ul.list > li, .post div.content ul.collection > li.name, .post div.content ul.collection > li.type, .post div.content ul.collection > li.description, .post div.content ul.object > li.name, .post div.content ul.object > li.type, .post div.content ul.object > li.description, .put div.content ul.header > li, .put div.content ul.string > li, .put div.content ul.integer > li, .put div.content ul.enumerated > li, .put div.content ul.list > li, .put div.content ul.collection > li.name, .put div.content ul.collection > li.type, .put div.content ul.collection > li.description, .put div.content ul.object > li.name, .put div.content ul.object > li.type, .put div.content ul.object > li.description {
+  display: inline-block;
 }
-*/
+
+/* Only need this for PUT and POST methods, GET and DELETE won't have content
+    blocks. Or at least don't currently.
+ */
+/* line 809, scss/style.scss */
+.post div.content {
+  /* Initial alignment */
+  overflow-x: scroll;
+}
+/* line 810, scss/style.scss */
+.post div.content ul {
+  display: block;
+  margin-left: 2%;
+  list-style: none;
+}
+/* line 818, scss/style.scss */
+.post div.content ul.header, .post div.content ul.string, .post div.content ul.integer, .post div.content ul.enumerated, .post div.content ul.list {
+  border-bottom: 1px solid #9ddab1;
+  padding-top: 4px;
+  padding-bottom: 10px;
+}
+/* line 823, scss/style.scss */
+.post div.content ul.header > li.parameter, .post div.content ul.string > li.parameter, .post div.content ul.integer > li.parameter, .post div.content ul.enumerated > li.parameter, .post div.content ul.list > li.parameter {
+  margin-right: 3em;
+}
+/* line 826, scss/style.scss */
+.post div.content ul.header > li.description, .post div.content ul.string > li.description, .post div.content ul.integer > li.description, .post div.content ul.enumerated > li.description, .post div.content ul.list > li.description {
+  float: right;
+}
+/* line 836, scss/style.scss */
+.post div.content ul.header {
+  font-weight: bold;
+}
+/* line 838, scss/style.scss */
+.post div.content ul.header > li.parameter {
+  width: 8em;
+}
+/* line 843, scss/style.scss */
+.post div.content ul.collection, .post div.content ul.object {
+  /* May want to just setup ul.subcontainer and style that instead. */
+}
+/* line 854, scss/style.scss */
+.post div.content ul.collection > li.parameter > ul, .post div.content ul.object > li.parameter > ul {
+  margin-left: 0;
+}
+/* line 863, scss/style.scss */
+.post div.content ul li.name {
+  width: 8em;
+}
+/* line 866, scss/style.scss */
+.post div.content ul li.type {
+  width: 8em;
+}
+/* line 869, scss/style.scss */
+.post div.content ul li.description {
+  width: 27em;
+}
+/* line 875, scss/style.scss */
+.post div.content ul.collection ul.parameters {
+  background-color: #ccf8da;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 880, scss/style.scss */
+.post div.content ul.collection ul.parameters ul.collection ul.parameters {
+  background-color: #baf0cc;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 885, scss/style.scss */
+.post div.content ul.collection ul.parameters ul.collection ul.parameters ul.collection ul.parameters {
+  background-color: #aae7be;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 893, scss/style.scss */
+.post div.content > ul {
+  margin-left: 0;
+}
+/* line 895, scss/style.scss */
+.post div.content > ul > li > ul {
+  margin-left: 0;
+}
+
+/* line 809, scss/style.scss */
+.put div.content {
+  /* Initial alignment */
+  overflow-x: scroll;
+}
+/* line 810, scss/style.scss */
+.put div.content ul {
+  display: block;
+  margin-left: 2%;
+  list-style: none;
+}
+/* line 818, scss/style.scss */
+.put div.content ul.header, .put div.content ul.string, .put div.content ul.integer, .put div.content ul.enumerated, .put div.content ul.list {
+  border-bottom: 1px solid #e3c399;
+  padding-top: 4px;
+  padding-bottom: 10px;
+}
+/* line 823, scss/style.scss */
+.put div.content ul.header > li.parameter, .put div.content ul.string > li.parameter, .put div.content ul.integer > li.parameter, .put div.content ul.enumerated > li.parameter, .put div.content ul.list > li.parameter {
+  margin-right: 3em;
+}
+/* line 826, scss/style.scss */
+.put div.content ul.header > li.description, .put div.content ul.string > li.description, .put div.content ul.integer > li.description, .put div.content ul.enumerated > li.description, .put div.content ul.list > li.description {
+  float: right;
+}
+/* line 836, scss/style.scss */
+.put div.content ul.header {
+  font-weight: bold;
+}
+/* line 838, scss/style.scss */
+.put div.content ul.header > li.parameter {
+  width: 8em;
+}
+/* line 843, scss/style.scss */
+.put div.content ul.collection, .put div.content ul.object {
+  /* May want to just setup ul.subcontainer and style that instead. */
+}
+/* line 854, scss/style.scss */
+.put div.content ul.collection > li.parameter > ul, .put div.content ul.object > li.parameter > ul {
+  margin-left: 0;
+}
+/* line 863, scss/style.scss */
+.put div.content ul li.name {
+  width: 8em;
+}
+/* line 866, scss/style.scss */
+.put div.content ul li.type {
+  width: 8em;
+}
+/* line 869, scss/style.scss */
+.put div.content ul li.description {
+  width: 27em;
+}
+/* line 875, scss/style.scss */
+.put div.content ul.collection ul.parameters {
+  background-color: #fce7cd;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 880, scss/style.scss */
+.put div.content ul.collection ul.parameters ul.collection ul.parameters {
+  background-color: #f6dbb9;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 885, scss/style.scss */
+.put div.content ul.collection ul.parameters ul.collection ul.parameters ul.collection ul.parameters {
+  background-color: #eecfa8;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 893, scss/style.scss */
+.put div.content > ul {
+  margin-left: 0;
+}
+/* line 895, scss/style.scss */
+.put div.content > ul > li > ul {
+  margin-left: 0;
+}
+
 @media print {
-  /* line 845, scss/style.scss */
+  /* line 922, scss/style.scss */
   * {
     background: transparent !important;
     color: black !important;
@@ -970,41 +1126,41 @@ ul.horizontal {
   }
 
   /* Black prints faster: sanbeiji.com/archives/953 */
-  /* line 848, scss/style.scss */
+  /* line 925, scss/style.scss */
   a, a:visited {
     color: #444444 !important;
     text-decoration: underline;
   }
 
-  /* line 850, scss/style.scss */
+  /* line 927, scss/style.scss */
   a[href]:after {
     content: " (" attr(href) ")";
   }
 
-  /* line 852, scss/style.scss */
+  /* line 929, scss/style.scss */
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
 
-  /* line 854, scss/style.scss */
+  /* line 931, scss/style.scss */
   .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
     content: "";
   }
 
   /* Don't show links for images, or javascript/internal links */
-  /* line 856, scss/style.scss */
+  /* line 933, scss/style.scss */
   pre, blockquote {
     border: 1px solid #999999;
     page-break-inside: avoid;
   }
 
-  /* line 858, scss/style.scss */
+  /* line 935, scss/style.scss */
   thead {
     display: table-header-group;
   }
 
   /* css-discuss.incutio.com/wiki/Printing_Tables */
-  /* line 860, scss/style.scss */
+  /* line 937, scss/style.scss */
   tr, img {
     page-break-inside: avoid;
   }
@@ -1013,13 +1169,13 @@ ul.horizontal {
     margin: 0.5cm;
 }
 
-  /* line 864, scss/style.scss */
+  /* line 941, scss/style.scss */
   p, h2, h3 {
     orphans: 3;
     widows: 3;
   }
 
-  /* line 866, scss/style.scss */
+  /* line 943, scss/style.scss */
   h2, h3 {
     page-break-after: avoid;
   }
