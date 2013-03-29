@@ -584,6 +584,57 @@
                 ]
             },
             {
+                "MethodName": "Modify codebase 2",
+                "Synopsis": "Modify an existing codebase.",
+                "HTTPMethod": "PUT",
+                "URI": "/application/:app_id/codebase/:codebase_id",
+                "RequiresOAuth": "N",
+                "content":{
+                    "schema":{"type":"string"},
+                    "contentType":["application/json","application/xml"],
+                    "parameters": [
+                        {
+                            "Name": "exclude_dirs",
+                            "Required": "N",
+                            "Type": "list-only",
+                            "Description": "List of directories to be excluded.",
+                            "parameters": [
+                                {
+                                    "Required": "N",
+                                    "Type": "string"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "parameters": [
+                    {
+                        "Name": "app_id",
+                        "Required": "Y",
+                        "Type": "integer",
+                        "Description": "Application id."
+                    },
+                    {
+                        "Name": "codebase_id",
+                        "Required": "Y",
+                        "Type": "integer",
+                        "Description": "Codebase id."
+                    },
+                    {
+                        "Name": "display_exclude_dirs",
+                        "Required": "N",
+                        "Type": "enumerated",
+                        "EnumeratedList": [0,1]
+                    },
+                    {
+                        "Name": "accept_fmt",
+                        "Required": "N",
+                        "Type": "enumerated",
+                        "EnumeratedList": [ "application/json"]
+                    }
+                ]
+            },
+            {
                 "MethodName": "Create new application",
                 "Synopsis": "Create a new application",
                 "HTTPMethod": "POST",
