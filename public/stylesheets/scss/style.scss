@@ -815,7 +815,7 @@ div.clickable a {
 
             // For 'ul' with the following classes, make their list elements in-line.
             // Rows!
-            &.header, &.string, &.integer, &.enumerated, &.list {
+            &.header, &.string, &.integer, &.enumerated, &.list, &.list-only {
                 @extend %border-spacing;
 
                 & > li {

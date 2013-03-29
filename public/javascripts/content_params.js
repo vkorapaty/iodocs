@@ -48,11 +48,25 @@
             }
         }
 
+        if (type == 'list-only') {
+            var listValue = handleListOnly(paramList.children('li'));
+            if (listValue.length > 0) {
+                return listValue;
+            }
+            else {
+                return;
+            }
+        }
+
         var rows = paramList.children('li');
         var obj = {};
 
         rows.each(function () {
             var row = $(this).children('ul');
+
+            var type = row.children('li.type').text();
+            type = type.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+
             if ( row.hasClass('header') ) {
                 // Do nothing, ignore the header row.
             }
@@ -61,7 +75,13 @@
                 var val = rowValue( row );
             }
 
-            $.extend(obj, createSimpleObject(name, val));
+            if (type == 'list-only') {
+                var test =  rowValue(row);
+                obj = test;
+            }
+            else {
+                $.extend(obj, createSimpleObject(name, val));
+            }
         });
 
         return obj;
@@ -110,9 +130,25 @@
         //
         // Collect information of all list elements
         var collectionsArray = [];
-        console.log(elements);
         elements.children().each( function (event) {
-            console.log($(this));
+            var val = formatValue($(this).val());
+            if (val) {
+                collectionsArray.push( val );
+            }
+        });
+
+        return collectionsArray;
+    }
+
+    function handleListOnly ( elements ) {
+        // Unlike handleObject and HandleCollection, handleList gets the set of
+        // 'li' elements that contain values to be processed. rowValue is not
+        // needed here, provided that only the basic input types are present
+        // (string/integer/enumerated).
+        //
+        // Collect information of all list elements
+        var collectionsArray = [];
+        elements.children().each( function (event) {
             var val = formatValue($(this).val());
             if (val) {
                 collectionsArray.push( val );
@@ -148,7 +184,7 @@
             var paramList  = row.children('li.parameter').children('ul.parameters');
             return handleTable(paramList, type);
         }
-        else if (type == 'list') {
+        else if (type == 'list' || type == 'list-only') {
             var paramList  = row.children('li.parameter').children('ul');
             return handleTable(paramList, type);
         }
