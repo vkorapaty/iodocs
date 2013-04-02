@@ -56,7 +56,7 @@
         }
 
         if (type == 'list-only') {
-            var listValue = handleListOnly(paramList.children('li'));
+            var listValue = handleList(paramList.children('li'));
             if (listValue.length > 0) {
                 return listValue;
             }
@@ -130,24 +130,6 @@
     }
 
     function handleList ( elements ) {
-        // Unlike handleObject and HandleCollection, handleList gets the set of
-        // 'li' elements that contain values to be processed. rowValue is not
-        // needed here, provided that only the basic input types are present
-        // (string/integer/enumerated).
-        //
-        // Collect information of all list elements
-        var collectionsArray = [];
-        elements.children().each( function (event) {
-            var val = formatValue($(this).val());
-            if (val) {
-                collectionsArray.push( val );
-            }
-        });
-
-        return collectionsArray;
-    }
-
-    function handleListOnly ( elements ) {
         // Unlike handleObject and HandleCollection, handleList gets the set of
         // 'li' elements that contain values to be processed. rowValue is not
         // needed here, provided that only the basic input types are present
