@@ -824,9 +824,6 @@ div.clickable a {
                     &.parameter {
                         margin-right: 3em;
                     }
-                    &.description {
-                        float: right;
-                    }
                 }
                 
                 border-bottom: 1px solid darken($color, 20%);
@@ -864,13 +861,16 @@ div.clickable a {
                 &.name {
                     width: 8em;
                     word-wrap: break-word;
+                    vertical-align: top;
                 }
                 &.type {
                     width: 8em;
+                    vertical-align: top;
                 }
                 &.description {
                     width: 27em;
                     word-wrap: break-word;
+                    vertical-align: top;
                 }
             }
         }
