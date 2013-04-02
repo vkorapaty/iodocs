@@ -863,12 +863,14 @@ div.clickable a {
             li {
                 &.name {
                     width: 8em;
+                    word-wrap: break-word;
                 }
                 &.type {
                     width: 8em;
                 }
                 &.description {
                     width: 27em;
+                    word-wrap: break-word;
                 }
             }
         }
