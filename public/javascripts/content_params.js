@@ -169,7 +169,7 @@
         // '' option for list type, where parameter fields do not have an
         // associated type field. Could add type field back and not have this
         // problem. Or the ''== type can be the final else clause.
-        if (type == 'enumerated' || type == 'string' || type == 'integer' || type == '') {
+        if (type == 'boolean' || type == 'enumerated' || type == 'string' || type == 'integer' || type == '') {
             var val;
             val = row.children('li.parameter')
                 .children('input, select')
