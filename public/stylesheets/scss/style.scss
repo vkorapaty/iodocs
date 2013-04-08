@@ -57,6 +57,32 @@ blockquote:before,blockquote:after,q:before,q:after {
   content: none;
 }
 
+#io-footer {
+  margin-top: 25px;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+            text-decoration: underline;
+            color: inherit;
+        }
+    }
+}
+
+.f-left {
+  font-size: 8pt;
+  text-align: left;
+  float: left;
+}
+
+.f-right {
+  font-size: 8pt;
+  text-align: right;
+  float: right;
+}
+
 ins {
   background-color: #ff9;
   color: #000;
@@ -251,16 +277,18 @@ textarea:invalid {
   background-color: #f0dddd;
 }
 
-::-moz-selection {
-  background: #ff5e99;
-  color: #fff;
+%selection {
+  background: #f6f5c1;
+  color: #444;
   text-shadow: none;
 }
 
 ::selection {
-  background: #ff5e99;
-  color: #fff;
-  text-shadow: none;
+    @extend %selection;
+}
+
+::-moz-selection {
+    @extend %selection;
 }
 
 .ie7 img {
@@ -287,6 +315,7 @@ html {
 body {
   width: 960px;
   margin: 15px auto;
+  padding-bottom: 20px;
 }
 
 h1 {
@@ -296,11 +325,14 @@ h1 {
 }
 
 h2 {
-    font-weight: normal;
-    font-size: 18px;
-    margin-bottom: 15px;
+  font-weight: normal;
+  font-size: 18px;
+  margin-bottom: 15px;
 }
-
+h4 {
+  font-weight: normal;
+  font-size: 14px;
+}
 ul {
     margin: 0;
 }
@@ -317,13 +349,31 @@ li {
     @include clearfix;
     padding: 15px;
 
-    h2 img {
+    &.authed {
+        background-color: #d6f6bd;
+        border-color: #86bf6a;
+        padding: 10px;
+    }
+
+    &.authed form {
+        display: none;
+    }
+
+    img {
         margin-left: 10px;
+    }
+
+    h2 {
+        margin-bottom: 0;
     }
 
     div {
         float: left;
         margin-right: 15px;
+    }
+
+    form {
+        margin-top: 10px;
     }
 
     label {
@@ -334,6 +384,10 @@ li {
 
     input {
         width: 200px;
+    }
+
+    #oauth-auth {
+        margin-top: 20px;
     }
 }
 
@@ -357,11 +411,20 @@ li {
 
 .endpoint {
     margin: 0;
+    background-color: #f9f9f9;
     border-bottom: 1px solid #eee;
     @include clearfix;
+    @include transition-property(background-color);
+    @include transition-duration(0.5s);
+    @include transition-timing-function(ease);
+
+    &.expanded {
+        background-color: #fff;                                                                   
+    }
 
     & > .title {
-        padding: 20px 0 10px;
+        font-weight: normal;
+        padding: 20px 0 10px 10px;
         @include clearfix;
 
         & .name {
@@ -400,6 +463,40 @@ li {
     @include border-radius(5px);
     margin: 10px 0;
 
+    div.headers {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      margin-bottom: 15px;
+    
+        h4 {
+          margin-top: 0;
+        }
+                                                                                                                                                                                                               
+        .fields {
+          display: none;
+          padding: 0 15px;
+          margin-bottom: 15px;
+        }
+                                                                                                                                                                                                               
+        .indicator {
+          border-width: 5px;
+          border-color: transparent transparent transparent #333;
+          border-style: solid;
+          display: block;
+          float: left;
+          margin: 11px 0 0 10px;
+        }
+                                                                                                                                                                                                               
+        &.expanded .indicator {
+          border-color: #333 transparent transparent transparent;
+          margin-top: 14px;
+        }
+    }
+                                                                                                                                                                                                       
+    &:first-of-type {
+      margin-top: 0;
+    }
+
     .title {
         overflow: hidden;
         @include border-radius(5px);
@@ -422,6 +519,10 @@ li {
             margin: 0 10px 0;
             line-height: 33px;
             float: left;
+        }
+
+        .uri {
+            color: #777;
         }
 
         .name {
@@ -460,6 +561,17 @@ li {
         clear: both;
         padding: 15px;
         display: none;
+
+        a.clear-results {
+            color: red;
+            margin-left: 20px;
+            font-size: 12px;
+
+            &:hover {
+                background-color: red;
+                color: #fff;
+            }
+        }
     }
 
     table {
@@ -485,9 +597,25 @@ li {
         @include monospace;
     }
 
-    h2 {
+    td {
+        &.description {
+            font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            font-size: 12px;
+        }
+
+        &.type  {
+            font-size: 12px;
+        }
+    }
+
+    h4 {
         margin-top: 15px;
         margin-bottom: 3px;
+
+        a.select-all {
+            font-size: 12px;
+            margin-left: 15px;
+        }
     }
 
     pre {
@@ -500,8 +628,14 @@ li {
             max-height: 500px;
         }
 
+        &.prettyprint {
+            padding: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
         &.error {
             background-color: rgba(255,66,66,0.2);
+            border-color: rgba(255, 100, 100,0.5);
         }
     }
 }
@@ -561,6 +695,29 @@ li {
 .clearfix {
   zoom: 1;
 }
+
+dl {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: normal;
+}
+dt {
+  width: 30%;
+  border-top: 1px rgba(0,0,0,.2) solid;
+  padding-top: 5px;
+  margin-top: 5px;
+  display: block;
+  float: left;
+}
+dd {
+  width: 70%;
+  border-top: 1px rgba(0,0,0,.2) solid;
+  padding-top: 5px;
+  margin-top: 5px;
+  display: block;
+  float: left;
+}
+
 
 @media all and (orientation:portrait) {
 }
