@@ -714,6 +714,7 @@ app.dynamicHelpers({
         if (req.params.api) {
             var data = getData(req.params.api);
             processApiIncludes(data, req.params.api);
+            cachedApiInfo = data;
             return data;
         }
     }
