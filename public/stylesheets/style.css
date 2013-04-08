@@ -928,13 +928,13 @@ div.clickable a {
 
 /* Nested lists for nested PUT/POST content parameters */
 /* line 801, scss/style.scss */
-.post div.content ul.header, .post div.content ul.string, .post div.content ul.integer, .post div.content ul.enumerated, .post div.content ul.list, .post div.content ul.collection, .post div.content ul.object, .put div.content ul.header, .put div.content ul.string, .put div.content ul.integer, .put div.content ul.enumerated, .put div.content ul.list, .put div.content ul.collection, .put div.content ul.object {
+.post div.content ul.header, .post div.content ul.string, .post div.content ul.integer, .post div.content ul.enumerated, .post div.content ul.list, .post div.content ul.list-only, .post div.content ul.collection, .post div.content ul.object, .put div.content ul.header, .put div.content ul.string, .put div.content ul.integer, .put div.content ul.enumerated, .put div.content ul.list, .put div.content ul.list-only, .put div.content ul.collection, .put div.content ul.object {
   margin-top: 1%;
   margin-bottom: 1%;
 }
 
 /* line 808, scss/style.scss */
-.post div.content ul.header > li, .post div.content ul.string > li, .post div.content ul.integer > li, .post div.content ul.enumerated > li, .post div.content ul.list > li, .post div.content ul.collection > li.name, .post div.content ul.collection > li.type, .post div.content ul.collection > li.description, .post div.content ul.object > li.name, .post div.content ul.object > li.type, .post div.content ul.object > li.description, .put div.content ul.header > li, .put div.content ul.string > li, .put div.content ul.integer > li, .put div.content ul.enumerated > li, .put div.content ul.list > li, .put div.content ul.collection > li.name, .put div.content ul.collection > li.type, .put div.content ul.collection > li.description, .put div.content ul.object > li.name, .put div.content ul.object > li.type, .put div.content ul.object > li.description {
+.post div.content ul.header > li, .post div.content ul.string > li, .post div.content ul.integer > li, .post div.content ul.enumerated > li, .post div.content ul.list > li, .post div.content ul.list-only > li, .post div.content ul.collection > li.name, .post div.content ul.collection > li.type, .post div.content ul.collection > li.description, .post div.content ul.object > li.name, .post div.content ul.object > li.type, .post div.content ul.object > li.description, .put div.content ul.header > li, .put div.content ul.string > li, .put div.content ul.integer > li, .put div.content ul.enumerated > li, .put div.content ul.list > li, .put div.content ul.list-only > li, .put div.content ul.collection > li.name, .put div.content ul.collection > li.type, .put div.content ul.collection > li.description, .put div.content ul.object > li.name, .put div.content ul.object > li.type, .put div.content ul.object > li.description {
   display: inline-block;
 }
 
@@ -943,6 +943,7 @@ div.clickable a {
  */
 /* line 813, scss/style.scss */
 .post div.content {
+  /* Darkening the background for collection parameters by nesting level, only goes 3 deep */
   /* Initial alignment */
   overflow-x: scroll;
 }
@@ -951,15 +952,17 @@ div.clickable a {
   display: block;
   margin-left: 2%;
   list-style: none;
+  /* For list and list-only type parameters, add a bit of margin
+      for spacing between the added boxes. */
 }
 /* line 822, scss/style.scss */
-.post div.content ul.header, .post div.content ul.string, .post div.content ul.integer, .post div.content ul.enumerated, .post div.content ul.list {
+.post div.content ul.header, .post div.content ul.string, .post div.content ul.integer, .post div.content ul.enumerated, .post div.content ul.list, .post div.content ul.list-only {
   border-bottom: 1px solid #9ddab1;
   padding-top: 4px;
   padding-bottom: 10px;
 }
 /* line 827, scss/style.scss */
-.post div.content ul.header > li.parameter, .post div.content ul.string > li.parameter, .post div.content ul.integer > li.parameter, .post div.content ul.enumerated > li.parameter, .post div.content ul.list > li.parameter {
+.post div.content ul.header > li.parameter, .post div.content ul.string > li.parameter, .post div.content ul.integer > li.parameter, .post div.content ul.enumerated > li.parameter, .post div.content ul.list > li.parameter, .post div.content ul.list-only > li.parameter {
   margin-right: 3em;
 }
 /* line 837, scss/style.scss */
@@ -978,24 +981,28 @@ div.clickable a {
 .post div.content ul.collection > li.parameter > ul, .post div.content ul.object > li.parameter > ul {
   margin-left: 0;
 }
-/* line 864, scss/style.scss */
+/* line 863, scss/style.scss */
+.post div.content ul.list-only > li.parameter > ul > li, .post div.content ul.list > li.parameter > ul > li {
+  margin-bottom: 4%;
+}
+/* line 872, scss/style.scss */
 .post div.content ul li.name {
   width: 8em;
   word-wrap: break-word;
   vertical-align: top;
 }
-/* line 869, scss/style.scss */
+/* line 877, scss/style.scss */
 .post div.content ul li.type {
   width: 8em;
   vertical-align: top;
 }
-/* line 873, scss/style.scss */
+/* line 881, scss/style.scss */
 .post div.content ul li.description {
   width: 27em;
   word-wrap: break-word;
   vertical-align: top;
 }
-/* line 881, scss/style.scss */
+/* line 890, scss/style.scss */
 .post div.content ul.collection ul.parameters {
   background-color: #ccf8da;
   -webkit-border-radius: 5px;
@@ -1004,7 +1011,7 @@ div.clickable a {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 886, scss/style.scss */
+/* line 895, scss/style.scss */
 .post div.content ul.collection ul.parameters ul.collection ul.parameters {
   background-color: #baf0cc;
   -webkit-border-radius: 5px;
@@ -1013,7 +1020,7 @@ div.clickable a {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 891, scss/style.scss */
+/* line 900, scss/style.scss */
 .post div.content ul.collection ul.parameters ul.collection ul.parameters ul.collection ul.parameters {
   background-color: #aae7be;
   -webkit-border-radius: 5px;
@@ -1022,17 +1029,18 @@ div.clickable a {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 899, scss/style.scss */
+/* line 908, scss/style.scss */
 .post div.content > ul {
   margin-left: 0;
 }
-/* line 901, scss/style.scss */
+/* line 910, scss/style.scss */
 .post div.content > ul > li > ul {
   margin-left: 0;
 }
 
 /* line 813, scss/style.scss */
 .put div.content {
+  /* Darkening the background for collection parameters by nesting level, only goes 3 deep */
   /* Initial alignment */
   overflow-x: scroll;
 }
@@ -1041,15 +1049,17 @@ div.clickable a {
   display: block;
   margin-left: 2%;
   list-style: none;
+  /* For list and list-only type parameters, add a bit of margin
+      for spacing between the added boxes. */
 }
 /* line 822, scss/style.scss */
-.put div.content ul.header, .put div.content ul.string, .put div.content ul.integer, .put div.content ul.enumerated, .put div.content ul.list {
+.put div.content ul.header, .put div.content ul.string, .put div.content ul.integer, .put div.content ul.enumerated, .put div.content ul.list, .put div.content ul.list-only {
   border-bottom: 1px solid #e3c399;
   padding-top: 4px;
   padding-bottom: 10px;
 }
 /* line 827, scss/style.scss */
-.put div.content ul.header > li.parameter, .put div.content ul.string > li.parameter, .put div.content ul.integer > li.parameter, .put div.content ul.enumerated > li.parameter, .put div.content ul.list > li.parameter {
+.put div.content ul.header > li.parameter, .put div.content ul.string > li.parameter, .put div.content ul.integer > li.parameter, .put div.content ul.enumerated > li.parameter, .put div.content ul.list > li.parameter, .put div.content ul.list-only > li.parameter {
   margin-right: 3em;
 }
 /* line 837, scss/style.scss */
@@ -1068,24 +1078,28 @@ div.clickable a {
 .put div.content ul.collection > li.parameter > ul, .put div.content ul.object > li.parameter > ul {
   margin-left: 0;
 }
-/* line 864, scss/style.scss */
+/* line 863, scss/style.scss */
+.put div.content ul.list-only > li.parameter > ul > li, .put div.content ul.list > li.parameter > ul > li {
+  margin-bottom: 4%;
+}
+/* line 872, scss/style.scss */
 .put div.content ul li.name {
   width: 8em;
   word-wrap: break-word;
   vertical-align: top;
 }
-/* line 869, scss/style.scss */
+/* line 877, scss/style.scss */
 .put div.content ul li.type {
   width: 8em;
   vertical-align: top;
 }
-/* line 873, scss/style.scss */
+/* line 881, scss/style.scss */
 .put div.content ul li.description {
   width: 27em;
   word-wrap: break-word;
   vertical-align: top;
 }
-/* line 881, scss/style.scss */
+/* line 890, scss/style.scss */
 .put div.content ul.collection ul.parameters {
   background-color: #fce7cd;
   -webkit-border-radius: 5px;
@@ -1094,7 +1108,7 @@ div.clickable a {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 886, scss/style.scss */
+/* line 895, scss/style.scss */
 .put div.content ul.collection ul.parameters ul.collection ul.parameters {
   background-color: #f6dbb9;
   -webkit-border-radius: 5px;
@@ -1103,7 +1117,7 @@ div.clickable a {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 891, scss/style.scss */
+/* line 900, scss/style.scss */
 .put div.content ul.collection ul.parameters ul.collection ul.parameters ul.collection ul.parameters {
   background-color: #eecfa8;
   -webkit-border-radius: 5px;
@@ -1112,11 +1126,11 @@ div.clickable a {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 899, scss/style.scss */
+/* line 908, scss/style.scss */
 .put div.content > ul {
   margin-left: 0;
 }
-/* line 901, scss/style.scss */
+/* line 910, scss/style.scss */
 .put div.content > ul > li > ul {
   margin-left: 0;
 }
@@ -1124,7 +1138,7 @@ div.clickable a {
 /* Existed previously, believe (perhaps incorrectly) @media declarations should
  exist between style declarations, so moved to the end. */
 @media print {
-  /* line 931, scss/style.scss */
+  /* line 940, scss/style.scss */
   * {
     background: transparent !important;
     color: black !important;
@@ -1134,41 +1148,41 @@ div.clickable a {
   }
 
   /* Black prints faster: sanbeiji.com/archives/953 */
-  /* line 934, scss/style.scss */
+  /* line 943, scss/style.scss */
   a, a:visited {
     color: #444444 !important;
     text-decoration: underline;
   }
 
-  /* line 936, scss/style.scss */
+  /* line 945, scss/style.scss */
   a[href]:after {
     content: " (" attr(href) ")";
   }
 
-  /* line 938, scss/style.scss */
+  /* line 947, scss/style.scss */
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
 
-  /* line 940, scss/style.scss */
+  /* line 949, scss/style.scss */
   .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
     content: "";
   }
 
   /* Don't show links for images, or javascript/internal links */
-  /* line 942, scss/style.scss */
+  /* line 951, scss/style.scss */
   pre, blockquote {
     border: 1px solid #999999;
     page-break-inside: avoid;
   }
 
-  /* line 944, scss/style.scss */
+  /* line 953, scss/style.scss */
   thead {
     display: table-header-group;
   }
 
   /* css-discuss.incutio.com/wiki/Printing_Tables */
-  /* line 946, scss/style.scss */
+  /* line 955, scss/style.scss */
   tr, img {
     page-break-inside: avoid;
   }
@@ -1177,13 +1191,13 @@ div.clickable a {
     margin: 0.5cm;
 }
 
-  /* line 950, scss/style.scss */
+  /* line 959, scss/style.scss */
   p, h2, h3 {
     orphans: 3;
     widows: 3;
   }
 
-  /* line 952, scss/style.scss */
+  /* line 961, scss/style.scss */
   h2, h3 {
     page-break-after: avoid;
   }
