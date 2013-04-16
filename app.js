@@ -378,7 +378,8 @@ function processRequest(req, res, next) {
             host: baseHostUrl,
             port: baseHostPort,
             method: httpMethod,
-            path: apiConfig.publicPath + methodURL + ((paramString.length > 0) ? '?' + paramString : "")
+            path: apiConfig.publicPath + methodURL + ((paramString.length > 0) ? '?' + paramString : ""),
+            rejectUnauthorized: false
         };
 
     if (apiConfig.oauth) {
