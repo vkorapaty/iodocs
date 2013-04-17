@@ -85,6 +85,8 @@ ul
                             input(type='hidden', name='oauth', value=secure)
                             input(type='hidden', name='methodUri', value=method.URI)
 
+                            a(href='#').edit
+                               img(src='/images/edit.png', width='30', height='30', alt="Edit this Synopsis field")
                             span.description #{method.Synopsis}
                             br
                             br
@@ -136,6 +138,8 @@ ul
                                                   td.location
                                                       p=parameter.Location || 'query'
                                                   td.description
+                                                      a(href='#').edit
+                                                         img(src='/images/edit.png', width='30', height='30', alt="Edit this description field")
                                                       p=parameter.Description || 'No description'
                                                       - if (parameter.Type =='enumerated' && parameter.EnumeratedDescription)
                                                           dl.clearfix

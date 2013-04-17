@@ -94,6 +94,8 @@ mixin enumeratedOrBoolean(parameter, className, paramType)
                          option(value=choice) #{choice}
 
 mixin description(parameter)
+    a(href='#').edit
+        img(src='/images/edit.png', width='30', height='30', alt="Edit this description field")
     p=parameter.Description || 'No description'
     - if (parameter.Type =='enumerated' && parameter.EnumeratedDescription)
         dl
