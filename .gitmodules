@@ -1,0 +1,3 @@
+[submodule "whapi"]
+	path = whapi
+	url = git@github.com:vkorapaty/whapi.git
