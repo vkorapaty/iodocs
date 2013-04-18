@@ -92,8 +92,12 @@ ul
                             input(type='hidden', name='oauth', value=secure)
                             input(type='hidden', name='methodUri', value=method.URI)
 
-                            a(href='#').edit
+                            a(href='#'+methodLink).edit
                                img(src='/images/edit.png', width='30', height='30', alt="Edit this Synopsis field")
+                            a(href='#'+methodLink, style='display: none').save-edit
+                               img(src='/images/save.png', width='30', height='30', alt="Save edited Synopsis")
+                            a(href='#'+methodLink, style='display: none').cancel-edit
+                               img(src='/images/cancel.png', width='30', height='30', alt="Cancel this edit")
                             span.description #{method.Synopsis}
                             br
                             br
@@ -145,8 +149,12 @@ ul
                                                   td.location
                                                       p=parameter.Location || 'query'
                                                   td.description
-                                                      a(href='#').edit
+                                                      a(href='#'+methodLink).edit
                                                          img(src='/images/edit.png', width='30', height='30', alt="Edit this description field")
+                                                      a(href='#'+methodLink, style='display: none').save-edit
+                                                         img(src='/images/save.png', width='30', height='30', alt="Save edited description")
+                                                      a(href='#'+methodLink, style='display: none').cancel-edit
+                                                         img(src='/images/cancel.png', width='30', height='30', alt="Cancel this edit")
                                                       p=parameter.Description || 'No description'
                                                       - if (parameter.Type =='enumerated' && parameter.EnumeratedDescription)
                                                           dl.clearfix
