@@ -9,7 +9,7 @@
         $(this).siblings('.edit').show();
         $(this).hide();
         $(this).siblings('.save-edit').hide();
-        getEditElement($(this)).children('textarea').remove();
+        getEditElement($(this)).children().remove();
     });
 
     $('.save-edit').on("click", function(event) {
@@ -19,7 +19,7 @@
         $(this).siblings('.cancel-edit').hide();
         var editElem = getEditElement($(this));
         var updatedField = editElem.children('textarea').val();
-        editElem.children('textarea').remove();
+        editElem.children().remove();
         editElem.replaceWith(updatedField);
     });
 
