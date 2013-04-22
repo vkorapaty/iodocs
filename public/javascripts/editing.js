@@ -2,6 +2,28 @@
     $('.edit').on("click", function(event) {
         event.stopPropagation();
         editField($(this));
+
+    // endpoint name
+        console.log($(this).closest('li.endpoint').find('span.name').first().children().first().html());
+    // MethodName
+        console.log($(this).closest('li.method').find('span.name').html());
+    // HTTPMethod
+        console.log($(this).closest('li.method').find('span.http-method').html());
+    // Synopsis 
+        if ($(this).parent().is('form')) {
+            console.log('synop');
+            console.log(getEditElement($(this)).html());
+        }
+    // Parameter || Content Parameter
+        if ($(this).parent().is('li.description')) {
+            console.log("content parameter");
+        }
+    // Description
+        if ($(this).parent().is('td.description, li.description')) {
+            console.log($(this).parent().siblings('td.name, li.name').html());
+            console.log(getEditElement($(this)).html());
+        }
+
     });
 
     $('.cancel-edit').on("click", function(event) {

@@ -989,7 +989,7 @@ app.post('/editDoc', function(req,res) {
     console.log('Testing edit');
     console.log(req.body);
     var fs = require('fs');
-    fs.writeFile("/Users/vijaykorapaty/projects/iodocs/editdoctest.txt", JSON.stringify(req.body), function(err) {
+    fs.writeFile("./editdoctest.txt", JSON.stringify(req.body), function(err) {
         if(err) {
             console.log(err);
         } else {
