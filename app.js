@@ -984,6 +984,21 @@ app.get('/search', function(req, res) {
     res.send( search(cachedApiInfo, searchTerm) );
 });
 
+// Live editing
+app.post('/editDoc', function(req,res) {
+    console.log('Testing edit');
+    console.log(req.body);
+    var fs = require('fs');
+    fs.writeFile("/Users/vijaykorapaty/projects/iodocs/editdoctest.txt", JSON.stringify(req.body), function(err) {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log("The file was saved!");
+        }
+    });
+    res.send('hello');
+});
+
 // Process the API request
 app.post('/processReq', oauth, processRequest, function(req, res) {
     var result = {

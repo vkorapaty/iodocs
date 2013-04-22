@@ -21,6 +21,21 @@
         var updatedField = editElem.children('textarea').val();
         editElem.children().remove();
         editElem.replaceWith(updatedField);
+
+        // Send stuff to the server.
+        var params = [],
+            updateStuff = { name: 'test', value: getEditElement($(this)).html() };
+
+        params.push(updateStuff);
+
+        $.post('/editDoc', params, function(result, text) {
+            console.log(result);
+        })
+        .error(function(err, text) {
+            console.log('ERROR!');
+            console.log(err);
+        });
+
     });
 
     function editField (editIcon) {
