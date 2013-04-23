@@ -3,26 +3,6 @@
         event.stopPropagation();
         editField($(this));
 
-    // endpoint name
-        console.log($(this).closest('li.endpoint').find('span.name').first().children().first().html());
-    // MethodName
-        console.log($(this).closest('li.method').find('span.name').html());
-    // HTTPMethod
-        console.log($(this).closest('li.method').find('span.http-method').html());
-    // Synopsis 
-        if ($(this).parent().is('form')) {
-            console.log('synop');
-            console.log(getEditElement($(this)).html());
-        }
-    // Parameter || Content Parameter
-        if ($(this).parent().is('li.description')) {
-            console.log("content parameter");
-        }
-    // Description
-        if ($(this).parent().is('td.description, li.description')) {
-            console.log($(this).parent().siblings('td.name, li.name').html());
-            console.log(getEditElement($(this)).html());
-        }
 
     });
 
@@ -44,11 +24,52 @@
         editElem.children().remove();
         editElem.replaceWith(updatedField);
 
-        // Send stuff to the server.
-        var params = [],
-            updateStuff = { name: 'test', value: getEditElement($(this)).html() };
 
-        params.push(updateStuff);
+        var change = {};
+    // endpoint name
+        change['name'] = $(this).closest('li.endpoint').find('span.name').first().children().first().html();
+    // MethodName
+        change['MethodName'] = $(this).closest('li.method').find('span.name').html();
+    // HTTPMethod
+        change['HTTPMethod'] = $(this).closest('li.method').find('span.http-method').html();
+    // Synopsis 
+        if ($(this).parent().is('form')) {
+            change['Synopsis'] = getEditElement($(this)).html() || '';
+        }
+    // Check if content parameter
+        if ($(this).parent().is('li.description')) {
+            change['contentParam'] = true;
+        }
+        else {
+            change['contentParam'] = false;
+        }
+    // Parameter Name and Description
+        if ($(this).parent().is('td.description, li.description')) {
+            // param name
+            change['Name'] = $(this).parent().siblings('td.name, li.name').html();
+            // param desc
+            change['Description'] = getEditElement($(this)).html();
+        }
+
+        // Send stuff to the server.
+        if (change['Synopsis']) {
+            var params = [
+                {name: 'name', value: change['name']},
+                {name: 'MethodName', value: change['MethodName']},
+                {name: 'HTTPMethod', value: change['HTTPMethod']},
+                {name: 'Synopsis', value: change['Synopsis']},
+            ];
+        }
+        else {
+            var params = [
+                {name: 'name', value: change['name']},
+                {name: 'MethodName', value: change['MethodName']},
+                {name: 'HTTPMethod', value: change['HTTPMethod']},
+                {name: 'contentParam', value: change['contentParam']},
+                {name: 'Name', value: change['Name']},
+                {name: 'Description', value: change['Description']},
+            ];
+        }
 
         $.post('/editDoc', params, function(result, text) {
             console.log(result);
