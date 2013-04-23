@@ -987,6 +987,7 @@ app.get('/search', function(req, res) {
 // Live editing
 app.post('/editDoc', function(req,res) {
     console.log('Testing edit');
+    console.log(req.body);
     editFile(req.body);
     //fs.writeFile("./editdoctest.txt", JSON.stringify(req.body), function(err) {
     //    if(err) {
@@ -1002,30 +1003,63 @@ app.post('/editDoc', function(req,res) {
 function editFile(change) {
     var basePath = url.parse(apisConfig['whitehat']['href']);
     var base = JSON.parse(fs.readFileSync(pathy.join(basePath.path + 'whitehat.json')));
-    console.log(base);
+
     for (var i = 0; i < base.endpoints.length; i++) {
         if (base.endpoints[i].hasOwnProperty('external')) {
             var endpointPath = pathy.resolve(basePath.path, base.endpoints[i]['external']['href']);
             var endpoint = JSON.parse(fs.readFileSync(endpointPath));
             if (endpoint.name === change.name) {
-                console.log(endpoint);
                 for (var j = 0; j < endpoint.methods.length; j++) {
                     var method = endpoint.methods[j];
                     if (method['MethodName'] === change['MethodName'] && method['HTTPMethod'] === change['HTTPMethod'] ) {
-                        endpoint.methods[j]['Synopsis'] = change['Synopsis'];
-                        console.log(endpointPath);
-                        fs.writeFile(endpointPath, JSON.stringify(endpoint, undefined, 4), function(err) {
-                            if(err) {
-                                console.log(err);
-                            } else {
-                                console.log("The file was saved!");
+                        console.log('Endpoint path: ' + endpointPath);
+                        if (change['Synopsis']) {
+                            console.log('Synopsis');
+                            endpoint.methods[j]['Synopsis'] = change['Synopsis'];
+                            editWriter(endpointPath, JSON.stringify(endpoint, undefined, 4));
+                        }
+                        // Change param desc
+                        else {
+                            console.log('Description');
+                            console.log(change['contentParam']);
+                            if (change['contentParam'] === 'true') {
+                                // Recursive stuff here.
+                                // have set of parameters
+                                // does anything contain external...
+                                console.log('not supposed to be here now.');
+                                for (var l = 0; l < endpoint.methods[j].content.parameters.length; l++) {
+                                    var property = endpoint.methods[j].content.parameters[l];
+                                    if (property['Name'] === change['Name']) {
+                                        endpoint.methods[j].content.parameters[l]['Description'] = change['Description'];
+                                        editWriter(endpointPath, JSON.stringify(endpoint, undefined, 4));
+                                    }
+                                }
                             }
-                        });
+                            else {
+                                for (var k = 0; k < endpoint.methods[j].parameters.length; k++) {
+                                    var property = endpoint.methods[j].parameters[k];
+                                    if (property['Name'] === change['Name']) {
+                                        endpoint.methods[j].parameters[k]['Description'] = change['Description'];
+                                        editWriter(endpointPath, JSON.stringify(endpoint, undefined, 4));
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
     }
+}
+
+function editWriter(filePath, updatedContents) {
+    fs.writeFile(filePath, updatedContents, function(err) {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log("The file was saved!");
+        }
+    });
 }
 
 // Process the API request
