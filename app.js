@@ -128,7 +128,9 @@ if (process.env.REDISTOGO_URL) {
     config.redis.password = rtg.auth.split(":")[1];
 }
 
+var oneDay = 86400000;
 app.configure(function() {
+    app.use(express.compress());
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
     app.use(express.logger());
@@ -147,7 +149,7 @@ app.configure(function() {
 
     app.use(app.router);
 
-    app.use(express.static(__dirname + '/public'));
+    app.use(express.static(__dirname + '/public', { maxAge: oneDay }));
 });
 
 app.configure('development', function() {
