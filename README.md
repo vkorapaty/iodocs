@@ -1,6 +1,13 @@
 Features introduced  in this branch:
 ====================================
 
+Compression and Minimized CSS & JS
+----------------------------------
+* Updated app.js to use express.compress() and setup 1-day cache control for assests.
+* Added Uglify-JS as a dependency.
+* Setup min.sh to concatenate most of the javascript files and then run the result through uglify; also produces minimized version of style.css.
+* Updated layout.jade to use minimized versions of files.
+
 Bookmarks
 ---------
 Endpoints and methods are now links. When the url entered is a linked item, that item will be expanded upon page load.
