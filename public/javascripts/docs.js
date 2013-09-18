@@ -179,9 +179,6 @@
             })
         };
     });
-    
-    // $.('#access_token').val(foo);
-
 
     /*
         Try it! button. Submits the method params, apikey and secret if any, and apiName
@@ -227,6 +224,13 @@
             // Call that was made, add pre elements
             resultContainer.append($(document.createElement('h4')).text('Call'));
             resultContainer.append($(document.createElement('pre')).addClass('call'));
+
+            // Request content should only be present for PUT and POST methods
+            if ($(this).parent().hasClass('put') || $(this).parent().hasClass('post')) {
+                // Request Content
+                resultContainer.append($(document.createElement('h4')).text('Request Content'));
+                resultContainer.append($(document.createElement('pre')).addClass('content prettyprint'));
+            }
 
             // Code
             resultContainer.append($(document.createElement('h4')).text('Response Code'));
@@ -277,6 +281,11 @@
             if (response.call) {
                 $('pre.call', resultContainer)
                     .text(response.call);
+            }
+
+            if (response.content) {
+                $('pre.content', resultContainer)
+                    .text(formatJSON(JSON.parse(response.content)));
             }
 
             if (response.code) {

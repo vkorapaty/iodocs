@@ -487,12 +487,14 @@ function processRequest(req, res, next) {
     var reqQuery = req.body,
         customHeaders = {},
         params = reqQuery.params || {},
+        content = reqQuery.requestContent || '',
+        contentType = reqQuery.contentType || '',
         locations = reqQuery.locations || {},
         methodURL = reqQuery.methodUri,
         httpMethod = reqQuery.httpMethod,
         apiKey = reqQuery.apiKey,
         apiSecret = reqQuery.apiSecret,
-        apiName = reqQuery.apiName
+        apiName = reqQuery.apiName,
         apiConfig = apisConfig[apiName],
         key = req.sessionID + ':' + apiName,
         implicitAccessToken = reqQuery.accessToken;
@@ -545,12 +547,9 @@ function processRequest(req, res, next) {
             host: baseHostUrl,
             port: baseHostPort,
             method: httpMethod,
-            path: apiConfig.publicPath + methodURL// + ((paramString.length > 0) ? '?' + paramString : "")
+            path: apiConfig.publicPath + methodURL + ((paramString.length > 0) ? '?' + paramString : "")
         };
 
-    if (['POST','DELETE','PUT'].indexOf(httpMethod) !== -1) {
-        var requestBody = query.stringify(params);
-    }
 
     if (apiConfig.oauth) {
         console.log('Using OAuth');
@@ -664,6 +663,7 @@ function processRequest(req, res, next) {
 
                     // Response body
                     req.result = body;
+                    req.statusCode = response.statusCode;
 
                     next();
                 };
@@ -736,7 +736,7 @@ function processRequest(req, res, next) {
                         var headers = {Authorization : "Bearer " + access_token};
                     }
 
-                    oa._request(httpMethod, privateReqURL, headers, requestBody, access_token, function (error, data, response) {
+                    oa._request(httpMethod, privateReqURL, headers, content, access_token, function (error, data, response) {
                         req.call = privateReqURL;
 
                         if (error) {
@@ -771,10 +771,6 @@ function processRequest(req, res, next) {
     // Unsecured API Call helper
     function unsecuredCall() {
         console.log('Unsecured Call');
-
-        if (['POST','PUT','DELETE'].indexOf(httpMethod) === -1) {
-            options.path += ((paramString.length > 0) ? '?' + paramString : "");
-        }
 
         // Add API Key to params, if any.
         if (apiKey != '' && apiKey != 'undefined' && apiKey != undefined) {
@@ -821,19 +817,20 @@ function processRequest(req, res, next) {
 
             options.headers = headers;
         }
+
         if(options.headers === void 0){
             options.headers = {}
         }
         if (!options.headers['Content-Length']) {
-            if (requestBody) {
-                options.headers['Content-Length'] = requestBody.length;
+            if (content) {
+                options.headers['Content-Length'] = content.length;
             }
             else {
                 options.headers['Content-Length'] = 0;
             }
         }
 
-        if (!options.headers['Content-Type'] && requestBody) {
+        if (!options.headers['Content-Type'] && content) {
             options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
 
@@ -844,11 +841,17 @@ function processRequest(req, res, next) {
         var doRequest;
         if (options.protocol === 'https' || options.protocol === 'https:') {
             console.log('Protocol: HTTPS');
-            options.protocol = 'https:'
+            options.protocol = 'https:';
             doRequest = https.request;
         } else {
             console.log('Protocol: HTTP');
             doRequest = http.request;
+        }
+        if (contentType !== '') {
+            if (config.debug) {
+                console.log('Setting Content-Type: ' + contentType);
+            }
+            options.headers['Content-Type'] = contentType;
         }
 
         // API Call. response is the response from the API, res is the response we will send back to the user.
@@ -888,6 +891,7 @@ function processRequest(req, res, next) {
                 req.resultHeaders = response.headers;
                 req.call = url.parse(options.host + options.path);
                 req.call = url.format(req.call);
+                req.statusCode = response.statusCode;
 
                 // Response body
                 req.result = body;
@@ -904,12 +908,10 @@ function processRequest(req, res, next) {
             };
         });
 
-        if (requestBody) {
-            apiCall.end(requestBody, 'utf-8');
+        if (content !== '') {
+            apiCall.write(content, 'utf-8');
         }
-        else {
-            apiCall.end();
-        }
+        apiCall.end();
     }
 }
 
@@ -966,7 +968,8 @@ app.post('/processReq', oauth, processRequest, function(req, res) {
         headers: req.resultHeaders,
         response: req.result,
         call: req.call,
-        code: req.res.statusCode
+        code: req.res.statusCode,
+        content: req.body.requestContent
     };
     res.send(result);
 });
