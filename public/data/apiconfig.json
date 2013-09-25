@@ -87,5 +87,14 @@
         "protocol": "http",
         "baseURL": "requestb.in",
         "publicPath": "/"
+    },
+    "content_parameters_example": {
+        "name": "Content Parameters Example",
+        "protocol": "http",
+        "baseURL": "api.example.com",
+        "publicPath": "/api",
+        "headers" : {},
+        "auth": "key",
+        "keyParam": "key"
     }
 }

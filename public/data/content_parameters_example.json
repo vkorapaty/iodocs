@@ -1,0 +1,103 @@
+{
+    "endpoints": [
+        {
+            "name": "Content Parameter Examples.",
+            "methods": [
+                {
+                    "MethodName": "PUTMethod",
+                    "Synopsis": "An example PUT method",
+                    "HTTPMethod": "PUT",
+                    "URI": "/putmethod/:put",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "put",
+                            "Required": "Y",
+                            "Type": "integer",
+                            "Description": "Example."
+                        }
+                    ],
+                    "content": {
+                        "contentType":["application/json","application/xml"],
+                        "parameters": [
+                            {
+                                "Name": "object type",
+                                "Required": "N",
+                                "Type": "object",
+                                "Description": "Represents a javascript object",
+                                "parameters": [
+                                    {
+                                        "Name": "collection type",
+                                        "Required": "N",
+                                        "Default": "",
+                                        "Type": "collection",
+                                        "Description": "Represents an array of javascript objects",
+                                        "parameters": [
+                                            {
+                                                "Name": "param1",
+                                                "Required": "N",
+                                                "Default": "",
+                                                "Type": "string",
+                                                "Description": ""
+                                            },
+                                            {
+                                                "Name": "param2",
+                                                "Required": "N",
+                                                "Default": "",
+                                                "Type": "enumerated",
+                                                "EnumeratedList": [
+                                                    "thing1",
+                                                    "thing2",
+                                                    "thing3"
+                                                ],
+                                                "Description": ""
+                                            },
+                                            {
+                                                "Name": "param3",
+                                                "Required": "N",
+                                                "Type": "list",
+                                                "Description": ""
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "Name": "list type",
+                                        "Required": "N",
+                                        "Type": "list",
+                                        "Description": "Represents an array of strings."
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "MethodName": "POSTMethod",
+                    "Synopsis": "Using this method to demonstrate the list-only type. The list-only type is meant to be used when the API expects an array of strings as the request content. It should be the only content parameter present for the given method.",
+                    "HTTPMethod": "POST",
+                    "URI": "/putmethod/:put",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "post",
+                            "Required": "Y",
+                            "Type": "integer",
+                            "Description": "Example."
+                        }
+                    ],
+                    "content": {
+                        "contentType":["application/json","application/xml"],
+                        "parameters": [
+                            {
+                                "Name": "list-only type",
+                                "Required": "N",
+                                "Type": "list-only",
+                                "Description": "Represents an array of strings."
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -539,7 +539,78 @@ You should look at the *./public/data/* directory for examples.
                 "Type":"boolean",
                 "Description":"If true, status not included"
              }
-        ]
+        ],
+        "content": {
+            "contentType": [
+                "application/json",
+                "application/xml"
+            ],
+            "parameters": [
+                {
+                    "Name": "object type",
+                    "Required": "N",
+                    "Type": "object",
+                    "Description": "Represents a javascript object",
+                    "parameters": [
+                        {
+                            "Name": "collection type",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "collection",
+                            "Description": "Represents an array of javascript objects",
+                            "parameters": [
+                                {
+                                    "Name": "param1",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "string",
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "param2",
+                                    "Required": "N",
+                                    "Default": "",
+                                    "Type": "enumerated",
+                                    "EnumeratedList": [
+                                        "thing1",
+                                        "thing2",
+                                        "thing3"
+                                    ],
+                                    "Description": ""
+                                },
+                                {
+                                    "Name": "param3",
+                                    "Required": "N",
+                                    "Type": "list",
+                                    "Description": ""
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "list type",
+                            "Required": "N",
+                            "Type": "list",
+                            "Description": "Represents an array of strings."
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "MethodName": ...
+        ...
+        "content": {
+            "contentType":["application/json","application/xml"],
+            "parameters": [
+                {
+                    "Name": "list-only type",
+                    "Required": "N",
+                    "Type": "list-only",
+                    "Description": "Represents an array of strings."
+                }
+            ]
+        }
     }]
 }
 ```
@@ -581,6 +652,18 @@ Line:
 26. Each value in the list is a string.
 
 27. "Type" key value is *boolean* that will render a drop-down (select box) on the form for *true* and *false*.
+
+31. "content" block is for content parameters. When the parameters that are a part of this block are filled out, the text field belonging to the method will be filled out with an appropriately structured JSON object. This JSON object will be the request content for the PUT or POST request.
+
+32. "contentType" will render a drop-down (select box) that will set the contentType for the PUT or POST request.
+
+40. "Type" key value is set to *object*, this is used when you would like to represent a javascript object that does not need to repeat.
+
+47. "Type" key value is set to *collection*, this is used when you would like to represent a list of javascript objects, where each object has the same structure.
+
+80. "Type" key value is set to *list*, this is used when you would like to represent a list of strings.
+
+97. "Type" key value is set to *list-only*, this is used when you would like represent an array of strings and nothing else.
 
 SUPPORT
 =======
