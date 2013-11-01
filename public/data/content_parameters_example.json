@@ -75,7 +75,7 @@
                     "MethodName": "POSTMethod",
                     "Synopsis": "Using this method to demonstrate the list-only type. The list-only type is meant to be used when the API expects an array of strings as the request content. It should be the only content parameter present for the given method.",
                     "HTTPMethod": "POST",
-                    "URI": "/putmethod/:put",
+                    "URI": "/postmethod/:post",
                     "RequiresOAuth": "N",
                     "parameters": [
                         {

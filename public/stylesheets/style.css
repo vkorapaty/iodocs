@@ -101,7 +101,7 @@ hr {
   display: block;
   height: 1px;
   border: 0;
-  border-top: 1px solid #cccccc;
+  border-top: 1px solid #ccc;
   margin: 1em 0;
   padding: 0;
 }
@@ -114,7 +114,7 @@ select {
 
 /* line 128, scss/style.scss */
 body {
-  font: 13px/1.231 sans-serif;
+  font: 13px / 1.231 sans-serif;
   *font-size: small;
 }
 
@@ -318,7 +318,7 @@ select,
 input,
 textarea {
   color: #444;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 /* line 308, scss/style.scss */
@@ -444,7 +444,7 @@ underline {
   overflow: hidden;
   *zoom: 1;
   margin-top: 10px;
-  border: 1px solid #999999;
+  border: 1px solid #999;
   border-width: 1px 0;
   padding: 10px 0;
 }
@@ -456,14 +456,14 @@ underline {
 /* line 418, scss/style.scss */
 #controls li:not(:first-child) {
   padding-left: 10px;
-  border-left: 1px solid #dddddd;
+  border-left: 1px solid #ddd;
 }
 
 /* line 425, scss/style.scss */
 .endpoint {
   margin: 0;
   background-color: #f9f9f9;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #eee;
   overflow: hidden;
   *zoom: 1;
   -webkit-transition-property: background-color;
@@ -508,7 +508,7 @@ underline {
 .endpoint > .title .actions li {
   float: left;
   padding: 0 10px;
-  border-left: 1px solid #dddddd;
+  border-left: 1px solid #ddd;
 }
 /* line 462, scss/style.scss */
 .endpoint > .title .actions li:first-child {
@@ -523,7 +523,7 @@ underline {
 /* line 473, scss/style.scss */
 .method {
   font-size: 14px;
-  border: 1px solid #eeeeee;
+  border: 1px solid #eee;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -555,7 +555,7 @@ underline {
 /* line 494, scss/style.scss */
 .method div.headers .indicator {
   border-width: 5px;
-  border-color: transparent transparent transparent #333333;
+  border-color: transparent transparent transparent #333;
   border-style: solid;
   display: block;
   float: left;
@@ -563,7 +563,7 @@ underline {
 }
 /* line 503, scss/style.scss */
 .method div.headers.expanded .indicator {
-  border-color: #333333 transparent transparent transparent;
+  border-color: #333 transparent transparent transparent;
   margin-top: 14px;
 }
 /* line 509, scss/style.scss */
@@ -627,7 +627,7 @@ underline {
   font-size: 12px;
   text-align: center;
   margin: 0;
-  font-family: "Inconsolata", "Monaco", "Consolas", "Bitstream Vera Mono", monospace;
+  font-family: 'Inconsolata', 'Monaco', 'Consolas', 'Bitstream Vera Mono', monospace;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -675,11 +675,11 @@ underline {
 }
 /* line 615, scss/style.scss */
 .method td, .method pre {
-  font-family: "Inconsolata", "Monaco", "Consolas", "Bitstream Vera Mono", monospace;
+  font-family: 'Inconsolata', 'Monaco', 'Consolas', 'Bitstream Vera Mono', monospace;
 }
 /* line 620, scss/style.scss */
 .method td.description {
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-size: 12px;
 }
 /* line 625, scss/style.scss */
@@ -865,8 +865,8 @@ dd {
 /* line 745, scss/style.scss */
 .ui-autocomplete-category {
   font-weight: bold;
-  padding: 0.2em 0.4em;
-  margin: 0.8em 0 0.2em;
+  padding: .2em .4em;
+  margin: .8em 0 .2em;
   line-height: 1.5;
 }
 
@@ -1173,7 +1173,7 @@ div.clickable a {
   /* Black prints faster: sanbeiji.com/archives/953 */
   /* line 961, scss/style.scss */
   a, a:visited {
-    color: #444444 !important;
+    color: #444 !important;
     text-decoration: underline;
   }
 
@@ -1195,7 +1195,7 @@ div.clickable a {
   /* Don't show links for images, or javascript/internal links */
   /* line 969, scss/style.scss */
   pre, blockquote {
-    border: 1px solid #999999;
+    border: 1px solid #999;
     page-break-inside: avoid;
   }
 
@@ -1224,23 +1224,4 @@ div.clickable a {
   h2, h3 {
     page-break-after: avoid;
   }
-}
-
-/* Bookmark css */
-/* http://blog.avtex.com/2012/01/27/how-to-make-an-entire-div-clickable-with-css/ */
-div.clickable { /* Containing div must have a position value */
-    position:relative;
-}
-
-div.clickable a {
-    position:absolute;
-    width:100%;
-    height:100%;
-    top:0;
-    left:0;
-    text-decoration:none; /* Makes sure the link   doesn't get underlined */
-    z-index:10; /* raises anchor tag above everything else in div */
-    background-color:white; /*workaround to make clickable in IE */
-    opacity: 0; /*workaround to make clickable in IE */
-    filter: alpha(opacity=1); /*workaround to make clickable in IE */
 }
