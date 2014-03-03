@@ -567,10 +567,11 @@ function processRequest(req, res, next) {
                 ],
                 function(err, results) {
 
-                    var apiKey = (typeof reqQuery.apiKey == "undefined" || reqQuery.apiKey == "undefined")?results[0]:reqQuery.apiKey,
+                    var apiKey = (typeof reqQuery.apiKey == "undefined" || reqQuery.apiKey == "")?results[0]:reqQuery.apiKey,
                         apiSecret = (typeof reqQuery.apiSecret == "undefined" || reqQuery.apiSecret == "undefined")?results[1]:reqQuery.apiSecret,
                         accessToken = results[2],
-                        accessTokenSecret = results[3];
+                        accessTokenSecret = results[3],
+                        contentObj = JSON.parse(content);
 
                     var oa = new OAuth(apiConfig.oauth.requestURL || null,
                                        apiConfig.oauth.accessURL || null,
@@ -586,7 +587,7 @@ function processRequest(req, res, next) {
                         console.log('key: ' + key);
                     };
 
-                    oa.getProtectedResource(privateReqURL, httpMethod, accessToken, accessTokenSecret,  function (error, data, response) {
+                    var cb = function (error, data, response) {
                         req.call = privateReqURL;
 
                         if (error) {
@@ -608,6 +609,29 @@ function processRequest(req, res, next) {
                             next();
                         }
                     });
+                    
+                    if (config.debug) {
+                        console.log('Url', privateReqURL);
+                        console.log('resource', resource);
+                        console.log('content', content);
+                        console.log('contentType', contentType);
+                        console.log('contentObj', contentObj);
+                    }
+
+                    switch (httpMethod) {
+                        case 'GET':
+                            oa.get(privateReqURL, accessToken, accessTokenSecret, cb);
+                            break;
+                        case 'PUT':
+                            oa.put(privateReqURL, accessToken, accessTokenSecret, contentObj, contentType, cb);
+                            break;
+                        case 'POST':
+                            oa.post(privateReqURL, accessToken, accessTokenSecret, contentObj, contentType, cb);
+                            break;
+                        case 'DELETE':
+                            oa.delete(privateReqURL, accessToken, accessTokenSecret, cb);
+                            break;
+                    }
                 }
             );
         } else if (apiConfig.oauth.type == 'two-legged' && reqQuery.oauth == 'authrequired') { // Two-legged
