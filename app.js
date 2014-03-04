@@ -571,7 +571,7 @@ function processRequest(req, res, next) {
                         apiSecret = (typeof reqQuery.apiSecret == "undefined" || reqQuery.apiSecret == "undefined")?results[1]:reqQuery.apiSecret,
                         accessToken = results[2],
                         accessTokenSecret = results[3],
-                        contentObj = JSON.parse(content);
+                        contentObj = content ? JSON.parse(content) : {};
 
                     var oa = new OAuth(apiConfig.oauth.requestURL || null,
                                        apiConfig.oauth.accessURL || null,
